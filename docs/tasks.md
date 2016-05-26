@@ -90,7 +90,8 @@
     
     返回： 
     
-        { device_id："%device_id%", cmd:"dq"，controls: [
+        { device_id："%device_id%", cmd:"dq"，
+            controls: [
             { name:"open", type:"boolean"}
             ] }
 
@@ -289,7 +290,7 @@
 
 ### 智能信息显示时钟
 
-使用 LED点阵、RTC 传感器实现。
+使用 LED点阵、RTC 传感器实现。时钟校准采用ATP实现.
 
 滚动显示所指定的设备的数据、状态、事件等。
 
@@ -308,7 +309,6 @@
             { name:"message", type:"String"}，
             { name:"color", type:"String"}，
             { name:"picture", type:"Binary"}，
-            { name:"syncTime", type:"String"}，
             { name:"alert", type:"JSON"}]，
             events: [ “EQ_Time“ ] }  }
 
@@ -326,21 +326,14 @@
   
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"， syncTime: “%time_string%” }
-      
-    在屏幕上显示。
-  
-* 当收到 
-
         { cmd:"cm", token:"%device_secret_token%"， alert: {
-            op:"add", name:"alert_name", time:"%time_string%" , loop:"One_Time/daily/day#1-7/weekly/monthly/annual"} }
+            op:"add", name:"alert_name", time:"%time_string%" , loop:"One_Time/daily/day#1,2,3,4,5,6,7/monthly/annual"} }
       
     增加一个Alert。
   
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"，
-      alert: {  op:"del", name:"alert_name"} }
+        { cmd:"cm", token:"%device_secret_token%"，alert: {  op:"del", name:"alert_name"} }
       
     删除一个Alert。
 
@@ -350,7 +343,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， playing：“2”，volumn:"80", paused:"true／false" }
+    { device_id："%device_id%"， playing：“%mp3_url%”，volumn:"80", paused:"true／false" }
 
 此设备支持 Server 端控制。
 
@@ -362,13 +355,13 @@
     
         { device_id："%device_id%", cmd:"dq"，
             controls: [
-            { name:"play", type:"Number"}，
+            { name:"play", type:"String"}，
             { name:"pause", type:"boolean"}，
             { name:"volumn", type:"Number"}］ }
 
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"， play: 2， volumn: 80 }
+        { cmd:"cm", token:"%device_secret_token%"， play: "http://mp3_url.mp3"， volumn: 80 }
       
     以80%的音量，播放第2首歌，paused 标记自动设置为 false。
 

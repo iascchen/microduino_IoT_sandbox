@@ -14,7 +14,7 @@ SmartConfig 配置完成之后能够获得以下信息, 这些信息需要被存
 * wifi_ssid
 * wifi_password
 * device_id （Server端创建） 
-* device_secret_token（Server端创建，建议在 EPROM 上 Hash 存储） 
+* device_secret_token（Server端创建）
 
 ## Server 与 Device 的通讯协议
 
@@ -24,7 +24,7 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
 
 * 设备端状态数据上传：向Server发送数据状态 JSON 消息：
 
-        { device_id："%device_id%"， ％data_name％:"％data_value％"，。。。}。
+        { device_id："%device_id%"，token:"%device_secret_token%"， ％data_name％:"％data_value％"，。。。}。
 
     ** 注意：** 由于是Demo，Device 每隔1s检查一次。如果发生状态变化，及时向Server发送数据状态；如果状态无变化，每 10s 向Server发送JSON消息。
     
