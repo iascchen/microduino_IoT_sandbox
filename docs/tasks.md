@@ -26,7 +26,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， using:"true" }
+    { deviceId："%deviceId%"， using:"true" }
 
 此设备不需支持 Server 端控制。
 
@@ -36,7 +36,12 @@
 
     返回：
 
-    { device_id："%device_id%", cmd:"dq"，controls: [] }
+    {
+      deviceId："%deviceId%", cmd:"dq"，
+      deviceProfile: {
+        dataNames: ["using"]
+      }
+    }
 
 ### 智能门锁
 
@@ -49,7 +54,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， opening:"true／false" }
+    { deviceId："%deviceId%"， opening:"true／false" }
     
 此设备支持 Server 端控制。
 
@@ -59,10 +64,13 @@
 
     返回：
 
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"open", type:"boolean"}
-            ] } 
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["opening"],
+            controlNames: [{ name: "open", type: "boolean" }]
+          }
+        }
 
 * 接收
 
@@ -80,7 +88,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， opening:"true／false"}
+    { deviceId："%deviceId%"， opening:"true／false"}
     
 此设备支持 Server 端控制。
 
@@ -90,10 +98,13 @@
     
     返回： 
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"open", type:"boolean"}
-            ] }
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["opening"],
+            controlNames: [{ name: "open", type: "boolean" }]
+          }
+        }
 
 * 接收 
 
@@ -107,7 +118,7 @@
 
 * 安防设备，每隔10s向云端报告当前安防状态。
 
-        { device_id："%device_id%"，enabled:"true／false"}
+        { deviceId："%deviceId%"，enabled:"true／false"}
 
 * 云端控制安防启停。例如，当智能车位为空时，自动认为处于主人离家状态、云端自动启动安防。
 
@@ -117,7 +128,7 @@
 
     设备端报警上传目前仅有 EQ_PIR 事件 ：
 
-        { device_id："%device_id%"，token:"%device_secret_token%"，event:"EQ_PIR"}
+        { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"EQ_PIR"}
 
     
 此设备支持 Server 端控制。
@@ -128,11 +139,16 @@
     
    返回： 
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"enable", type:"boolean"}， 
-            { name:"warn", type:"boolean"}] ，
-            events: ["EQ_PIR"]}
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["enabled"],
+            controlNames: [
+              { name: "enable", type: "boolean" },
+              { name: "warn", type: "boolean" }],
+            eventNames: ["EQ_PIR"]
+          }
+        }
 
 * 当收到
 
@@ -162,10 +178,11 @@
         
     返回：
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"send", type:"number"}
-            ] }
+        { deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            controlNames: [{ name: "send", type: "number" }]
+          }
+        }
 
 * 当收到 
 
@@ -179,7 +196,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， powered:"true／false"}
+    { deviceId："%deviceId%"， powered:"true／false"}
     
 此设备支持 Server 端控制。
 
@@ -189,10 +206,12 @@
 
     返回：
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"power", type:"boolean"}
-            ] }
+        { deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["powered"],
+            controlNames: [{ name: "power", type: "boolean" }]
+          }
+         }
 
 * 当收到 
 
@@ -206,12 +225,12 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， inMode: "MO/MF/MR/MV#ffffff/MC#ffffff／ML#ffffff"}
+    { deviceId："%deviceId%"， inMode: "MO/MF/MR/MV#ffffff/MC#ffffff／ML#ffffff"}
     
 设备端上传事件例子：
 
-    { device_id："%device_id%"，token:"%device_secret_token%"， event:"GT_temperature"}
-    { device_id："%device_id%"，token:"%device_secret_token%"， event:"LT_temperature"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"， event:"GT_temperature"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"， event:"LT_temperature"}
     
 此设备支持 Server 端控制。
 
@@ -221,24 +240,39 @@
       
   返回： 
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"mode", type:"String"}，
-            { name:"setting", type:"JSON"}] ，
-            events: ["GT_Lightness"，"LT_Lightness"]}
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["inMode"],
+            controlNames: [
+              {
+                name: "mode", type: "enum",
+                values: [
+                  { label: "OFF", value: "MO" },
+                  { label: "Color", value: "MC" },
+                  { label: "Flash", value: "MF" },
+                  { label: "Rainbow", value: "MR" },
+                  { label: "Voice", value: "MV" },
+                  { label: "Lightness", value: "EL" }]
+              },
+              { name: "color", type: "string" },
+              { name: "setting", type: "json" }],
+            eventNames: ["LT_Lightness", "GT_Lightness"]
+          }
+        }
 
 * 当收到 
 
-        {  cmd:"cm", token:"%device_secret_token%"， mode: "MO/MF/MR/MV#ffffff/MC#ffffff／EL#ffffff" }
+        {  cmd:"cm", token:"%device_secret_token%"， mode: "MO/MF/MR/MV/MC/EL" }
       
   根据 mode 值，设置颜色。
   
         * MO：OFF，关灯
         * MF：Flash，炫彩闪烁
-        * MR：MRainbow，彩虹灯
-        * MV：Voice＃颜色值，根据声强闪烁
-        * MC：Color＃颜色值，单色灯
-        * ML：Light#颜色值，根据光线阈值变化触发的事件，自动开关灯。GT－》关灯，LT－》开灯
+        * MR：Rainbow，彩虹灯
+        * MV：Voice，根据声强闪烁
+        * MC：Color，单色灯
+        * ML：Lightness，根据光线阈值变化触发的事件，自动开关灯。GT－》关灯，LT－》开灯
       
 * 当收到 
 
@@ -253,37 +287,41 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， temperature：“”，humity:"", lightness:"", pm:"" , posion："" ，gps：“” }
+    { deviceId："%deviceId%"， temperature：“”，humity:"", lightness:"", pm:"" , posion："" ，gps：“” }
     
 设备端事件上传的例子 ：
     
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"GT_temperature"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"LT_temperature"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"GT_humity"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"LT_humity"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"GT_Lightness"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"LT_Lightness"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"GT_pm"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"LT_pm"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"GT_posion"}
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"LT_posion"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"GT_temperature"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"LT_temperature"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"GT_humity"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"LT_humity"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"GT_Lightness"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"LT_Lightness"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"GT_pm"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"LT_pm"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"GT_posion"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，event:"LT_posion"}
     
     
 此设备支持 Server 端控制。
 
 * 接收到{ cmd:"dq"，token:"%device_secret_token%"}时，返回： 
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"setting", type:"JSON"}] ，
-            events: [ “GT_temperature“，"LT_temperature"，"GT_humity"， "LT_humity"，
-            "GT_Lightness" ， "LT_Lightness"， "GT_pm"， "LT_pm"，"GT_posion"，"LT_posion" ] }
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["Temperature", "Humidity", "Lightness", "PM"],
+            controlNames: [{ name: "setting", type: "json" }],
+            eventNames: ["LT_Temperature", "GT_Temperature", "LT_Humidity", "GT_Humidity",
+                         "LT_PM", "GT_PM", "LT_Lightness", "GT_Lightness"]
+          }
+        }
 
 * 当收到 
 
         { cmd:"cm", token:"%device_secret_token%"，
             setting: {
-            GT_temperature:"40" , LT_temperature:"13" , GT_humity:"80", LT_humity:"40",
+            GT_Temperature:"40" , LT_Temperature:"13" , GT_Humity:"80", LT_Humity:"40",
             GT_Lightness:"1000", LT_Lightness:"600", 。。。} }
       
     根据 setting 值设置各种阈值。
@@ -298,19 +336,23 @@
     
 设备端事件上传的例子 ：
     
-    { device_id："%device_id%"，token:"%device_secret_token%"，event:"EQ_Time"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，alarm:"Alarm name"}
     
 此设备支持 Server 端控制。
 
 * 接收到{ cmd:"dq"，token:"%device_secret_token%"}时，返回： 
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"message", type:"String"}，
-            { name:"color", type:"String"}，
-            { name:"picture", type:"Binary"}，
-            { name:"alert", type:"JSON"}]，
-            events: [ “EQ_Time“ ] }  }
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["output"],
+            controlNames: [
+              { name: "input", type: "string" },
+              { name: "color", type: "string" },
+              { name: "alarm", type: "json" }],
+            eventNames: ["ON_ALARM"]
+          }
+        }
 
 * 当收到 
 
@@ -326,16 +368,16 @@
   
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"， alert: {
-            op:"add", name:"alert_name", time:"%time_string%" , loop:"One_Time/daily/day#1,2,3,4,5,6,7/monthly/annual"} }
+        { cmd:"cm", token:"%device_secret_token%"， alarm: {
+            op:"add", name:"alarm_name", time:"%time_string%" , loop:"One_Time/daily/day#1,2,3,4,5,6,7/monthly/annual"} }
       
-    增加一个Alert。
+    增加一个 Alarm。
   
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"，alert: {  op:"del", name:"alert_name"} }
+        { cmd:"cm", token:"%device_secret_token%"，alarm: {  op:"del", name:"alarm_name"} }
       
-    删除一个Alert。
+    删除一个 Alarm。
 
 ### 智能 Wifi 音响
 
@@ -343,7 +385,7 @@
 
 设备端状态上传的例子 ：
 
-    { device_id："%device_id%"， playing：“%mp3_url%”，volumn:"80", paused:"true／false" }
+    { deviceId："%deviceId%"， playing：“%mp3_url%”，volume:"80", paused:"true／false" }
 
 此设备支持 Server 端控制。
 
@@ -353,15 +395,20 @@
    
     返回：
     
-        { device_id："%device_id%", cmd:"dq"，
-            controls: [
-            { name:"play", type:"String"}，
-            { name:"pause", type:"boolean"}，
-            { name:"volumn", type:"Number"}］ }
+        {
+          deviceId："%deviceId%", cmd:"dq"，
+          deviceProfile: {
+            dataNames: ["playing", "volume", "paused"],
+            controlNames: [
+              { name: "play", type: "string" },
+              { name: "pause", type: "boolean" },
+              { name: "volume", type: "number" }]
+          }
+        }
 
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"， play: "http://mp3_url.mp3"， volumn: 80 }
+        { cmd:"cm", token:"%device_secret_token%"， play: "http://mp3_url.mp3"， volume: 80 }
       
     以80%的音量，播放第2首歌，paused 标记自动设置为 false。
 
