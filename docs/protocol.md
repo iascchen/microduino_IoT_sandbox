@@ -13,8 +13,8 @@ SmartConfig 配置完成之后能够获得以下信息, 这些信息需要被存
 
 * wifi_ssid
 * wifi_password
-* device_id （Server端创建） 
-* device_secret_token（Server端创建）
+* deviceId （Server端创建） 
+* deviceToken（Server端创建）
 
 ## Server 与 Device 的通讯协议
 
@@ -24,13 +24,13 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
 
 * 设备端状态数据上传：向Server发送数据状态 JSON 消息：
 
-        { device_id："%device_id%"，token:"%device_secret_token%"， ％data_name％:"％data_value％"，。。。}。
+        { deviceId："%deviceId%"，projectId:"%projectId%", token:"%deviceToken%"， ％data_name％:"％data_value％"，。。。}。
 
     ** 注意：** 由于是Demo，Device 每隔1s检查一次。如果发生状态变化，及时向Server发送数据状态；如果状态无变化，每 10s 向Server发送JSON消息。
     
 * 设备端事件上传：向Server发送事件 JSON 消息，这些事件包括控制器触碰、数据抵达阈值等：
 
-        { device_id："%device_id%"， token:"%device_secret_token%"， event：％event_name％}。
+        { deviceId："%deviceId%"，projectId:"%projectId%"，token:"%deviceToken%"， event：％event_name％}。
 
     ％event_name％ 有格式约定：
     
@@ -41,41 +41,55 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
 
 ### Server 端控制下行
 
-出于安全考虑，所有下行指令均需要带 device_secret_token，供 Device 端比对确认。
+出于安全考虑，所有下行指令均需要带 deviceToken，供 Device 端比对确认。
 
 * 设备数据状态查询：Server 向 设备发送 JSON 消息, 强制设备端向Server发起一次设备端状态数据上传。 
 
-        {cmd:"cs"，token:"%device_secret_token%"}
+        {cmd:"cs"，token:"%deviceToken%"}
 
 * 控制命令：Server 向 设备发送 JSON 消息 
 
-        { cmd:"cm", token:"%device_secret_token%"， ％control_name％: "%control_value%", ...}
+        { cmd:"cm", token:"%deviceToken%"， ％control_name％: "%control_value%", ...}
 
 * 设备信息查询：
 
     Server 向 设备发送 JSON 消息
     
-        { cmd:"dq"，token:"%device_secret_token%"}
+        { cmd:"dq"，token:"%deviceToken%"}
     
     设备端向Server返回 JSON 消息。其中 X_data_type 如： “String”，“Number”， “Boolean”， “JSON” ， “Binary” 等 :
 
         {
-            device_id："%device_id%", cmd:"dq"，
-            controls: [
-                { name:"％control_name％", type:"%data_type%", desc:"%data_desc%"}，
-                {。。。}],
-            events: ["％event_name％", 。。。]
+            deviceId："%deviceId%", cmd:"dq"，
+            projectId: "%related_project%",
+            deviceProfile: {
+                dataNames: ["enabled", ...],
+                controlNames: [
+                    {
+                        name: "mode", type: "enum",
+                            values: [
+                                { label: "OFF", value: "MO" },
+                                { label: "Color", value: "MC" },
+                                { label: "Flash", value: "MF" },
+                                { label: "Rainbow", value: "MR" },
+                                { label: "Voice", value: "MV" },
+                                { label: "Lightness", value: "EL" }]
+                            },
+                        { name: "color", type: "string" },
+                        { name: "setting", type: "json" }],
+                eventNames: ["EQ_PIR", ...]
+            }
         }
 
-* 更新 device_secret_token 
+* 更新 deviceToken 
 
     Server 向 设备发送 JSON 消息 
     
-        {ccmd:"rt", token:"%device_secret_token%"，new_token：“％new_device_secret_token%"}
+        {ccmd:"rt", token:"%deviceToken%"，new_token：“％new_deviceToken%"}
         
     Device 收到后，需要向 Server 回复确认
     
-        {cdevice_id："%device_id%"，cmd:"rt"，token:"%new_device_secret_token%"}。
+        {cdeviceId："%deviceId%"，cmd:"rt"，token:"%new_deviceToken%"}。
 
 缩略语
 

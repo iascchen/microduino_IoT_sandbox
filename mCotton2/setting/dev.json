@@ -1,0 +1,22 @@
+{
+  "general": {
+    "queryMaxLimit": 200
+  },
+  "mqtt": {
+    "enabled": true,
+    "server": {
+      "dbUrl": "mongodb://localhost:8001/mqtt",
+      "port": 1883
+    },
+    "trigger": {
+      "host": "localhost",
+      "port": 1883
+    }
+  },
+  "azure": {
+    "enabled": false
+  },
+  "rule": {
+    "enabled": true
+  }
+}
