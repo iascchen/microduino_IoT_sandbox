@@ -333,7 +333,9 @@
 
 滚动显示所指定的设备的数据、状态、事件等。
 
-此设备端状态不需上传。
+此设备端状态需上传最近所显示的消息。
+
+    { deviceId："%deviceId%"， output：“Some Text"}
     
 设备端事件上传的例子 ：
     
@@ -357,15 +359,9 @@
 
 * 当收到 
 
-        { cmd:"cm", token:"%device_secret_token%"， message: “text String”, color: "#ffffff" }
+        { cmd:"cm", token:"%device_secret_token%"， input: “text String”, color: "#ffffff" }
       
     在屏幕上显示文字。
-  
-* 当收到 
-
-        { cmd:"cm", token:"%device_secret_token%"， picture: “base64_binary” }
-      
-    在屏幕上显示图像。
   
 * 当收到 
 
