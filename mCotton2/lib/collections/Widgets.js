@@ -5,9 +5,35 @@ import { STATUS_TYPES, STATUS_AUTO_FORM, STATUS_NORMAL } from '../constants';
 
 const C_Widgets = new Mongo.Collection('widgets');
 
+// { widget: 'MLed', source: "powered", title: 'Powered', rows: 1, cols: 1 },
+
 const schema = new SimpleSchema({
+    deviceId : { type: String },
+
+    widget: {
+        type: String, label: "Widget type",
+    },
+
+    cols: {
+        type: Number, defaultValue: 1
+    },
+
+    rows: {
+        type: Number, defaultValue: 1
+    },
+
     title: {
         type: String
+    },
+
+    source: {
+        type: String, label: "Data Sources",
+        optional: true
+    },
+
+    target: {
+        type: String, label: "Control",
+        optional: true
     },
 
     color: {
@@ -20,12 +46,9 @@ const schema = new SimpleSchema({
         optional: true
     },
 
-    cols: {
-        type: Number, defaultValue: 1
-    },
-
-    rows: {
-        type: Number, defaultValue: 1
+    others: {
+        type: Object, label: "Other Setting",
+        optional: true, blackbox: true,
     },
 
     status: {
@@ -36,5 +59,14 @@ const schema = new SimpleSchema({
 });
 
 C_Widgets.attachSchema(schema);
+
+C_Widgets.allow({
+    update: function () {
+        return true;
+    },
+    remove: function () {
+        return true;
+    }
+});
 
 export default C_Widgets;

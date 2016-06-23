@@ -15,20 +15,20 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
     //console.log('DeviceDashboardContainer' , id, params);
 
     const handle = Meteor.subscribe('device', id);
-    const loading = !handle.ready();
+    const deviceLoading = !handle.ready();
 
-    const entity = C_Devices.findOne({_id: id});
-    const entityExists = !loading && !!entity;
+    const device = C_Devices.findOne({ _id: id });
+    const deviceExists = !deviceLoading && !!device;
 
-    const dataHandle = Meteor.subscribe('device_datas', id);
+    const dataHandle = Meteor.subscribe('device_datas', id, 5);
     const dataLoading = !dataHandle.ready();
 
-    const datas = C_MessageDatas.find({deviceId: id}, {sort: {createAt :-1}}).fetch();
+    const datas = C_MessageDatas.find({ deviceId: id }, { sort: { createAt: -1 } }).fetch();
 
     return {
-        loading,
-        entity,
-        entityExists,
+        deviceLoading,
+        device,
+        deviceExists,
 
         dataLoading,
         datas,

@@ -6,8 +6,11 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import Slider from 'material-ui/Slider';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -38,6 +41,8 @@ class MSlider extends Component {
             max: this.props.max ? this.props.max : 100,
             step: this.props.step ? this.props.step : 1,
             value: this.props.value ? this.props.value : 0,
+
+            openSetting: false,
         };
     }
 
@@ -51,12 +56,16 @@ class MSlider extends Component {
         });
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>
-                    {this.state.title} : {this.state.value}
-                </div>
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title} : {this.state.value}</RaisedButton>
 
                 <Divider/>
 

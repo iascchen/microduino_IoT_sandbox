@@ -6,8 +6,11 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import TimePicker from 'material-ui/TimePicker';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -26,7 +29,6 @@ const styles = {
     }
 };
 
-
 // TODO add loop info
 class MTimePicker extends Component {
     constructor(props) {
@@ -35,6 +37,8 @@ class MTimePicker extends Component {
         this.state = {
             title: this.props.title ? this.props.title : "Time",
             value24: null,
+
+            openSetting: false,
         };
     }
 
@@ -44,10 +48,16 @@ class MTimePicker extends Component {
         this.setState({ value24: date });
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>{this.state.title}</div>
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
 
                 <Divider/>
 

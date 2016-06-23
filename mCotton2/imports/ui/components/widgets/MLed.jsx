@@ -11,7 +11,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {orange500, grey500} from 'material-ui/styles/colors';
 
-import MLedSetting from './MLedSetting';
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -45,14 +45,15 @@ class MLed extends Component {
         this.state = {
             on: this.props.on ? this.props.on : false,
 
-            title: this.props.title ? this.props.title : "LED",
-            color: this.props.color ? this.props.color : orange500,
+            title: this.props.widget.title ? this.props.widget.title : "LED",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
+
             openSetting: false,
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('componentWillReceiveProps');
+        // console.log('componentWillReceiveProps');
 
         this.getCheckPropsSource(nextProps);
     }
@@ -79,25 +80,7 @@ class MLed extends Component {
         this.setState({ openSetting: true });
     };
 
-    handleSettingClose() {
-        this.setState({ openSetting: false });
-    };
-
     render() {
-        const actions = [
-            <FlatButton
-                label="Cancel"
-                primary={true}
-                onTouchTap={this.handleSettingClose.bind(this)}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                disabled={true}
-                onTouchTap={this.handleSettingOpen.bind(this)}
-            />,
-        ];
-
         return (
             <Paper style={styles.paper} zDepth={2}>
 
@@ -113,14 +96,13 @@ class MLed extends Component {
                         color={ this.state.on ? this.state.color : grey500 }/>
                 </div>
 
-                <Dialog
-                    title="Setting"
-                    actions={actions}
-                    modal={true}
-                    open={this.state.openSetting}
-                >
-                    <MLedSetting deviceId={this.props.deviceId}/>
-                </Dialog>
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        source: this.props.widget.source ? this.props.widget.source : "" }}/>
+
             </Paper>
         )
     }
@@ -131,9 +113,13 @@ MLed.propTypes = {
     on: PropTypes.bool,
     color: PropTypes.string,
 
-    loading: PropTypes.bool,
-    entity: PropTypes.object,
-    entityExists: PropTypes.bool,
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
 
     dataLoading: PropTypes.bool,
     datas: PropTypes.array,

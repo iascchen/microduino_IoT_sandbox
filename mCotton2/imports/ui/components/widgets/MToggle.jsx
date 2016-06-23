@@ -7,7 +7,12 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ActionLightbulbOutline from 'material-ui/svg-icons/action/lightbulb-outline';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+
 import {orange500, grey500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -40,7 +45,9 @@ class MToggle extends Component {
 
         this.state = {
             toggled: this.props.toggled ? this.props.toggled : false,
-            title: this.props.title ? this.props.title : "LED",
+            title: this.props.title ? this.props.title : "Toggle",
+
+            openSetting: false,
         };
     }
 
@@ -54,12 +61,17 @@ class MToggle extends Component {
         });
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
 
-                <div style={styles.title}>{this.state.title}</div>
-
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
                 <Divider />
 
                 <RaisedButton
@@ -74,6 +86,15 @@ class MToggle extends Component {
                         color={this.state.toggled ? orange500 : grey500}/>
 
                 </RaisedButton>
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        source: this.props.widget.source ? this.props.widget.source : "" ,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
+
             </Paper>
         )
     }
@@ -81,7 +102,19 @@ class MToggle extends Component {
 
 MToggle.propTypes = {
     title: PropTypes.string,
-    toggled: PropTypes.bool,
+    on: PropTypes.bool,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
 };
 
 export default MToggle;

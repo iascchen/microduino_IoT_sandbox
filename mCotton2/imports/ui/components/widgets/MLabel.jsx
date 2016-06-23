@@ -5,8 +5,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
@@ -17,11 +16,15 @@ const styles = {
     title: {
         margin: 10,
     },
-    input: {
-        margin: 0,
+    output: {
+        margin: 10,
+        borderStyle: 'solid',
+        borderRadius: 10,
+        borderWidth: 1,
+        padding: 5
     },
     paper: {
-        height: 100,
+        height: 160,
         width: 320,
         margin: 10,
         padding: 5,
@@ -30,38 +33,23 @@ const styles = {
     }
 };
 
-class MSelector extends Component {
+class MLabel extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Selector",
-            value: this.props.value ? this.props.value : 1,
+            title: this.props.title ? this.props.title : "Output",
+            output: this.props.output ? this.props.output : "Welcome",
 
             openSetting: false,
         };
     }
-
-    handleChange(event, index, value) {
-        event.preventDefault();
-
-        console.log("handleChange", index, value);
-
-        this.setState({
-            value: value,
-        });
-    };
 
     handleSettingOpen() {
         this.setState({ openSetting: true });
     };
 
     render() {
-        const items = [];
-        for (let i = 0; i < 10; i++ ) {
-            items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
-        }
-
         return (
             <Paper style={styles.paper} zDepth={2}>
                 <RaisedButton style={styles.title}
@@ -70,24 +58,24 @@ class MSelector extends Component {
 
                 <Divider/>
 
-                <SelectField
-                    style={styles.input}
-                    fullWidth={true}
-                    value={this.state.value}
-                    onChange={this.handleChange.bind(this)}
-                    autoWidth={true}
-                >
-                    {items}
-                </SelectField>
+                <TextField
+                    style={styles.output}
+                    multiLine={true}
+                    rows={1}
+                    rowsMax={1}
+                    underlineShow={false}
+                    disabled={true}
+                    value={this.state.output}
+                />
             </Paper>
         )
     }
 }
 
-MSelector.propTypes = {
+MLabel.propTypes = {
     title: PropTypes.string,
-    value: PropTypes.number,
+    output: PropTypes.string,
 };
 
-export default MSelector;
+export default MLabel;
 

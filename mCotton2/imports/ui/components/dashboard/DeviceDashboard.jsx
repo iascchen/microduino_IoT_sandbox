@@ -17,13 +17,13 @@ import AvLibraryAdd from '../../../../node_modules/material-ui/svg-icons/av/libr
 import ActionDeleteForever from '../../../../node_modules/material-ui/svg-icons/action/delete-forever';
 import ContentClear from '../../../../node_modules/material-ui/svg-icons/content/clear';
 
-
 import { MSG_DATA, MSG_CONTROL, MSG_EVENT } from '../../../../lib/constants';
 
 import C_Devices from '../../../../lib/collections/Devices';
+import C_Widgets from '../../../../lib/collections/Widgets';
 
-import MCanvas from './../widgets/MCanvas';
-import {WidgetList, getSubComponent } from './../widgets/WidgetList';
+import WidgetContainer from '../../container/WidgetContainer';
+import { WidgetList } from '../../components/widgets/WidgetList';
 
 import {
     blue300,
@@ -55,12 +55,9 @@ export default class DeviceDashboard extends Component {
     constructor(props) {
         super(props);
 
-
         this.state = {
             addDrawerOpen: false,
             delDrawerOpen: false,
-
-            // dashboard: this.props.entity.deviceDashboard ? this.props.entity.deviceDashboard : [],
         };
     }
 
@@ -71,18 +68,21 @@ export default class DeviceDashboard extends Component {
     }
 
     handleAddCompDrawerClose(index) {
-        //console.log("handleAddCompDrawerClose", index);
-
-        let tempDash = this.props.entity.deviceDashboard;
-        tempDash.push(WidgetList[index]);
-
         this.setState({
             addDrawerOpen: false,
-            //dashboard: tempDash,
         });
 
-        // this.state.dashboard.push(WidgetList[index]);
-        C_Devices.update({ _id: this.props.entity._id }, { $set: { deviceDashboard: tempDash } });
+        let widget = WidgetList[index];
+        widget.deviceId = this.props.device._id;
+        let wId = Meteor.call('widget.add', widget);
+
+        if (wId) {
+            let tempDash = this.props.device.deviceDashboard;
+            tempDash.push(wId);
+
+            // this.state.dashboard.push(WidgetList[index]);
+            C_Devices.update({ _id: this.props.device._id }, { $set: { deviceDashboard: tempDash } });
+        }
     }
 
     handleAddCompDrawerRequestChange(open) {
@@ -97,16 +97,18 @@ export default class DeviceDashboard extends Component {
         });
     }
 
-    handleDelCompDrawerSelected(index) {
+    handleDelCompDrawerSelected(widgetId) {
         //console.log('handleDelCompDrawerSelected', index);
-        let tempDash = this.props.entity.deviceDashboard;
-        tempDash.splice(index, 1);
 
-        //this.setState({
-        //    dashboard: tempDash,
-        //});
+        let wId = C_Widgets.remove({ _id: widgetId });
+        console.log("C_Widgets.remove" , wId);
+        if (wId) {
+            let tempDash = this.props.device.deviceDashboard;
+            let pos = tempDash.indexOf(widgetId);
+            tempDash.splice(pos, 1);
 
-        C_Devices.update({ _id: this.props.entity._id }, { $set: { deviceDashboard: tempDash } });
+            C_Devices.update({ _id: this.props.device._id }, { $set: { deviceDashboard: tempDash } });
+        }
     }
 
     handleDelCompDrawerRequestChange(open) {
@@ -115,13 +117,12 @@ export default class DeviceDashboard extends Component {
         });
     }
 
-
     render() {
-        if(this.props.loading){
+        if (this.props.deviceLoading) {
             return (<CircularProgress />);
         }
 
-        if(!this.props.entityExists){
+        if (!this.props.deviceExists) {
             return (<div>No Device</div>);
         }
 
@@ -141,10 +142,8 @@ export default class DeviceDashboard extends Component {
                     cols={this.props.cols}
                     cellHeight={this.props.cellHeight}>
 
-                    {this.props.entity.deviceDashboard.map((item, index) => (
-                    <GridTile style={styles.gridTile} key={index} cols={item.cols} rows={item.rows}>
-                        { getSubComponent(item, this.props) }
-                    </GridTile>
+                    {this.props.device.deviceDashboard.map((widgetId, widgetIndex) => (
+                    <WidgetContainer params={{widgetIndex, widgetId, ...this.props}} />
                         ))}
 
                 </GridList>
@@ -172,14 +171,14 @@ export default class DeviceDashboard extends Component {
                     <div style={styles.title}>Delete</div>
                     <Divider />
 
-                    {this.props.entity.deviceDashboard.map((item, index) => (
+                    {this.props.device.deviceDashboard.map((item, index) => (
                     <MenuItem
-                        value={index}
+                        value={item}
                         rightIcon={<ContentClear />}
-                        onTouchTap={this.handleDelCompDrawerSelected.bind(this , index)}
+                        onTouchTap={this.handleDelCompDrawerSelected.bind(this , item)}
                         style={styles.menu}
                     >
-                        {item.title}
+                        {item}
                     </MenuItem>
                         ))}
                 </Drawer>
@@ -189,9 +188,9 @@ export default class DeviceDashboard extends Component {
 }
 
 DeviceDashboard.propTypes = {
-    loading: PropTypes.bool,
-    entity: PropTypes.object,
-    entityExists: PropTypes.bool,
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object,
+    deviceExists: PropTypes.bool,
 
     dataLoading: PropTypes.bool,
     datas: PropTypes.array,

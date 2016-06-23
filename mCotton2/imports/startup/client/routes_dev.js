@@ -24,9 +24,7 @@ import EventsContainer from '../../ui/container/EventsContainer';
 //import DatasList from '../../ui/components/lists/DatasList';
 //import ControlsList from '../../ui/components/lists/ControlsList';
 
-import DeviceFieldSelector from '../../ui/components/dashboard/DeviceFieldSelector';
-
-import MCanvas from '../../ui/components/widgets/MCanvas';
+//import MCanvas from '../../ui/components/widgets/MCanvas';
 
 import MLed from '../../ui/components/widgets/MLed';
 import MOutput from '../../ui/components/widgets/MOutput';
@@ -168,16 +166,16 @@ const widgetsRoutes = FlowRouter.group({
 });
 
 
-widgetsRoutes.route("/", {
-    subscriptions: function () {
-        //this.register('msg_controls', Meteor.subscribe('msg_controls'));
-    },
-    action() {
-        mount(MainLayout, {
-            content: (<MCanvas cols={4} cellHeight={100}/>)
-        });
-    }
-});
+//widgetsRoutes.route("/", {
+//    subscriptions: function () {
+//        //this.register('msg_controls', Meteor.subscribe('msg_controls'));
+//    },
+//    action() {
+//        mount(MainLayout, {
+//            content: (<MCanvas cols={4} cellHeight={100}/>)
+//        });
+//    }
+//});
 
 widgetsRoutes.route("/m_led", {
     subscriptions: function () {

@@ -5,9 +5,12 @@ import React, { Component, PropTypes } from 'react';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import RaisedButton from 'material-ui/RaisedButton';
 import { RangeSlider } from 'reactrangeslider';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -38,6 +41,8 @@ class MRangeSlider extends Component {
             max: this.props.max ? this.props.max : 100,
             step: this.props.step ? this.props.step : 1,
             value: this.props.value ? JSON.parse(this.props.value) : { start: 0, end: 100 },
+
+            openSetting: false,
         };
     }
 
@@ -49,12 +54,16 @@ class MRangeSlider extends Component {
         });
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>
-                    {this.state.title} : {JSON.stringify(this.state.value)}
-                </div>
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title} : {JSON.stringify(this.state.value)}</RaisedButton>
 
                 <Divider/>
 

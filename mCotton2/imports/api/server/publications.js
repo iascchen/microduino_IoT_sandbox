@@ -10,6 +10,8 @@ import C_Boards from '../../../lib/collections/Boards';
 import C_Modules from '../../../lib/collections/Modules';
 
 import C_Devices from '../../../lib/collections/Devices';
+import C_Widgets from '../../../lib/collections/Widgets';
+
 import C_Projects from '../../../lib/collections/Projects';
 import C_TriggerRules from '../../../lib/collections/TriggerRules';
 
@@ -104,6 +106,12 @@ Meteor.publish('device', function (deviceId) {
     check(deviceId, String);
 
     return C_Devices.find({ _id: deviceId });
+});
+
+Meteor.publish('widget', function (widgetId) {
+    check(widgetId, String);
+
+    return C_Widgets.find({ _id: widgetId });
 });
 
 Meteor.publish('projects', function (limit) {

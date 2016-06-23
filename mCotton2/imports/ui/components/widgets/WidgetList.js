@@ -6,6 +6,7 @@ import React from 'react';
 import MLed from './../widgets/MLed';
 import MOutput from './../widgets/MOutput';
 
+import MLabel from './../widgets/MLabel';
 import MButton from './../widgets/MButton';
 import MToggle from './../widgets/MToggle';
 import MSlider from './../widgets/MSlider';
@@ -32,7 +33,9 @@ export const WidgetList = [
 
     ///////////////////////
     // Input
-
+    {
+        title: "Label", widget: "MLabel", image: "url", type: "i", cols: 2, rows: 1
+    },
     {
         title: "Button", widget: "MButton", image: "url", type: "i", cols: 1, rows: 2
     },
@@ -75,36 +78,42 @@ export const WidgetList = [
 ////////////////////////////////////////////
 // TODO : after add new widgets, MUST add some code in here
 
-export const getSubComponent = (item, options) => {
-    switch (item.widget) {
-        case "MLed":
-            return <MLed {...item} {...options}/>;
-        case "MOutput":
-            return <MOutput {...item} {...options} />;
+export const getSubComponent = (props) => {
+    if (!props.widget) {
+        return;
+    }
 
+    switch (props.widget.widget) {
+        case "MLed":
+            return <MLed {...props}/>;
+        case "MOutput":
+            return <MOutput {...props} />;
+
+        case "MLabel":
+            return <MLabel {...props}/>;
         case "MButton":
-            return <MButton {...item} {...options} />;
+            return <MButton {...props} />;
         case "MToggle":
-            return <MToggle {...item} {...options} />;
+            return <MToggle {...props} />;
         case "MSlider":
-            return <MSlider {...item} {...options} />;
+            return <MSlider {...props} />;
         case "MRangeSlider":
-            return <MRangeSlider {...item} {...options} />;
+            return <MRangeSlider {...props} />;
         case "MInput":
-            return <MInput {...item} {...options} />;
+            return <MInput {...props} />;
         case "MColor":
-            return <MColor {...item} {...options} />;
+            return <MColor {...props} />;
         case "MColorChrome":
-            return <MColorChrome {...item} {...options} />;
+            return <MColorChrome {...props} />;
         case "MTimePicker":
-            return <MTimePicker {...item} {...options} />;
+            return <MTimePicker {...props} />;
         case "MDatePicker":
-            return <MDatePicker {...item} {...options} />;
+            return <MDatePicker {...props} />;
         case "MSelector":
-            return <MSelector {...item} {...options} />;
+            return <MSelector {...props} />;
 
         case "MTerminal":
-            return <MTerminal {...item} {...options} />;
+            return <MTerminal {...props} />;
     }
 };
 

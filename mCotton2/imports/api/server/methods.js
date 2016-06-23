@@ -6,6 +6,7 @@ import { STATUS_NORMAL, STATUS_DISABLED, MSG_DATA, MSG_CONTROL, MSG_EVENT, SHARE
 import C_Boards from '../../../lib/collections/Boards';
 import C_Modules from '../../../lib/collections/Modules';
 
+import C_Widgets from '../../../lib/collections/Widgets';
 import C_Devices from '../../../lib/collections/Devices';
 import C_Projects from '../../../lib/collections/Projects';
 import C_TriggerRules from '../../../lib/collections/TriggerRules';
@@ -66,18 +67,20 @@ const createMessageEvent = (params)=> {
     return C_MessageDatas.insert(entity);
 };
 
-const createDevice = (params)=> {
-    if (!params.text)
-        throw new Meteor.Error('text missing', 'Cannot submit an empty message');
+const createWidget = (params) => {
+    return C_Widgets.insert(params);
+};
 
-    C_Devices.insert(params);
+const createDevice = (params)=> {
+    return C_Devices.insert(params);
+};
+
+const createProject = (params)=> {
+    C_Projects.insert(params);
 };
 
 const removeDevice = (entityId) => {
-    if (!params.text)
-        throw new Meteor.Error('text missing', 'Cannot submit an empty message');
-
-    C_Devices.remove(entityId);
+    return C_Devices.remove(entityId);
 };
 
 const getDevices = () => {
@@ -87,13 +90,6 @@ const getDevices = () => {
 const getDeviceDatas = (devid) => {
     // return C_Devices.find().fetch();
     return C_MessageDatas.find({ deviceId: devid }).fetch()
-};
-
-const createProject = (params)=> {
-    if (!params.text)
-        throw new Meteor.Error('text missing', 'Cannot submit an empty message');
-
-    C_Projects.insert(params);
 };
 
 const createDeviceRule = (params)=> {
@@ -125,10 +121,11 @@ const toggleDeviceRule = (entityId) => {
 
 Meteor.methods({
     'project.add': createProject,
-
-    'device.get': getDevices,
     'device.add': createDevice,
-    'device.remove': removeDevice,
+    'widget.add': createWidget,
+
+    //'device.get': getDevices,
+    //'device.remove': removeDevice,
 
     'device.datas': getDeviceDatas,
 

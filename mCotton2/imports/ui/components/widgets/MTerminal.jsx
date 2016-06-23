@@ -6,8 +6,11 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -54,6 +57,8 @@ class MTerminal extends Component {
             outputRows: this.props.outputRows ? this.props.outputRows : 6,
             output: this.props.output ? this.props.output : ["Welcome to Microduino\n","==========\n","\n"],
             input: this.props.input ? this.props.input : "",
+
+            openSetting: false,
         };
     }
 
@@ -80,10 +85,16 @@ class MTerminal extends Component {
         }
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>{this.state.title}</div>
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
 
                 <Divider/>
 

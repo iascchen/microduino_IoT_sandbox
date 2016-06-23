@@ -6,8 +6,11 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -33,6 +36,8 @@ class MInput extends Component {
         this.state = {
             title: this.props.title ? this.props.title : "Input",
             input: this.props.input ? this.props.input : "",
+
+            openSetting: false,
         };
     }
 
@@ -51,10 +56,16 @@ class MInput extends Component {
         console.log("handleBlur", this.state.input);
     }
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render(){
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>{this.state.title}</div>
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
 
                 <Divider/>
 

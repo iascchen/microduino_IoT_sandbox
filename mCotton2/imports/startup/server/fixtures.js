@@ -8,6 +8,8 @@ import C_Boards from '../../../lib/collections/Boards';
 import C_Modules from '../../../lib/collections/Modules';
 
 import C_Devices from '../../../lib/collections/Devices';
+import C_Widgets from '../../../lib/collections/Widgets';
+
 import C_Projects from '../../../lib/collections/Projects';
 import C_TriggerRules from '../../../lib/collections/TriggerRules';
 
@@ -245,7 +247,7 @@ if (C_Devices.find().count() == 0) {
                 dataNames: ["using"]
             },
             deviceDashboard: [
-                { widget: 'MLed', source: "using", title: 'Garage using', rows: 1, cols: 1 }]
+                { widget: 'MLed', source:"using", title: 'Garage using', rows: 1, cols: 1 }]
         },
         {
             name: 'IoT Demo - Door', status: STATUS_NORMAL,
@@ -256,8 +258,8 @@ if (C_Devices.find().count() == 0) {
                 controlNames: [{ name: "open", type: "boolean" }]
             },
             deviceDashboard: [
-                { widget: 'MLed', source: "opening", title: 'Door opening', rows: 1, cols: 1 },
-                { widget: 'MToggle', target: "open", title: 'Open', rows: 2, cols: 1 }]
+                { widget: 'MLed', source:"opening", title: 'Door opening', rows: 1, cols: 1 },
+                { widget: 'MToggle', source: "opening", target: "open", title: 'Open', rows: 2, cols: 1 }]
         },
         {
             name: 'IoT Demo - Window', status: STATUS_NORMAL,
@@ -269,7 +271,7 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 { widget: 'MLed', source: "opening", title: 'Window opening', rows: 1, cols: 1 },
-                { widget: 'MToggle', target: "open", title: 'Open', rows: 2, cols: 1 }]
+                { widget: 'MToggle', source: "opening", target: "open", title: 'Open', rows: 2, cols: 1 }]
         },
         {
             name: 'IoT Demo - House Vault Monitoring', status: STATUS_NORMAL,
@@ -282,7 +284,7 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 { widget: 'MLed', source: "enabled", title: 'Vault enabled', rows: 1, cols: 1 },
-                { widget: 'MToggle', target: "enable", title: 'Enable', rows: 2, cols: 1 },
+                { widget: 'MToggle', source: "enabled", target: "enable", title: 'Enable', rows: 2, cols: 1 },
                 { widget: 'MButton', target: "warn", title: 'Warn', rows: 2, cols: 1 }]
         },
         {
@@ -305,7 +307,7 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 { widget: 'MLed', source: "powered", title: 'Powered', rows: 1, cols: 1 },
-                { widget: 'MToggle', target: "power", title: 'Power', rows: 2, cols: 1 }]
+                { widget: 'MToggle', source: "enabled", target: "power", title: 'Power', rows: 2, cols: 1 }]
         },
         {
             name: 'IoT Demo - Rainbow Pool', status: STATUS_NORMAL,
@@ -334,8 +336,8 @@ if (C_Devices.find().count() == 0) {
                 { widget: 'MColorChrome', target: "color", title: 'Color', rows: 4, cols: 4 },
                 {
                     widget: 'MRangeSlider', title: 'Lightness Sensor', rows: 1, cols: 4,
-                    min: 0, max: 2000, step: 1,
-                    target: "setting", bind: ["LT_Lightness", "GT_Lightness"],
+                    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+                    target: "setting"
                 }]
         },
         {
@@ -350,24 +352,33 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 {
-                    widget: 'MOutput', title: 'Weather', rows: 1, cols: 4,
-                    source: ["Temperature", "Humidity", "Lightness", "PM"]
+                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
+                    source:"Temperature"
+                },{
+                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
+                    source: "Humidity"
+                },{
+                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
+                    source: "Lightness"
+                },{
+                    widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
+                    source: "PM"
                 }, {
                     widget: 'MRangeSlider', title: 'Temperature Threshold', rows: 1, cols: 4,
-                    min: -40, max: 50, step: 1,
-                    target: "setting", bind: ["LT_Temperature", "GT_Temperature"],
+                    others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'Lightness Threshold', rows: 1, cols: 4,
-                    min: 0, max: 2000, step: 1,
-                    target: "setting", bind: ["LT_Lightness", "GT_Lightness"],
+                    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'PM Threshold', rows: 1, cols: 4,
-                    min: 0, max: 1000, step: 1,
-                    target: "setting", bind: ["LT_PM", "GT_PM"],
+                    others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'Humidity Threshold', rows: 1, cols: 4,
-                    min: 0, max: 100, step: 1,
-                    target: "setting", bind: ["LT_Humidity", "GT_Humidity"]
+                    others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
+                    target: "setting"
                 }]
         },
         {
@@ -382,24 +393,33 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 {
-                    widget: 'MOutput', title: 'Weather', rows: 1, cols: 4,
-                    source: ["Temperature", "Humidity", "Lightness", "PM"]
+                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
+                    source:"Temperature"
+                },{
+                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
+                    source: "Humidity"
+                },{
+                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
+                    source: "Lightness"
+                },{
+                    widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
+                    source: "PM"
                 }, {
                     widget: 'MRangeSlider', title: 'Temperature Threshold', rows: 1, cols: 4,
-                    min: -40, max: 50, step: 1,
-                    target: "setting", bind: ["LT_Temperature", "GT_Temperature"],
+                    others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'Lightness Threshold', rows: 1, cols: 4,
-                    min: 0, max: 2000, step: 1,
-                    target: "setting", bind: ["LT_Lightness", "GT_Lightness"],
+                    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'PM Threshold', rows: 1, cols: 4,
-                    min: 0, max: 1000, step: 1,
-                    target: "setting", bind: ["LT_PM", "GT_PM"],
+                    others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
+                    target: "setting"
                 }, {
                     widget: 'MRangeSlider', title: 'Humidity Threshold', rows: 1, cols: 4,
-                    min: 0, max: 100, step: 1,
-                    target: "setting", bind: ["LT_Humidity", "GT_Humidity"]
+                    others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
+                    target: "setting"
                 }]
         },
         {
@@ -435,9 +455,9 @@ if (C_Devices.find().count() == 0) {
                 { widget: 'MSelector', target: "play", title: 'Music', rows: 1, cols: 4 },
                 {
                     widget: 'MSlider', target: "volume", title: 'Volume', rows: 1, cols: 4,
-                    min: 0, max: 100, step: 1
+                    others: { min: 0, max: 100, step: 1 }
                 },
-                { widget: 'MToggle', target: "pause", title: 'Pause', rows: 1, cols: 4 }]
+                { widget: 'MToggle', source: "paused", target: "pause", title: 'Pause', rows: 1, cols: 4 }]
         },
         {
             name: 'IoT Demo - Road Lamp', status: STATUS_NORMAL,
@@ -466,19 +486,33 @@ if (C_Devices.find().count() == 0) {
                 { widget: 'MColorChrome', target: "color", title: 'Color', rows: 4, cols: 4 },
                 {
                     widget: 'MRangeSlider', title: 'Lightness Sensor', rows: 1, cols: 4,
-                    min: 0, max: 2000, step: 1,
-                    target: "setting", bind: ["LT_Lightness", "GT_Lightness"],
+                    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+                    target: "setting"
                 }]
         },
     ];
 
     devices.forEach (function (device) {
+        let temp = device.deviceDashboard;
+
+        delete device["deviceDashboard"];
         Object.assign(device, {
             ownerId: sysAdmin._id, secureToken: "12345", subscribeToken: "54321", ownerName: sysAdmin.username,
             // createAt: now, lastAccessAt: now
         });
+        let devId = C_Devices.insert(device);
 
-        C_Devices.insert(device);
+        if (temp) {
+            let dash = [];
+            temp.forEach(function (widget) {
+                widget.deviceId = devId;
+                let widgetId = C_Widgets.insert(widget);
+
+                dash.push(widgetId);
+            });
+            device.deviceDashboard = dash;
+            C_Devices.update({ _id: devId }, { $set: { deviceDashboard: dash } });
+        }
     });
 }
 

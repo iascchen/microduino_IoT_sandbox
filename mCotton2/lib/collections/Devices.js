@@ -52,13 +52,8 @@ const schema = new SimpleSchema({
     },
 
     deviceDashboard: {
-        type: Array, label: "Device dashboard, store user customized control dashboard",
+        type: [String], label: "Device dashboard, store user customized control dashboard",
         optional: true
-    },
-
-    'deviceDashboard.$': {
-        type: Object, label: "Widget in dashboard",
-        blackbox: true, optional: true
     },
 
     image: {

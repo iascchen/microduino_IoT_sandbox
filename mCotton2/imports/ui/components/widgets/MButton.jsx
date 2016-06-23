@@ -7,8 +7,12 @@ import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
 import RaisedButton from 'material-ui/RaisedButton';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
+
+import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -43,7 +47,9 @@ class MButton extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "LED",
+            title: this.props.title ? this.props.title : "Button",
+
+            openSetting: false,
         };
     }
 
@@ -57,10 +63,17 @@ class MButton extends Component {
         console.log("buttonUp");
     };
 
+    handleSettingOpen() {
+        this.setState({ openSetting: true });
+    };
+
     render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>{this.state.title}</div>
+
+                <RaisedButton style={styles.title}
+                              fullWidth={true}
+                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
 
                 <Divider />
 
@@ -77,6 +90,13 @@ class MButton extends Component {
                     <ActionPowerSettingsNew style={styles.icon}/>
 
                 </RaisedButton>
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        entity: this.props.entity,
+                        widgetIndex : this.props.widgetIndex,
+                        target: this.props.target ? this.props.target : "" }}/>
             </Paper>
         )
     }
@@ -84,7 +104,15 @@ class MButton extends Component {
 
 MButton.propTypes = {
     title: PropTypes.string,
-    type: PropTypes.string,
+    on: PropTypes.bool,
+    color: PropTypes.string,
+
+    loading: PropTypes.bool,
+    entity: PropTypes.object,
+    entityExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
 };
 
 export default MButton;
