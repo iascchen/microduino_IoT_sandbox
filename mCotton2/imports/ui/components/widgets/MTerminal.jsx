@@ -53,11 +53,12 @@ class MTerminal extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Terminal",
+            outputRows: this.props.outputRows ? this.props.outputRows : 6,
+            output: this.props.output ? this.props.output : ["Welcome to Microduino\n","==========\n","\n"],
+            input: this.props.input ? this.props.input : "",
 
-            outputRows: this.props.widget.others.outputRows ? this.props.widget.others.outputRows : 6,
-            output: this.props.widget.others.output ? this.props.widget.others.output : ["Welcome to Microduino\n","==========\n","\n"],
-            input: this.props.widget.others.input ? this.props.widget.others.input : "",
+            title: this.props.widget.title ? this.props.widget.title : "Terminal",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
@@ -117,6 +118,14 @@ class MTerminal extends Component {
                 output: queue,
                 input: "",
             });
+
+            if (this.props.widget.target) {
+                let entity = {
+                    deviceId: this.props.device._id, token: this.props.device.secureToken,
+                };
+                entity[this.props.widget.target] = this.state.input;
+                let wId = Meteor.call('control.add', entity);
+            }
         }
     };
 
@@ -134,6 +143,7 @@ class MTerminal extends Component {
                 <Divider/>
 
                 <TextField
+                    id={"" + this.props.widgetIndex + "o"}
                     style={styles.output}
                     multiLine={true}
                     rows={this.state.outputRows}
@@ -146,23 +156,48 @@ class MTerminal extends Component {
                 <Divider/>
 
                 <TextField
+                    id={"" + this.props.widgetIndex + "i"}
                     hintText=">"
+                    fullWidth={true}
                     multiLine={true}
                     rows={1}
                     rowsMax={1}
                     value={this.state.input}
                     onChange={this.handleChange.bind(this)}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        source: this.props.widget.source ? this.props.widget.source : "",
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
 }
 
 MTerminal.propTypes = {
-    title: PropTypes.string,
     outputRows: PropTypes.number,
     output: PropTypes.array,
     input: PropTypes.string,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MTerminal;

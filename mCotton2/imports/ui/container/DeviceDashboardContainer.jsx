@@ -42,6 +42,6 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
         widgets,
 
         cols: 4,
-        cellHeight: 140
+        cellHeight: 120
     };
 }, DeviceDashboard);
