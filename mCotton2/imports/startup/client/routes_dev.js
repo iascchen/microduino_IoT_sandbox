@@ -1,10 +1,11 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { mount } from 'react-mounter';
-import { Accounts } from 'meteor/accounts-base';
+import {Meteor} from 'meteor/meteor';
+import {FlowRouter} from 'meteor/kadira:flow-router';
+import {mount} from 'react-mounter';
+import {Accounts} from 'meteor/accounts-base';
 
 import MainLayout from '../../ui/layouts/MainLayout';
+import WidgetTestLayout from '../../ui/layouts/WidgetTestLayout';
 
 import Home from '../../ui/views/Home';
 import House from '../../ui/views/House';
@@ -81,7 +82,6 @@ FlowRouter.route("/selector", {
         });
     }
 });
-
 
 /********************************
  * Components
@@ -200,14 +200,14 @@ widgetsRoutes.route("/m_output", {
     }
 });
 
-
 widgetsRoutes.route("/m_button", {
     subscriptions: function () {
         //this.register('msg_controls', Meteor.subscribe('msg_controls'));
     },
     action() {
-        mount(MainLayout, {
-            content: (<MButton type="toggle" title="按钮"/>)
+        mount(WidgetTestLayout, {
+            control: MButton,
+            options: { type: "toggle", title: "按钮", },
         });
     }
 });
@@ -217,8 +217,9 @@ widgetsRoutes.route("/m_toggle", {
         //this.register('msg_controls', Meteor.subscribe('msg_controls'));
     },
     action() {
-        mount(MainLayout, {
-            content: (<MToggle toggled={true} title={"灯"}/>)
+        mount(WidgetTestLayout, {
+            control: MToggle,
+            options: { toggled: "true", title: "灯", },
         });
     }
 });

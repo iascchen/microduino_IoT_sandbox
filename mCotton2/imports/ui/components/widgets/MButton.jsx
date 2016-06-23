@@ -1,7 +1,7 @@
 /**
  * Created by chenhao on 16/6/17.
  */
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
@@ -9,6 +9,7 @@ import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
 
@@ -18,10 +19,8 @@ const styles = {
     title: {
         margin: 10,
     },
-    button: {
+    buttonContainer: {
         marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
     },
     icon: {
         width: 30,
@@ -65,15 +64,25 @@ class MButton extends Component {
 
     render() {
         return (
-            <FloatingActionButton
-                fullWidth={true}
-                style={styles.button}
-                onTouchTap={this.handleButton.bind(this)}
-            >
+            <Paper style={styles.paper} zDepth={2}>
+                <div style={styles.title}>{this.state.title}</div>
 
-                <ActionPowerSettingsNew style={styles.icon}/>
+                <Divider />
 
-            </FloatingActionButton>
+                <div style={styles.buttonContainer}>
+                    <FloatingActionButton
+                        fullWidth={true}
+                        backgroundColor={this.props.backgroundColor}
+                        onMouseDown={this.buttonDown.bind(this)}
+                        onTouchStart={this.buttonDown.bind(this)}
+
+                        onMouseUp={this.buttonUp.bind(this)}
+                        onTouchEnd={this.buttonUp.bind(this)}
+                    >
+                        <ActionPowerSettingsNew style={styles.icon}/>
+                    </FloatingActionButton>
+                </div>
+            </Paper>
         )
     }
 }
