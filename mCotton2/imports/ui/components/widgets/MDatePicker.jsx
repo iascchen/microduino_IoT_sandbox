@@ -36,8 +36,10 @@ class MDatePicker extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Time",
             controlledDate: null,
+
+            title: this.props.widget.title ? this.props.widget.title : "Time",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
@@ -47,6 +49,14 @@ class MDatePicker extends Component {
         console.log("handleChange", date);
 
         this.setState({ controlledDate: date });
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = date;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
@@ -70,6 +80,13 @@ class MDatePicker extends Component {
                     value={this.state.controlledDate}
                     onChange={this.handleChange.bind(this)}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
@@ -77,6 +94,20 @@ class MDatePicker extends Component {
 
 MDatePicker.propTypes = {
     title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MDatePicker;

@@ -18,14 +18,11 @@ const styles = {
     },
     output: {
         margin: 10,
-        borderStyle: 'solid',
-        borderRadius: 10,
-        borderWidth: 1,
         padding: 5
     },
     paper: {
-        height: 160,
-        width: 320,
+        height: 120,
+        width: 160,
         margin: 10,
         padding: 5,
         textAlign: 'center',
@@ -38,12 +35,42 @@ class MLabel extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title :"Output",
             output: this.props.output ? this.props.output : "Welcome",
+
+            title: this.props.widget.title ? this.props.widget.title : "Label",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        // console.log('componentWillReceiveProps');
+
+        this.getCheckPropsSource(nextProps);
+    }
+
+    getCheckPropsSource(props) {
+        if (! props.datas || ! props.datas[0]) {
+            return;
+        }
+
+        console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
+
+        try {
+            let value = props.datas[0].payload[props.source];
+            if (value) {
+                let ret = JSON.parse(value);
+                console.log("getCheckPropsSource", this.state.output, ret);
+
+                if (this.state.output != ret) {
+                    this.setState({ output: ret });
+                }
+            }
+        } catch (e) {
+            // ignore
+        }
+    };
 
     handleSettingOpen() {
         this.setState({ openSetting: true });
@@ -59,22 +86,43 @@ class MLabel extends Component {
                 <Divider/>
 
                 <TextField
+                    id={"" + this.props.widgetIndex}
                     style={styles.output}
-                    multiLine={true}
-                    rows={1}
-                    rowsMax={1}
+                    multiLine={false}
                     underlineShow={false}
                     disabled={true}
                     value={this.state.output}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        source: this.props.widget.source ? this.props.widget.source : "" }}/>
             </Paper>
         )
     }
 }
 
 MLabel.propTypes = {
-    title: PropTypes.string,
     output: PropTypes.string,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MLabel;

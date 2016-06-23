@@ -102,13 +102,15 @@ class WidgetSetting extends Component {
     }
 
     changeDashboardWidget(widget, infos) {
+
         // console.log("infos", infos);
 
         C_Widgets.update({ _id: widget._id }, { $set: infos });
     }
 
     handleSourceFieldChange(event, index, value) {
-        event.preventDefault();
+        // event.preventDefault();
+        // event.persist();
 
         // console.log("handleSourceFieldChange", index, value);
 
@@ -120,7 +122,8 @@ class WidgetSetting extends Component {
     };
 
     handleTargetFieldChange(event, index, value) {
-        event.preventDefault();
+        // event.preventDefault();
+        // event.persist();
 
         // console.log("handleTargetFieldChange", index, value);
 

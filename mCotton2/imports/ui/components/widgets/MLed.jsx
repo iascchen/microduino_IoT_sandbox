@@ -59,6 +59,10 @@ class MLed extends Component {
     }
 
     getCheckPropsSource(props) {
+        if (! props.datas || ! props.datas[0]) {
+            return;
+        }
+
         console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
 
         try {
@@ -109,8 +113,8 @@ class MLed extends Component {
 }
 
 MLed.propTypes = {
-    title: PropTypes.string,
     on: PropTypes.bool,
+    title: PropTypes.string,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,

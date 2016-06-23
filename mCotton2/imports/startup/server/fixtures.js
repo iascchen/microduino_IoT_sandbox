@@ -331,7 +331,7 @@ if (C_Devices.find().count() == 0) {
                 eventNames: ["LT_Lightness", "GT_Lightness"]
             },
             deviceDashboard: [
-                { widget: 'MOutput', source: "inMode", title: 'In Mode', rows: 1, cols: 4 },
+                { widget: 'MLabel', source: "inMode", title: 'In Mode', rows: 1, cols: 2 },
                 { widget: 'MSelector', target: "mode", title: 'Mode Selected', rows: 1, cols: 4 },
                 { widget: 'MColorChrome', target: "color", title: 'Color', rows: 4, cols: 4 },
                 {
@@ -352,16 +352,16 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 {
-                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 2,
                     source: "Temperature"
                 }, {
-                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 2,
                     source: "Humidity"
                 }, {
-                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 2,
                     source: "Lightness"
                 }, {
-                    widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'PM', rows: 1, cols: 2,
                     source: "PM"
                 }, {
                     widget: 'MRangeSlider', title: 'Temperature Threshold', rows: 1, cols: 4,
@@ -393,16 +393,16 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 {
-                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Temperature', rows: 1, cols: 2,
                     source: "Temperature"
                 }, {
-                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Humidity', rows: 1, cols: 2,
                     source: "Humidity"
                 }, {
-                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'Lightness', rows: 1, cols: 2,
                     source: "Lightness"
                 }, {
-                    widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
+                    widget: 'MLabel', title: 'PM', rows: 1, cols: 2,
                     source: "PM"
                 }, {
                     widget: 'MRangeSlider', title: 'Temperature Threshold', rows: 1, cols: 4,
@@ -537,7 +537,7 @@ if (C_MessageDatas.find().count() == 0) {
             msgType: MSG_DATA, payload: { using: true }, deviceId: device_1
         },
         {
-            msgType: MSG_DATA, payload: { opening: 100 }, deviceId: device_2
+            msgType: MSG_DATA, payload: { opening: true }, deviceId: device_2
         },
         {
             msgType: MSG_DATA, payload: { temperature: 100, humidity: 32 }, deviceId: device_9

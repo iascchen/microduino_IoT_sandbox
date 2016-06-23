@@ -146,7 +146,7 @@ export default class DeviceDashboard extends Component {
                     {this.props.widgets.map((widget, widgetIndex) => (
                     <GridTile style={styles.gridTile} key={widget._id} cols={widget.cols}
                               rows={widget.rows}>
-                        <WidgetContainer
+                        <WidgetContainer key={widget._id}
                             params={{widgetIndex,
                             widget,
                             device:this.props.device,
@@ -177,7 +177,7 @@ export default class DeviceDashboard extends Component {
                 </Drawer>
 
                 <Drawer style={styles.drawer} docked={false} open={this.state.delDrawerOpen} openSecondary={true}
-                        onRequestChange={this.handleDelCompDrawerRequestChange.bind(this)}>>
+                        onRequestChange={this.handleDelCompDrawerRequestChange.bind(this)}>
                     <div style={styles.title}>Delete</div>
                     <Divider />
 

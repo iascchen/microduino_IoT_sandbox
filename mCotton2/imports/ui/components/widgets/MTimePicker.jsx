@@ -35,8 +35,10 @@ class MTimePicker extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Time",
             value24: null,
+
+            title: this.props.widget.title ? this.props.widget.title : "Time",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
@@ -46,6 +48,14 @@ class MTimePicker extends Component {
         console.log("handleChangeTimePicker24", date);
 
         this.setState({ value24: date });
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = date;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
@@ -70,6 +80,13 @@ class MTimePicker extends Component {
                     value={this.state.value24}
                     onChange={this.handleChangeTimePicker24.bind(this)}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
@@ -77,6 +94,20 @@ class MTimePicker extends Component {
 
 MTimePicker.propTypes = {
     title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MTimePicker;

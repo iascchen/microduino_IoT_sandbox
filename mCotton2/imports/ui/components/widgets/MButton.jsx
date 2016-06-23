@@ -48,19 +48,21 @@ class MButton extends Component {
 
         this.state = {
             title: this.props.widget.title ? this.props.widget.title : "Button",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
     }
 
-    buttonDown(event) {
-        event.preventDefault();
-        console.log("buttonDown");
-    };
-
-    buttonUp(event) {
-        event.preventDefault();
-        console.log("buttonUp");
+    handleButton(event) {
+        // console.log("buttonUp");
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = true;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
@@ -80,11 +82,7 @@ class MButton extends Component {
                 <RaisedButton
                     fullWidth={true}
                     style={styles.button}
-                    onMouseDown={this.buttonDown.bind(this)}
-                    onTouchStart={this.buttonDown.bind(this)}
-
-                    onMouseUp={this.buttonUp.bind(this)}
-                    onTouchEnd={this.buttonUp.bind(this)}
+                    onTouchTap={this.handleButton.bind(this)}
                 >
 
                     <ActionPowerSettingsNew style={styles.icon}/>
@@ -94,9 +92,9 @@ class MButton extends Component {
                 <SettingDialog
                     openSetting={this.state.openSetting}
                     params={{
-                        entity: this.props.entity,
-                        widgetIndex : this.props.widgetIndex,
-                        target: this.props.target ? this.props.target : "" }}/>
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
@@ -104,12 +102,15 @@ class MButton extends Component {
 
 MButton.propTypes = {
     title: PropTypes.string,
-    on: PropTypes.bool,
     color: PropTypes.string,
 
-    loading: PropTypes.bool,
-    entity: PropTypes.object,
-    entityExists: PropTypes.bool,
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
 
     dataLoading: PropTypes.bool,
     datas: PropTypes.array,

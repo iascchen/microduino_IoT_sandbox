@@ -36,22 +36,33 @@ class MRangeSlider extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Slider",
             min: this.props.min ? this.props.min : 0,
             max: this.props.max ? this.props.max : 100,
             step: this.props.step ? this.props.step : 1,
             value: this.props.value ? JSON.parse(this.props.value) : { start: 0, end: 100 },
 
+            title: this.props.widget.title ? this.props.widget.title : "Slider",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
+
             openSetting: false,
         };
     }
 
+    // TODO : handle event mapping
     handleChange(value) {
         console.log("handleChange", value);
 
         this.setState({
             value: value,
         });
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = value;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
@@ -75,17 +86,39 @@ class MRangeSlider extends Component {
                     value={this.state.value}
                     onChange={this.handleChange.bind(this)}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
 }
 
 MRangeSlider.propTypes = {
-    title: PropTypes.string,
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
     value: PropTypes.string,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MRangeSlider;

@@ -34,15 +34,17 @@ class MInput extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Input",
             input: this.props.input ? this.props.input : "",
+
+            title: this.props.widget.title ? this.props.widget.title : "Input",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
     }
 
     handleChange(event, value) {
-        event.preventDefault();
+        // event.preventDefault();
 
         console.log("handleChanged", value);
 
@@ -51,16 +53,23 @@ class MInput extends Component {
         });
     }
 
-    handleBlur(event) {
-        event.preventDefault();
+    handleBlur() {
         console.log("handleBlur", this.state.input);
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = this.state.input;
+            let wId = Meteor.call('control.add', entity);
+        }
     }
 
     handleSettingOpen() {
         this.setState({ openSetting: true });
     };
 
-    render(){
+    render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
                 <RaisedButton style={styles.title}
@@ -70,6 +79,7 @@ class MInput extends Component {
                 <Divider/>
 
                 <TextField
+                    id={"" + this.props.widgetIndex}
                     style={styles.input}
                     hintText=">"
                     fullWidth={true}
@@ -78,14 +88,36 @@ class MInput extends Component {
                     onChange={this.handleChange.bind(this)}
                     onBlur={this.handleBlur.bind(this)}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
 }
 
 MInput.propTypes = {
-    title: PropTypes.string,
     input: PropTypes.string,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MInput;

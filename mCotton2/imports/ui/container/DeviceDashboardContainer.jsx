@@ -27,7 +27,7 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
     const datas = C_MessageDatas.find({ deviceId: id }, { sort: { createAt: -1 } }).fetch();
 
     const widgetHandle = Meteor.subscribe('device_widgets', id);
-    const widgets = C_Widgets.find({ deviceId: id }, { sort: { createAt: -1 } }).fetch();
+    const widgets = C_Widgets.find({ deviceId: id }, { sort: { createAt: 1 } }).fetch();
     const widgetLoading = !widgetHandle.ready();
 
     return {

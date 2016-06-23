@@ -37,7 +37,7 @@ class MColorChrome extends Component {
 
         this.state = {
             title: this.props.widget.title ? this.props.widget.title : "Color",
-            color: this.props.color ? this.props.color : "#00ff00", // TODO, use microduino green
+            color: this.props.widget.color ? this.props.widget.color : "#00ff00", // TODO, use microduino green
 
             openSetting: false,
         };
@@ -46,7 +46,15 @@ class MColorChrome extends Component {
     handleChange(color) {
         console.log("color" , color.hex);
 
-        this.setState({ color: color.hex })
+        this.setState({ color: color.hex });
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = color.hex;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
@@ -72,9 +80,9 @@ class MColorChrome extends Component {
                 <SettingDialog
                     openSetting={this.state.openSetting}
                     params={{
-                        entity: this.props.entity,
-                        widgetIndex : this.props.widgetIndex,
-                        target: this.props.target ? this.props.target : "" }}/>
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
@@ -83,6 +91,19 @@ class MColorChrome extends Component {
 MColorChrome.propTypes = {
     title: PropTypes.string,
     color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MColorChrome;

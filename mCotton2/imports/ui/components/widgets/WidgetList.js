@@ -28,10 +28,10 @@ export const WidgetList = [
         title: "Led", widget: "MLed", image: "url", type: "o", cols: 1, rows: 2
     },
     {
-        title: "Output", widget: "MOutput", image: "url", type: "o", cols: 4, rows: 2
+        title: "Label", widget: "MLabel", image: "url", type: "o", cols: 2, rows: 1
     },
     {
-        title: "Label", widget: "MLabel", image: "url", type: "o", cols: 2, rows: 1
+        title: "Output", widget: "MOutput", image: "url", type: "o", cols: 4, rows: 2
     },
 
     ///////////////////////
@@ -88,9 +88,9 @@ export const getSubComponent = (props) => {
             return <MLed {...props}/>;
         case "MOutput":
             return <MOutput {...props} />;
-
         case "MLabel":
             return <MLabel {...props}/>;
+
         case "MButton":
             return <MButton {...props} />;
         case "MToggle":

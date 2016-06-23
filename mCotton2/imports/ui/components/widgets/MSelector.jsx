@@ -35,33 +35,59 @@ class MSelector extends Component {
         super(props);
 
         this.state = {
-            title: this.props.widget.title ? this.props.widget.title : "Selector",
             value: this.props.value ? this.props.value : 1,
+
+            title: this.props.widget.title ? this.props.widget.title : "Selector",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
     }
 
     handleChange(event, index, value) {
-        event.preventDefault();
-
-        console.log("handleChange", index, value);
+        // console.log("handleChange", index, value);
 
         this.setState({
             value: value,
         });
+
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = value;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
     handleSettingOpen() {
         this.setState({ openSetting: true });
     };
 
-    render() {
-        const items = [];
-        for (let i = 0; i < 10; i++ ) {
-            items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
+    getSelectorItems(device, widget) {
+        let items = [];
+
+        if (device.deviceProfile.controlNames) {
+            device.deviceProfile.controlNames.map((control) => {
+
+                if (widget.target
+                    && (widget.target === control.name)
+                    && (control.type === "enum")
+                    && control.values) {
+
+                    control.values.map((v, index) => {
+                        items.push(<MenuItem value={v.value} key={index} primaryText={v.label}/>);
+                    });
+
+                    // console.log("getSelectorItems" , items);
+                }
+            });
         }
 
+        return items;
+    }
+
+    render() {
         return (
             <Paper style={styles.paper} zDepth={2}>
                 <RaisedButton style={styles.title}
@@ -75,18 +101,39 @@ class MSelector extends Component {
                     fullWidth={true}
                     value={this.state.value}
                     onChange={this.handleChange.bind(this)}
-                    autoWidth={true}
                 >
-                    {items}
+                    {this.getSelectorItems(this.props.device, this.props.widget)}
                 </SelectField>
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
             </Paper>
         )
     }
 }
 
 MSelector.propTypes = {
-    title: PropTypes.string,
     value: PropTypes.number,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MSelector;

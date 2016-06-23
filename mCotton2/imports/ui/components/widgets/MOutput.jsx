@@ -24,7 +24,7 @@ const styles = {
         padding: 5
     },
     paper: {
-        height: 160,
+        height: 240,
         width: 320,
         margin: 10,
         padding: 5,
@@ -38,13 +38,43 @@ class MOutput extends Component {
         super(props);
 
         this.state = {
+            outputRows: this.props.outputRows ? this.props.outputRows : 5,
+            output: this.props.output ? this.props.output : ["Welcome to Microduino\n", "==========\n"],
+
             title: this.props.widget.title ? this.props.widget.title : "Output",
-            outputRows: this.props.outputRows ? this.props.outputRows : 3,
-            output: this.props.output ? this.props.output :["Welcome to Microduino\n","==========\n"],
+            color: this.props.widget.color ? this.props.widget.color : orange500,
 
             openSetting: false,
         };
     }
+
+    componentWillReceiveProps(nextProps) {
+        // console.log('componentWillReceiveProps');
+
+        this.getCheckPropsSource(nextProps);
+    }
+
+    getCheckPropsSource(props) {
+        if (! props.datas || ! props.datas[0]) {
+            return;
+        }
+
+        console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
+
+        try {
+            let value = props.datas[0].payload[props.source];
+            if (value) {
+                let ret = JSON.parse(value);
+                console.log("getCheckPropsSource", this.state.output, ret);
+
+                if (this.state.output != ret) {
+                    this.setState({ output: ret });
+                }
+            }
+        } catch (e) {
+            // ignore
+        }
+    };
 
     handleSettingOpen() {
         this.setState({ openSetting: true });
@@ -60,6 +90,7 @@ class MOutput extends Component {
                 <Divider/>
 
                 <TextField
+                    id={"" + this.props.widgetIndex}
                     style={styles.output}
                     multiLine={true}
                     rows={this.state.outputRows}
@@ -68,15 +99,38 @@ class MOutput extends Component {
                     disabled={true}
                     value={this.state.output.join('')}
                 />
+
+                <SettingDialog
+                    openSetting={this.state.openSetting}
+                    params={{
+                        device: this.props.device,
+                        widget: this.props.widget,
+                        source: this.props.widget.source ? this.props.widget.source : "" }}/>
+
             </Paper>
         )
     }
 }
 
 MOutput.propTypes = {
-    title: PropTypes.string,
     outputRows: PropTypes.number,
     output: PropTypes.array,
+
+    title: PropTypes.string,
+    color: PropTypes.string,
+
+    widgetLoading: PropTypes.bool,
+    widget: PropTypes.object.isRequired,
+    widgetExists: PropTypes.bool,
+
+    deviceLoading: PropTypes.bool,
+    device: PropTypes.object.isRequired,
+    deviceExists: PropTypes.bool,
+
+    dataLoading: PropTypes.bool,
+    datas: PropTypes.array,
+
+    widgetIndex: PropTypes.number.isRequired,
 };
 
 export default MOutput;

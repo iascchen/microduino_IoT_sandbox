@@ -63,8 +63,42 @@ class MTerminal extends Component {
         };
     }
 
+    componentWillReceiveProps(nextProps) {
+        // console.log('componentWillReceiveProps');
+
+        this.getCheckPropsSource(nextProps);
+    }
+
+    getCheckPropsSource(props) {
+        if (! props.datas || ! props.datas[0]) {
+            return;
+        }
+
+        console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
+
+        try {
+            let value = props.datas[0].payload[props.source];
+            if (value) {
+                let ret = JSON.parse(value);
+                console.log("getCheckPropsSource", this.state.output, ret);
+
+                let queue = this.state.output;
+                queue.push(ret);
+                if (queue.length > this.state.outputRows) {
+                    queue.shift();
+                }
+
+                this.setState({
+                    output: queue,
+                });
+            }
+        } catch (e) {
+            // ignore
+        }
+    };
+
     handleChange(event, value) {
-        event.preventDefault();
+        // event.preventDefault();
 
         this.setState({
             input: value,

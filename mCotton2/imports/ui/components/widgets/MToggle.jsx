@@ -44,33 +44,34 @@ class MToggle extends Component {
         super(props);
 
         this.state = {
+            toggled: this.props.toggled ? this.props.toggled : false,
+
             title: this.props.widget.title ? this.props.widget.title : "Toggle",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            toggled: this.props.toggled ? this.props.toggled : false,
 
             openSetting: false,
         };
     }
 
-    toggleChanged(event) {
-        event.preventDefault();
-
-        console.log("handleToggleChange", value);
+    handleToggle() {
         let value = !this.state.toggled;
+        console.log("handleToggleChange", value);
 
         this.setState({
             toggled: value,
         });
 
-        let entity = {
-            deviceId: this.props.device._id, token: this.props.device.secureToken,
-        };
-        entity[this.props.widget.target] = value;
-        let wId = Meteor.call('control.add', entity);
+        if (this.props.widget.target) {
+            let entity = {
+                deviceId: this.props.device._id, token: this.props.device.secureToken,
+            };
+            entity[this.props.widget.target] = value;
+            let wId = Meteor.call('control.add', entity);
+        }
     };
 
-    handleSettingOpen() {
+    handleSettingOpen(event) {
+        // TODO
         this.setState({ openSetting: true });
     };
 
@@ -86,8 +87,7 @@ class MToggle extends Component {
                 <RaisedButton
                     fullWidth={true}
                     style={styles.button}
-                    onMouseUp={this.toggleChanged.bind(this)}
-                    onTouchEnd={this.toggleChanged.bind(this)}
+                    onTouchTap={this.handleToggle.bind(this)}
                 >
 
                     <ActionLightbulbOutline
@@ -109,8 +109,9 @@ class MToggle extends Component {
 }
 
 MToggle.propTypes = {
-    title: PropTypes.string,
     toggled: PropTypes.bool,
+
+    title: PropTypes.string,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,
