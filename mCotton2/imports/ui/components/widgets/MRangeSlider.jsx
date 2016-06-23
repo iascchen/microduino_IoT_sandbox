@@ -36,7 +36,7 @@ class MRangeSlider extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Slider",
+            title: this.props.widget.title ? this.props.widget.title : "Slider",
             min: this.props.min ? this.props.min : 0,
             max: this.props.max ? this.props.max : 100,
             step: this.props.step ? this.props.step : 1,

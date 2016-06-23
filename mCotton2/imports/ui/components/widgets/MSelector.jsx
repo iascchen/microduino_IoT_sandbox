@@ -35,7 +35,7 @@ class MSelector extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Selector",
+            title: this.props.widget.title ? this.props.widget.title : "Selector",
             value: this.props.value ? this.props.value : 1,
 
             openSetting: false,

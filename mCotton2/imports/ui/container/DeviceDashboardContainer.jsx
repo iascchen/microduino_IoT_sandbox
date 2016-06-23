@@ -7,6 +7,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import C_Devices from '../../../lib/collections/Devices';
 import C_MessageDatas from '../../../lib/collections/MessageDatas';
+import C_Widgets from '../../../lib/collections/Widgets';
 
 import DeviceDashboard from '../components/dashboard/DeviceDashboard';
 
@@ -25,6 +26,10 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
 
     const datas = C_MessageDatas.find({ deviceId: id }, { sort: { createAt: -1 } }).fetch();
 
+    const widgetHandle = Meteor.subscribe('device_widgets', id);
+    const widgets = C_Widgets.find({ deviceId: id }, { sort: { createAt: -1 } }).fetch();
+    const widgetLoading = !widgetHandle.ready();
+
     return {
         deviceLoading,
         device,
@@ -32,5 +37,11 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
 
         dataLoading,
         datas,
+
+        widgetLoading,
+        widgets,
+
+        cols: 4,
+        cellHeight: 140
     };
 }, DeviceDashboard);

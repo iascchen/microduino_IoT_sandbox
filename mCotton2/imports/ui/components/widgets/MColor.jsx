@@ -36,7 +36,7 @@ class MColor extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Color",
+            title: this.props.widget.title ? this.props.widget.title :"Color",
             color: this.props.color ? this.props.color : "#00ff00",  // TODO, use microduino green
 
             openSetting: false,

@@ -30,12 +30,12 @@ export const WidgetList = [
     {
         title: "Output", widget: "MOutput", image: "url", type: "o", cols: 4, rows: 2
     },
+    {
+        title: "Label", widget: "MLabel", image: "url", type: "o", cols: 2, rows: 1
+    },
 
     ///////////////////////
     // Input
-    {
-        title: "Label", widget: "MLabel", image: "url", type: "i", cols: 2, rows: 1
-    },
     {
         title: "Button", widget: "MButton", image: "url", type: "i", cols: 1, rows: 2
     },

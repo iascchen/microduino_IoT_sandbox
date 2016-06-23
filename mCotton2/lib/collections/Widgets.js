@@ -51,6 +51,11 @@ const schema = new SimpleSchema({
         optional: true, blackbox: true,
     },
 
+    createAt: {
+        type: Number, label: "Create at",
+        defaultValue: new Date().getTime()
+    },
+
     status: {
         type: Number, label: "Status",
         allowedValues: STATUS_TYPES,

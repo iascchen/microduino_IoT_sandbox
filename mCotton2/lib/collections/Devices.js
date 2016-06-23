@@ -51,10 +51,10 @@ const schema = new SimpleSchema({
         blackbox: true, optional: true
     },
 
-    deviceDashboard: {
-        type: [String], label: "Device dashboard, store user customized control dashboard",
-        optional: true
-    },
+    //deviceDashboard: {
+    //    type: [String], label: "Device dashboard, store user customized control dashboard",
+    //    optional: true
+    //},
 
     image: {
         type: String, label: "Image url",

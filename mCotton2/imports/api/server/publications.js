@@ -108,10 +108,16 @@ Meteor.publish('device', function (deviceId) {
     return C_Devices.find({ _id: deviceId });
 });
 
-Meteor.publish('widget', function (widgetId) {
-    check(widgetId, String);
+//Meteor.publish('widget', function (widgetId) {
+//    check(widgetId, String);
+//
+//    return C_Widgets.find({ _id: widgetId });
+//});
 
-    return C_Widgets.find({ _id: widgetId });
+Meteor.publish('device_widgets', function (deviceId) {
+    check(deviceId, String);
+
+    return C_Widgets.find({ deviceId: deviceId });
 });
 
 Meteor.publish('projects', function (limit) {

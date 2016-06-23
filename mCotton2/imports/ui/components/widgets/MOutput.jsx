@@ -38,7 +38,7 @@ class MOutput extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Output",
+            title: this.props.widget.title ? this.props.widget.title : "Output",
             outputRows: this.props.outputRows ? this.props.outputRows : 3,
             output: this.props.output ? this.props.output :["Welcome to Microduino\n","==========\n"],
 

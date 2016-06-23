@@ -35,7 +35,7 @@ class MTimePicker extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Time",
+            title: this.props.widget.title ? this.props.widget.title : "Time",
             value24: null,
 
             openSetting: false,

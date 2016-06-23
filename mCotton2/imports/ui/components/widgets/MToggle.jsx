@@ -44,8 +44,10 @@ class MToggle extends Component {
         super(props);
 
         this.state = {
+            title: this.props.widget.title ? this.props.widget.title : "Toggle",
+            color: this.props.widget.color ? this.props.widget.color : orange500,
+
             toggled: this.props.toggled ? this.props.toggled : false,
-            title: this.props.title ? this.props.title : "Toggle",
 
             openSetting: false,
         };
@@ -54,11 +56,18 @@ class MToggle extends Component {
     toggleChanged(event) {
         event.preventDefault();
 
-        console.log("handleToggleChange", !this.state.toggled);
+        console.log("handleToggleChange", value);
+        let value = !this.state.toggled;
 
         this.setState({
-            toggled: !this.state.toggled,
+            toggled: value,
         });
+
+        let entity = {
+            deviceId: this.props.device._id, token: this.props.device.secureToken,
+        };
+        entity[this.props.widget.target] = value;
+        let wId = Meteor.call('control.add', entity);
     };
 
     handleSettingOpen() {
@@ -83,7 +92,7 @@ class MToggle extends Component {
 
                     <ActionLightbulbOutline
                         style={styles.icon}
-                        color={this.state.toggled ? orange500 : grey500}/>
+                        color={this.state.toggled ? this.state.color : grey500}/>
 
                 </RaisedButton>
 
@@ -92,7 +101,6 @@ class MToggle extends Component {
                     params={{
                         device: this.props.device,
                         widget: this.props.widget,
-                        source: this.props.widget.source ? this.props.widget.source : "" ,
                         target: this.props.widget.target ? this.props.widget.target : "" }}/>
 
             </Paper>
@@ -102,7 +110,7 @@ class MToggle extends Component {
 
 MToggle.propTypes = {
     title: PropTypes.string,
-    on: PropTypes.bool,
+    toggled: PropTypes.bool,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,

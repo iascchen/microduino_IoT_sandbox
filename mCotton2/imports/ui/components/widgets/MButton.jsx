@@ -47,7 +47,7 @@ class MButton extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Button",
+            title: this.props.widget.title ? this.props.widget.title : "Button",
 
             openSetting: false,
         };

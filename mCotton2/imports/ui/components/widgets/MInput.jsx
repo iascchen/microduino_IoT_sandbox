@@ -34,7 +34,7 @@ class MInput extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Input",
+            title: this.props.widget.title ? this.props.widget.title : "Input",
             input: this.props.input ? this.props.input : "",
 
             openSetting: false,

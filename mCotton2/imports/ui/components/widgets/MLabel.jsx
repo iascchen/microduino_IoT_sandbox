@@ -38,7 +38,7 @@ class MLabel extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Output",
+            title: this.props.widget.title ? this.props.widget.title :"Output",
             output: this.props.output ? this.props.output : "Welcome",
 
             openSetting: false,

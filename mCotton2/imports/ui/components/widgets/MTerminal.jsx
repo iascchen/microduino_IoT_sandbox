@@ -53,10 +53,11 @@ class MTerminal extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Terminal",
-            outputRows: this.props.outputRows ? this.props.outputRows : 6,
-            output: this.props.output ? this.props.output : ["Welcome to Microduino\n","==========\n","\n"],
-            input: this.props.input ? this.props.input : "",
+            title: this.props.widget.title ? this.props.widget.title : "Terminal",
+
+            outputRows: this.props.widget.others.outputRows ? this.props.widget.others.outputRows : 6,
+            output: this.props.widget.others.output ? this.props.widget.others.output : ["Welcome to Microduino\n","==========\n","\n"],
+            input: this.props.widget.others.input ? this.props.widget.others.input : "",
 
             openSetting: false,
         };

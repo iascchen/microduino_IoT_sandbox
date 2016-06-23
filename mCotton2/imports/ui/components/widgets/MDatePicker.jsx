@@ -36,7 +36,7 @@ class MDatePicker extends Component {
         super(props);
 
         this.state = {
-            title: this.props.title ? this.props.title : "Time",
+            title: this.props.widget.title ? this.props.widget.title : "Time",
             controlledDate: null,
 
             openSetting: false,

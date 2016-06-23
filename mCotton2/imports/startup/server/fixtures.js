@@ -247,7 +247,7 @@ if (C_Devices.find().count() == 0) {
                 dataNames: ["using"]
             },
             deviceDashboard: [
-                { widget: 'MLed', source:"using", title: 'Garage using', rows: 1, cols: 1 }]
+                { widget: 'MLed', source: "using", title: 'Garage using', rows: 1, cols: 1 }]
         },
         {
             name: 'IoT Demo - Door', status: STATUS_NORMAL,
@@ -258,7 +258,7 @@ if (C_Devices.find().count() == 0) {
                 controlNames: [{ name: "open", type: "boolean" }]
             },
             deviceDashboard: [
-                { widget: 'MLed', source:"opening", title: 'Door opening', rows: 1, cols: 1 },
+                { widget: 'MLed', source: "opening", title: 'Door opening', rows: 1, cols: 1 },
                 { widget: 'MToggle', source: "opening", target: "open", title: 'Open', rows: 2, cols: 1 }]
         },
         {
@@ -307,7 +307,7 @@ if (C_Devices.find().count() == 0) {
             },
             deviceDashboard: [
                 { widget: 'MLed', source: "powered", title: 'Powered', rows: 1, cols: 1 },
-                { widget: 'MToggle', source: "enabled", target: "power", title: 'Power', rows: 2, cols: 1 }]
+                { widget: 'MToggle', source: "powered", target: "power", title: 'Power', rows: 2, cols: 1 }]
         },
         {
             name: 'IoT Demo - Rainbow Pool', status: STATUS_NORMAL,
@@ -353,14 +353,14 @@ if (C_Devices.find().count() == 0) {
             deviceDashboard: [
                 {
                     widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
-                    source:"Temperature"
-                },{
+                    source: "Temperature"
+                }, {
                     widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
                     source: "Humidity"
-                },{
+                }, {
                     widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
                     source: "Lightness"
-                },{
+                }, {
                     widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
                     source: "PM"
                 }, {
@@ -394,14 +394,14 @@ if (C_Devices.find().count() == 0) {
             deviceDashboard: [
                 {
                     widget: 'MLabel', title: 'Temperature', rows: 1, cols: 4,
-                    source:"Temperature"
-                },{
+                    source: "Temperature"
+                }, {
                     widget: 'MLabel', title: 'Humidity', rows: 1, cols: 4,
                     source: "Humidity"
-                },{
+                }, {
                     widget: 'MLabel', title: 'Lightness', rows: 1, cols: 4,
                     source: "Lightness"
-                },{
+                }, {
                     widget: 'MLabel', title: 'PM', rows: 1, cols: 4,
                     source: "PM"
                 }, {
@@ -503,15 +503,15 @@ if (C_Devices.find().count() == 0) {
         let devId = C_Devices.insert(device);
 
         if (temp) {
-            let dash = [];
+            //let dash = [];
             temp.forEach(function (widget) {
                 widget.deviceId = devId;
                 let widgetId = C_Widgets.insert(widget);
 
-                dash.push(widgetId);
+                //dash.push(widgetId);
             });
-            device.deviceDashboard = dash;
-            C_Devices.update({ _id: devId }, { $set: { deviceDashboard: dash } });
+            //device.deviceDashboard = dash;
+            //C_Devices.update({ _id: devId }, { $set: { deviceDashboard: dash } });
         }
     });
 }
