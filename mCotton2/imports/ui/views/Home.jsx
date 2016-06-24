@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
@@ -98,7 +98,6 @@ const tilesData3 = [
     },
 ];
 
-
 const styles = {
     button: {
         margin: 12,
@@ -113,6 +112,8 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
+    swipeable: {
+    }
 };
 
 export default class Home extends Component {
@@ -132,7 +133,7 @@ export default class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div id="mainPage">
                 <Affix offset={64}>
                     <Tabs
                         onChange={this.handleChange.bind(this)}
@@ -144,8 +145,10 @@ export default class Home extends Component {
                     </Tabs>
                 </Affix>
                 <SwipeableViews
+                    id="SwipeableViews"
                     index={this.state.slideIndex}
                     onChangeIndex={this.handleChange.bind(this)}
+                    containerStyle={styles.swipeable}
                 >
                     <div style={styles.slide}>
                         <DataConsole />
@@ -157,7 +160,6 @@ export default class Home extends Component {
                         <ProjectsContainer />
                     </div>
                 </SwipeableViews>
-            </div>
-        )
+            </div>);
     };
 };
