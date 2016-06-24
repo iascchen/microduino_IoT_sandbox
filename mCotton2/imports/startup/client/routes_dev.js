@@ -200,14 +200,21 @@ widgetsRoutes.route("/m_output", {
     }
 });
 
+import ActionAndroid from 'material-ui/svg-icons/action/android';
+import {orange500} from 'material-ui/styles/colors';
 widgetsRoutes.route("/m_button", {
     subscriptions: function () {
         //this.register('msg_controls', Meteor.subscribe('msg_controls'));
     },
     action() {
         mount(WidgetTestLayout, {
-            control: MButton,
-            options: { type: "toggle", title: "按钮", },
+            children: [
+                <MButton type="toggle" title="按钮1" />,
+                <MButton type="toggle" title="按钮2" backgroundColor="green" />,
+                <MButton type="toggle" title="Android"><ActionAndroid /></MButton>,
+                <MButton type="toggle" title="按钮4" disabled="true" />,
+                <MButton type="toggle" title="按钮5" backgroundColor={orange500} />,
+            ],
         });
     }
 });
@@ -218,8 +225,12 @@ widgetsRoutes.route("/m_toggle", {
     },
     action() {
         mount(WidgetTestLayout, {
-            control: MToggle,
-            options: { toggled: "true", title: "灯", },
+            children: [
+                <MToggle toggled="true" title="灯1"/>,
+                <MToggle toggled="true" title="Android"><ActionAndroid /></MToggle>,
+                <MToggle toggled="true" title="灯3"/>,
+                <MToggle toggled="true" title="灯4"/>,
+            ],
         });
     }
 });

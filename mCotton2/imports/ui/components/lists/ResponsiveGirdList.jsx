@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {GridList} from 'material-ui/GridList';
+import {GridTile} from 'material-ui/GridList';
 
 const defaultBreakPoint = {
     2: 480,
@@ -8,7 +9,7 @@ const defaultBreakPoint = {
     16: Infinity,
 };
 
-export default class ResponsiveGirdList extends Component {
+export class ResponsiveGirdList extends Component {
     get breakpoints() {
         return this.props.breakpoints || defaultBreakPoint;
     };
@@ -58,4 +59,23 @@ export default class ResponsiveGirdList extends Component {
 
 ResponsiveGirdList.propTypes = {
     breakpoints: PropTypes.object,
+};
+
+export class ResponsiveGirdTile extends Component {
+    render() {
+        const control = this.props.children;
+        const type = this.props.type || control.type;
+        const cols = this.props.cols || type.cols || control.cols;
+        const rows = this.props.rows || type.rows || control.rows;
+
+        return (
+            <GridTile cols={cols} rows={rows}>
+                {control}
+            </GridTile>
+        );
+    }
+}
+
+ResponsiveGirdTile.propTypes = {
+    control: PropTypes.object,
 };

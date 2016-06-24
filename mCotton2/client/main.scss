@@ -29,3 +29,13 @@ container { // temp: will be component later
 	margin: 0 auto;
 	display: block;
 }
+
+.PagerContainer {
+	button {
+		height: auto !important;
+		line-height: normal !important;
+		> div > div {
+			height: auto !important;
+		}
+	}
+}

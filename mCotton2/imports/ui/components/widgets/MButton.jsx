@@ -3,9 +3,10 @@
  */
 import React, {Component, PropTypes} from 'react';
 
-import Paper from 'material-ui/Paper';
+import MPaper from './Paper';
 import Divider from 'material-ui/Divider';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
+import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -63,14 +64,27 @@ class MButton extends Component {
     };
 
     render() {
+        const iconProps = {
+            style: styles.icon,
+        };
+        let child = this.props.children;
+        if (child) {
+            if (!child.type || child.type.muiName !== 'SvgIcon') {
+                throw new TypeError('MToggle: children must be SvgIcon.');
+            }
+            child = React.cloneElement(child, iconProps);
+        } else {
+            child = (<ActionPowerSettingsNew {...iconProps} />);
+        }
+
         return (
-            <Paper style={styles.paper} zDepth={2}>
+            <MPaper style={styles.paper} zDepth={2}>
                 <div style={styles.title}>{this.state.title}</div>
 
                 <Divider />
 
                 <div style={styles.buttonContainer}>
-                    <FloatingActionButton
+                    <RaisedButton
                         fullWidth={true}
                         backgroundColor={this.props.backgroundColor}
                         onMouseDown={this.buttonDown.bind(this)}
@@ -79,10 +93,10 @@ class MButton extends Component {
                         onMouseUp={this.buttonUp.bind(this)}
                         onTouchEnd={this.buttonUp.bind(this)}
                     >
-                        <ActionPowerSettingsNew style={styles.icon}/>
-                    </FloatingActionButton>
+                        {child}
+                    </RaisedButton>
                 </div>
-            </Paper>
+            </MPaper>
         )
     }
 }

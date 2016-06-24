@@ -1,11 +1,13 @@
 /**
  * Created by chenhao on 16/6/17.
  */
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
-import Paper from 'material-ui/Paper';
+import MPaper from './Paper';
 import Divider from 'material-ui/Divider';
 import ActionLightbulbOutline from 'material-ui/svg-icons/action/lightbulb-outline';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -29,14 +31,6 @@ const styles = {
         padding: 0,
         margin: 10,
     },
-    paper: {
-        height: 120,
-        width: 80,
-        margin: 10,
-        padding: 5,
-        textAlign: 'center',
-        display: 'inline-block',
-    }
 };
 
 class MToggle extends Component {
@@ -69,16 +63,39 @@ class MToggle extends Component {
     };
 
     render() {
-        return (
-            <FloatingActionButton
-                fullWidth={true}
-                style={styles.button}
-                onTouchTap={this.handleToggle.bind(this)}
-                backgroundColor={this.state.toggled ? this.state.color : grey500}
-            >
-                <ActionLightbulbOutline style={styles.icon}/>
+        const iconProps = {
+            style: styles.icon,
+            color: this.state.toggled ? orange500 : grey500,
+        };
+        let child = this.props.children;
+        if (child) {
+            if (!child.type || child.type.muiName !== 'SvgIcon') {
+                throw new TypeError('MToggle: children must be SvgIcon.');
+            }
+            child = React.cloneElement(child, iconProps);
+        } else {
+            child = (<ActionLightbulbOutline {...iconProps} />);
+        }
 
-            </FloatingActionButton>
+        return (
+            <MPaper>
+
+                <div style={styles.title}>{this.state.title}</div>
+
+                <Divider />
+
+                <RaisedButton
+                    fullWidth="true"
+                    onTouchTap={this.handleToggle.bind(this)}
+                    backgroundColor={this.state.toggled ? this.state.color : grey500}
+                    backgroundColor="transparent"
+                    style={styles.button}
+                    onMouseUp={this.toggleChanged.bind(this)}
+                    onTouchEnd={this.toggleChanged.bind(this)}
+                >
+                    {child}
+                </RaisedButton>
+            </MPaper>
         )
     }
 }
@@ -99,6 +116,7 @@ MToggle.propTypes = {
 
     dataLoading: PropTypes.bool,
     datas: PropTypes.array,
+    iconColor: PropTypes.string,
 };
 
 export default MToggle;
