@@ -112,19 +112,6 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
-    slide: {
-        padding: 15,
-        color: '#fff',
-    },
-    slide1: {
-        background: '#FEA900',
-    },
-    slide2: {
-        background: '#B3DC4A',
-    },
-    slide3: {
-        background: '#6AC0FF',
-    },
 };
 
 export default class Home extends Component {
@@ -149,24 +136,10 @@ export default class Home extends Component {
                     onChange={this.handleChange.bind(this)}
                     value={this.state.slideIndex}
                 >
-                    <Tab label="House Status" value={0}/>
-                    <Tab label="Devices" value={1}/>
-                    <Tab label="Discover" value={2}/>
+                    <Tab label="Devices" value={0}><DevicesContainer /></Tab>
+                    <Tab label="House Status" value={1}><DataConsole /></Tab>
+                    <Tab label="Discover" value={2}><ProjectsContainer /></Tab>
                 </Tabs>
-                <SwipeableViews
-                    index={this.state.slideIndex}
-                    onChangeIndex={this.handleChange}
-                >
-                    <div style={styles.slide}>
-                        <DataConsole />
-                    </div>
-                    <div style={styles.slide}>
-                        <DevicesContainer />
-                    </div>
-                    <div style={styles.slide}>
-                        <ProjectsContainer />
-                    </div>
-                </SwipeableViews>
             </div>
         )
     };

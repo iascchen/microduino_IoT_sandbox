@@ -1,6 +1,6 @@
 {
   "general": {
-    "queryMaxLimit": 200
+    "queryMaxLimit": 50
   },
   "mqtt": {
     "enabled": true,

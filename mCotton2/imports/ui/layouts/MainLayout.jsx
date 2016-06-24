@@ -16,7 +16,7 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 const darkMuiTheme = getMuiTheme(darkBaseTheme);
 
-//import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
+import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
 const styles = {
     title: {
@@ -38,11 +38,7 @@ const renderHeader = () => {
             title="mCotton 2.0"
             onTitleTouchTap={handleTouchTap}
             iconElementLeft={<IconButton onClick={handleHome}><ActionHome /></IconButton>}
-            iconElementRight={
-                        Meteor.userId() ?
-                        <FlatButton label="Logout" icon={<ActionAccountBox />} onClick={Meteor.logout} /> :
-                        <FlatButton label="Login" icon={<ActionAccountBox />} linkButton={true} href="/login" />
-                    }
+            iconElementRight={ <AccountsUIWrapper /> }
         />
     )
 };

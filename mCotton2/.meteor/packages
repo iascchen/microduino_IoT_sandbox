@@ -56,8 +56,8 @@ accounts-ui
 ##############################
 
 
-static-html
-# blaze-html-templates    # Compile .html files into Meteor Blaze views
+# static-html
+blaze-html-templates    # Compile .html files into Meteor Blaze views
 # react-template-helper
 # twbs:bootstrap
 
