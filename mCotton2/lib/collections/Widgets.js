@@ -11,6 +11,10 @@ const schema = new SimpleSchema({
     deviceId : { type: String },
 
     widget: {
+        type: String, label: "Widget Name",
+    },
+
+    widgetType: {
         type: String, label: "Widget type",
     },
 

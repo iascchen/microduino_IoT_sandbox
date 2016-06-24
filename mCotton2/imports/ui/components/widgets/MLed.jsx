@@ -11,13 +11,13 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {orange500, grey500} from 'material-ui/styles/colors';
 
-import SettingDialog from '../dashboard/SettingDialog';
-
 const styles = {
     title: {
         margin: 10,
     },
     div: {
+        height: 120,
+        width: 80,
         marginTop: 10,
         marginLeft: 5,
         marginRight: 5,
@@ -43,30 +43,26 @@ class MLed extends Component {
         super(props);
 
         this.state = {
-            on: this.props.on ? this.props.on : false,
+            on: false,
 
             title: this.props.widget.title ? this.props.widget.title : "LED",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
     componentWillReceiveProps(nextProps) {
-        // console.log('componentWillReceiveProps');
-
         this.getCheckPropsSource(nextProps);
     }
 
     getCheckPropsSource(props) {
-        if (! props.datas || ! props.datas[0]) {
+        if (!props.datas || !props.datas[0]) {
             return;
         }
 
         console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
 
         try {
-            let value = props.datas[0].payload[props.source];
+            let value = "" + props.datas[0].payload[props.source];
             if (value) {
                 let ret = JSON.parse(value);
                 console.log("getCheckPropsSource", this.state.on, ret);
@@ -80,34 +76,13 @@ class MLed extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider />
-
-                <div style={styles.div}>
-                    <ActionLightbulbOutline
-                        style={styles.icon}
-                        color={ this.state.on ? this.state.color : grey500 }/>
-                </div>
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        source: this.props.widget.source ? this.props.widget.source : "" }}/>
-
-            </Paper>
+            <div style={styles.div}>
+                <ActionLightbulbOutline
+                    style={styles.icon}
+                    color={ this.state.on ? this.state.color : grey500 }/>
+            </div>
         )
     }
 }

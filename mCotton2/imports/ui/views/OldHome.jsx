@@ -1,14 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
-import SwipeableViews from 'react-swipeable-views';
-
-import DataConsole from '../../ui/views/DataConsole';
-import DevicesContainer from '../../ui/container/DevicesContainer';
 
 const tilesData = [
     {
@@ -82,7 +78,7 @@ const tilesData3 = [
     }, {
         name: 'MRangeSlider',
         url: '/widgets/m_range_slider'
-    }, {
+    },{
         name: 'MColor',
         url: '/widgets/m_color'
     }, {
@@ -112,62 +108,53 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
-    slide: {
-        padding: 15,
-        color: '#fff',
-    },
-    slide1: {
-        background: '#FEA900',
-    },
-    slide2: {
-        background: '#B3DC4A',
-    },
-    slide3: {
-        background: '#6AC0FF',
-    },
 };
 
-export default class Home extends Component {
+const OldHome = ({content}) => (
+    <Tabs>
+        <Tab label="House Status" >
+            <DataConsole />
+        </Tab>
+        <Tab label="Devices" >
+            <DevicesContainer />
+        </Tab>
+        <Tab label="Widgets Test" >
+            <DevicesContainer />
+        </Tab>
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            slideIndex: 0,
-        };
-    };
+    <div >
+        {tilesData.map((tile) => (
+        <RaisedButton
+            label={tile.name}
+            linkButton={true}
+            href={tile.url}
+            style={styles.button}
+            secondary={true}
+        />
+            ))}
 
-    handleChange(value) {
-        this.setState({
-            slideIndex: value,
-        });
-    };
+        <Divider />
 
-    render() {
-        return (
-            <div>
-                <Tabs
-                    onChange={this.handleChange.bind(this)}
-                    value={this.state.slideIndex}
-                >
-                    <Tab label="House Status" value={0}/>
-                    <Tab label="Devices" value={1}/>
-                    <Tab label="Discover" value={2}/>
-                </Tabs>
-                <SwipeableViews
-                    index={this.state.slideIndex}
-                    onChangeIndex={this.handleChange}
-                >
-                    <div style={styles.slide}>
-                        <DataConsole />
-                    </div>
-                    <div style={styles.slide}>
-                        <DevicesContainer />
-                    </div>
-                    <div style={styles.slide}>
-                        <ProjectsContainer />
-                    </div>
-                </SwipeableViews>
-            </div>
-        )
-    };
-};
+        {tilesData2.map((tile) => (
+        <RaisedButton
+            label={tile.name}
+            linkButton={true}
+            href={tile.url}
+            style={styles.button}
+        />
+            ))}
+
+        <Divider />
+
+        {tilesData3.map((tile) => (
+        <RaisedButton
+            label={tile.name}
+            linkButton={true}
+            href={tile.url}
+            style={styles.button}
+        />
+            ))}
+    </div>
+);
+
+export default OldHome;

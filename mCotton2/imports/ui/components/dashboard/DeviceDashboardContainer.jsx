@@ -5,11 +5,11 @@
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import C_Devices from '../../../lib/collections/Devices';
-import C_MessageDatas from '../../../lib/collections/MessageDatas';
-import C_Widgets from '../../../lib/collections/Widgets';
+import C_Devices from '../../../../lib/collections/Devices';
+import C_MessageDatas from '../../../../lib/collections/MessageDatas';
+import C_Widgets from '../../../../lib/collections/Widgets';
 
-import DeviceDashboard from '../components/dashboard/DeviceDashboard';
+import DeviceDashboard from './DeviceDashboard';
 
 export default DeviceDashboardContainer = createContainer(({ params }) => {
     const { id } = params;
@@ -42,6 +42,6 @@ export default DeviceDashboardContainer = createContainer(({ params }) => {
         widgets,
 
         cols: 4,
-        cellHeight: 120
+        cellHeight: 180
     };
 }, DeviceDashboard);

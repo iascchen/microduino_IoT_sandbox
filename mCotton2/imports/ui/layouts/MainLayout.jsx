@@ -1,4 +1,5 @@
 import React from 'react';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -6,6 +7,7 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
+import ActionHome from 'material-ui/svg-icons/action/home';
 import ActionAccountBox from 'material-ui/svg-icons/action/account-box';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
@@ -16,30 +18,58 @@ const darkMuiTheme = getMuiTheme(darkBaseTheme);
 
 //import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
+const styles = {
+    title: {
+        cursor: 'pointer',
+    },
+};
+
+const handleTouchTap = () => {
+    alert('onTouchTap triggered on the title component');
+};
+
+const handleHome = () => {
+    FlowRouter.go(FlowRouter.path("Home"));
+};
+
+const renderHeader = () => {
+    return (
+        <AppBar
+            title="mCotton 2.0"
+            onTitleTouchTap={handleTouchTap}
+            iconElementLeft={<IconButton onClick={handleHome}><ActionHome /></IconButton>}
+            iconElementRight={
+                        Meteor.userId() ?
+                        <FlatButton label="Logout" icon={<ActionAccountBox />} onClick={Meteor.logout} /> :
+                        <FlatButton label="Login" icon={<ActionAccountBox />} linkButton={true} href="/login" />
+                    }
+        />
+    )
+};
+
+const renderFooter = () => {
+    //return (
+    //    <Toolbar float="right">
+    //        <ToolbarGroup float="right">
+    //            <IconButton><ActionSettings /></IconButton>
+    //        </ToolbarGroup>
+    //    </Toolbar>
+    //)
+
+};
 
 const MainLayout = ({content}) => (
     <div className="main-layout">
         <MuiThemeProvider muiTheme={lightMuiTheme}>
             <div>
                 <header>
-                    <AppBar
-                        title="mCotton 2.0"
-                        iconElementRight={
-                        Meteor.userId() ?
-                        <FlatButton label="Logout" icon={<ActionAccountBox />} onClick={Meteor.logout} /> :
-                        <FlatButton label="Login" icon={<ActionAccountBox />} linkButton={true} href="/login" />
-                    }
-                    />
+                    {renderHeader()}
                 </header>
                 <main>
                     {content}
                 </main>
                 <footer>
-                    <Toolbar float="right">
-                        <ToolbarGroup float="right">
-                            <IconButton><ActionSettings /></IconButton>
-                        </ToolbarGroup>
-                    </Toolbar>
+                    {renderFooter()}
                 </footer>
             </div>
         </MuiThemeProvider>

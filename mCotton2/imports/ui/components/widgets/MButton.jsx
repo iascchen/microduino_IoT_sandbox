@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
-import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -49,8 +49,6 @@ class MButton extends Component {
         this.state = {
             title: this.props.widget.title ? this.props.widget.title : "Button",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -65,37 +63,17 @@ class MButton extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
+            <FloatingActionButton
+                fullWidth={true}
+                style={styles.button}
+                onTouchTap={this.handleButton.bind(this)}
+            >
 
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
+                <ActionPowerSettingsNew style={styles.icon}/>
 
-                <Divider />
-
-                <RaisedButton
-                    fullWidth={true}
-                    style={styles.button}
-                    onTouchTap={this.handleButton.bind(this)}
-                >
-
-                    <ActionPowerSettingsNew style={styles.icon}/>
-
-                </RaisedButton>
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            </FloatingActionButton>
         )
     }
 }

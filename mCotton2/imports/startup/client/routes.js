@@ -9,7 +9,7 @@ import MainLayout from '../../ui/layouts/MainLayout';
 import Home from '../../ui/views/Home';
 import House from '../../ui/views/House';
 import DataConsole from '../../ui/views/DataConsole';
-import DeviceDashboardContainer from '../../ui/container/DeviceDashboardContainer';
+import DeviceDashboardContainer from '../../ui/components/dashboard/DeviceDashboardContainer';
 
 //import ProjectsList from '../../ui/components/lists/ProjectsList';
 //import DevicesList from '../../ui/components/lists/DevicesList';
@@ -26,6 +26,7 @@ import DeviceDashboardContainer from '../../ui/container/DeviceDashboardContaine
 //import MTerminal from '../../ui/components/widgets/MTerminal';
 
 FlowRouter.route("/", {
+    name: 'Home',
     action() {
         mount(MainLayout, {
             content: (<Home />)

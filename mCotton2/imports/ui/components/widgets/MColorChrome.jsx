@@ -38,13 +38,11 @@ class MColorChrome extends Component {
         this.state = {
             title: this.props.widget.title ? this.props.widget.title : "Color",
             color: this.props.widget.color ? this.props.widget.color : "#00ff00", // TODO, use microduino green
-
-            openSetting: false,
         };
     }
 
     handleChange(color) {
-        console.log("color" , color.hex);
+        console.log("color", color.hex);
 
         this.setState({ color: color.hex });
 
@@ -57,33 +55,12 @@ class MColorChrome extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider />
-
-                <div style={styles.color}>
-                    <ChromePicker
-                        color={ this.state.color }
-                        onChange={ this.handleChange.bind(this) }
-                    />
-                </div>
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+                <ChromePicker
+                    color={ this.state.color }
+                    onChange={ this.handleChange.bind(this) }
+                />
         )
     }
 }

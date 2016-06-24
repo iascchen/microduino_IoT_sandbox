@@ -54,13 +54,11 @@ class MTerminal extends Component {
 
         this.state = {
             outputRows: this.props.outputRows ? this.props.outputRows : 6,
-            output: this.props.output ? this.props.output : ["Welcome to Microduino\n","==========\n","\n"],
+            output: this.props.output ? this.props.output : ["Welcome to Microduino\n", "==========\n", "\n"],
             input: this.props.input ? this.props.input : "",
 
             title: this.props.widget.title ? this.props.widget.title : "Terminal",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -71,7 +69,7 @@ class MTerminal extends Component {
     }
 
     getCheckPropsSource(props) {
-        if (! props.datas || ! props.datas[0]) {
+        if (!props.datas || !props.datas[0]) {
             return;
         }
 
@@ -129,21 +127,12 @@ class MTerminal extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
+            <div>
 
                 <TextField
-                    id={"" + this.props.widgetIndex + "o"}
+                    id={"o" + this.props.widgetIndex}
                     style={styles.output}
                     multiLine={true}
                     rows={this.state.outputRows}
@@ -156,7 +145,7 @@ class MTerminal extends Component {
                 <Divider/>
 
                 <TextField
-                    id={"" + this.props.widgetIndex + "i"}
+                    id={"i" + this.props.widgetIndex}
                     hintText=">"
                     fullWidth={true}
                     multiLine={true}
@@ -165,15 +154,7 @@ class MTerminal extends Component {
                     value={this.state.input}
                     onChange={this.handleChange.bind(this)}
                 />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        source: this.props.widget.source ? this.props.widget.source : "",
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            </div>
         )
     }
 }

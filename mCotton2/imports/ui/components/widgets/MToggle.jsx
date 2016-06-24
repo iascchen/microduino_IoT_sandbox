@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ActionLightbulbOutline from 'material-ui/svg-icons/action/lightbulb-outline';
-import RaisedButton from 'material-ui/RaisedButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -48,8 +48,6 @@ class MToggle extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Toggle",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -70,40 +68,17 @@ class MToggle extends Component {
         }
     };
 
-    handleSettingOpen(event) {
-        // TODO
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
+            <FloatingActionButton
+                fullWidth={true}
+                style={styles.button}
+                onTouchTap={this.handleToggle.bind(this)}
+                backgroundColor={this.state.toggled ? this.state.color : grey500}
+            >
+                <ActionLightbulbOutline style={styles.icon}/>
 
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-                <Divider />
-
-                <RaisedButton
-                    fullWidth={true}
-                    style={styles.button}
-                    onTouchTap={this.handleToggle.bind(this)}
-                >
-
-                    <ActionLightbulbOutline
-                        style={styles.icon}
-                        color={this.state.toggled ? this.state.color : grey500}/>
-
-                </RaisedButton>
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-
-            </Paper>
+            </FloatingActionButton>
         )
     }
 }

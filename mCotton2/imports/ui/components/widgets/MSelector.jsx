@@ -39,8 +39,6 @@ class MSelector extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Selector",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -58,10 +56,6 @@ class MSelector extends Component {
             entity[this.props.widget.target] = value;
             let wId = Meteor.call('control.add', entity);
         }
-    };
-
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
     };
 
     getSelectorItems(device, widget) {
@@ -89,29 +83,14 @@ class MSelector extends Component {
 
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
-
-                <SelectField
-                    style={styles.input}
-                    fullWidth={true}
-                    value={this.state.value}
-                    onChange={this.handleChange.bind(this)}
-                >
-                    {this.getSelectorItems(this.props.device, this.props.widget)}
-                </SelectField>
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            <SelectField
+                style={styles.input}
+                fullWidth={true}
+                value={this.state.value}
+                onChange={this.handleChange.bind(this)}
+            >
+                {this.getSelectorItems(this.props.device, this.props.widget)}
+            </SelectField>
         )
     }
 }

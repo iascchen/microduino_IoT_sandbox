@@ -63,31 +63,20 @@ class MDatePicker extends Component {
         this.setState({ openSetting: true });
     };
 
+    handleSettingClose() {
+        this.setState({ openSetting: false });
+    };
+
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
-
-                <DatePicker
-                    style={styles.time}
-                    fullWidth={true}
-                    autoOk={true}
-                    hintText="Date"
-                    value={this.state.controlledDate}
-                    onChange={this.handleChange.bind(this)}
-                />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            <DatePicker
+                style={styles.time}
+                fullWidth={true}
+                autoOk={true}
+                hintText="Date"
+                value={this.state.controlledDate}
+                onChange={this.handleChange.bind(this)}
+            />
         )
     }
 }

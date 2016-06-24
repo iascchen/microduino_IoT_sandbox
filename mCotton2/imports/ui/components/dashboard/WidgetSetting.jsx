@@ -109,11 +109,6 @@ class WidgetSetting extends Component {
     }
 
     handleSourceFieldChange(event, index, value) {
-        // event.preventDefault();
-        // event.persist();
-
-        // console.log("handleSourceFieldChange", index, value);
-
         this.setState({
             sourceValue: value,
         });
@@ -122,11 +117,6 @@ class WidgetSetting extends Component {
     };
 
     handleTargetFieldChange(event, index, value) {
-        // event.preventDefault();
-        // event.persist();
-
-        // console.log("handleTargetFieldChange", index, value);
-
         this.setState({
             targetValue: value,
         });
@@ -135,8 +125,12 @@ class WidgetSetting extends Component {
     };
 
     renderSources() {
+        // console.log("renderSources" , this.props.device.deviceProfile);
+
         if (this.props.source !== undefined) {
             const dataSources = parseSources(this.props.device.deviceProfile);
+
+            // console.log("renderSources" , dataSources);
 
             return (
                 <div>
@@ -154,8 +148,12 @@ class WidgetSetting extends Component {
     }
 
     renderTargets() {
+        console.log("renderTargets" , this.props.device.deviceProfile);
+
         if (this.props.target !== undefined) {
             const targets = parseTargets(this.props.device.deviceProfile);
+
+            console.log("renderTargets" , targets);
 
             return (
                 <div>
@@ -173,10 +171,13 @@ class WidgetSetting extends Component {
     }
 
     render() {
+        console.log(this.props.widget);
         return (
             <div>
                 <div style={styles.title}>
-                    {this.state.title}
+                    {this.props.device.name}
+                    <br/>
+                    {this.props.widget.title}
                 </div>
 
                 {this.renderSources()}

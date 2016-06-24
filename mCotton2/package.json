@@ -2,7 +2,8 @@
   "name": "mCotton2",
   "private": true,
   "scripts": {
-    "start": "meteor --port 8000 --settings setting/dev.json"
+    "start": "meteor --port 8000 --settings setting/dev.json",
+    "startios": "meteor --port 8000 --settings setting/dev.json ios-device"
   },
   "dependencies": {
     "babel-eslint": "^6.1.0",
@@ -20,8 +21,10 @@
     "react-bootstrap": "^0.29.4",
     "react-color": "^2.2.0",
     "react-dom": "^15.1.0",
+    "react-motion": "^0.4.4",
     "react-mounter": "^1.2.0",
     "react-router": "^2.5.0",
+    "react-swipeable-views": "^0.6.2",
     "react-tap-event-plugin": "^1.0.0",
     "reactrangeslider": "^2.0.0",
     "utf-8-validate": "^1.2.1"

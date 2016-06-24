@@ -22,7 +22,7 @@ import { MSG_DATA, MSG_CONTROL, MSG_EVENT } from '../../../../lib/constants';
 import C_Devices from '../../../../lib/collections/Devices';
 import C_Widgets from '../../../../lib/collections/Widgets';
 
-import { WidgetList } from '../../components/widgets/WidgetList';
+import WidgetList from '../../components/widgets/WidgetList';
 import WidgetContainer from './WidgetContainer';
 
 import {
@@ -45,6 +45,9 @@ const styles = {
         width: 480,
         overflowY: 'auto',
         marginBottom: 24,
+    },
+    gridTile: {
+        borderStyle: 'solid'
     },
     checkbox: {
         marginBottom: 16,
@@ -144,9 +147,9 @@ export default class DeviceDashboard extends Component {
                     cellHeight={this.props.cellHeight}>
 
                     {this.props.widgets.map((widget, widgetIndex) => (
-                    <GridTile style={styles.gridTile} key={widget._id} cols={widget.cols}
+                    <GridTile style={styles.gridTile} key={"G_" + widget._id} cols={widget.cols}
                               rows={widget.rows}>
-                        <WidgetContainer key={widget._id}
+                        <WidgetContainer
                             params={{widgetIndex,
                             widget,
                             device:this.props.device,

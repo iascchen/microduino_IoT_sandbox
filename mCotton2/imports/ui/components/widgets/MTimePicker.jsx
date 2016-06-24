@@ -39,8 +39,6 @@ class MTimePicker extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Time",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -58,19 +56,8 @@ class MTimePicker extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
-
                 <TimePicker
                     style={styles.time}
                     fullWidth={true}
@@ -80,14 +67,6 @@ class MTimePicker extends Component {
                     value={this.state.value24}
                     onChange={this.handleChangeTimePicker24.bind(this)}
                 />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
         )
     }
 }

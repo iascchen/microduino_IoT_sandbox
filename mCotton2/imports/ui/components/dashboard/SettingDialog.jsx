@@ -32,7 +32,8 @@ class SettingDialog extends Component {
         super(props);
 
         this.state = {
-            openSetting: this.props.openSetting,
+            widgetId: this.props.widget._id,
+            openSetting: false,
         };
     }
 
@@ -46,6 +47,10 @@ class SettingDialog extends Component {
 
     handleSettingClose() {
         this.setState({ openSetting: false });
+
+        //console.log("refs", this.refs);
+        //let w = this.refs["W_" + this.props.widget._id];
+        //w.handleSettingClose();
     };
 
     render() {
@@ -53,12 +58,13 @@ class SettingDialog extends Component {
             <FlatButton
                 label="OK"
                 primary={true}
-                onTouchTap={this.handleSettingClose.bind(this)}
+                onTouchTap={this.handleSettingOpen.bind(this)}
             />,
         ];
 
         return (
             <Dialog
+                id={"D_" + this.props.widget._id}
                 style={styles.dialog}
                 title={this.props.title}
                 actions={actions}

@@ -38,8 +38,6 @@ class MInput extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Input",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -65,37 +63,18 @@ class MInput extends Component {
         }
     }
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
-
-                <TextField
-                    id={"" + this.props.widgetIndex}
-                    style={styles.input}
-                    hintText=">"
-                    fullWidth={true}
-                    multiLine={false}
-                    value={this.state.input}
-                    onChange={this.handleChange.bind(this)}
-                    onBlur={this.handleBlur.bind(this)}
-                />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            <TextField
+                id={"o" + this.props.widgetIndex}
+                style={styles.input}
+                hintText=">"
+                fullWidth={true}
+                multiLine={false}
+                value={this.state.input}
+                onChange={this.handleChange.bind(this)}
+                onBlur={this.handleBlur.bind(this)}
+            />
         )
     }
 }

@@ -43,8 +43,6 @@ class MOutput extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Output",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -55,7 +53,7 @@ class MOutput extends Component {
     }
 
     getCheckPropsSource(props) {
-        if (! props.datas || ! props.datas[0]) {
+        if (!props.datas || !props.datas[0]) {
             return;
         }
 
@@ -76,38 +74,18 @@ class MOutput extends Component {
         }
     };
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title}</RaisedButton>
-
-                <Divider/>
-
-                <TextField
-                    id={"" + this.props.widgetIndex}
-                    style={styles.output}
-                    multiLine={true}
-                    rows={this.state.outputRows}
-                    rowsMax={this.state.outputRows}
-                    underlineShow={false}
-                    disabled={true}
-                    value={this.state.output.join('')}
-                />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        source: this.props.widget.source ? this.props.widget.source : "" }}/>
-
-            </Paper>
+            <TextField
+                id={"o" + this.props.widgetIndex}
+                style={styles.output}
+                multiLine={true}
+                rows={this.state.outputRows}
+                rowsMax={this.state.outputRows}
+                underlineShow={false}
+                disabled={true}
+                value={this.state.output.join('')}
+            />
         )
     }
 }

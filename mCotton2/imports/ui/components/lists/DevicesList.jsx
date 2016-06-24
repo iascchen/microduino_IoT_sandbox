@@ -36,7 +36,7 @@ export default class DevicesList extends Component {
 
                 {this.props.entities.map((entity) => (
                 <ListItem style={style} key={entity._id}
-                          primaryText={entity.name + " , by " + entity._id}
+                          primaryText={entity.name + " , " + entity._id}
                           secondaryText={entity.desc}
                           leftAvatar={<Avatar size={48} src="/imgs/device.png" />}
                           onClick={this.selectEntity.bind(this, entity._id)}

@@ -43,8 +43,6 @@ class MSlider extends Component {
 
             title: this.props.widget.title ? this.props.widget.title : "Slider",
             color: this.props.widget.color ? this.props.widget.color : orange500,
-
-            openSetting: false,
         };
     }
 
@@ -70,36 +68,17 @@ class MSlider extends Component {
         }
     }
 
-    handleSettingOpen() {
-        this.setState({ openSetting: true });
-    };
-
     render() {
         return (
-            <Paper style={styles.paper} zDepth={2}>
-                <RaisedButton style={styles.title}
-                              fullWidth={true}
-                              onTouchTap={this.handleSettingOpen.bind(this)}>{this.state.title} : {this.state.value}</RaisedButton>
-
-                <Divider/>
-
-                <Slider
-                    style={styles.slider}
-                    min={this.state.min}
-                    max={this.state.max}
-                    step={this.state.step}
-                    value={this.state.value}
-                    onChange={this.handleChange.bind(this)}
-                    onBlur={this.handleBlur.bind(this)}
-                />
-
-                <SettingDialog
-                    openSetting={this.state.openSetting}
-                    params={{
-                        device: this.props.device,
-                        widget: this.props.widget,
-                        target: this.props.widget.target ? this.props.widget.target : "" }}/>
-            </Paper>
+            <Slider
+                style={styles.slider}
+                min={this.state.min}
+                max={this.state.max}
+                step={this.state.step}
+                value={this.state.value}
+                onChange={this.handleChange.bind(this)}
+                onBlur={this.handleBlur.bind(this)}
+            />
         )
     }
 }
