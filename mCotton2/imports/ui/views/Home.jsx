@@ -9,6 +9,7 @@ import SwipeableViews from 'react-swipeable-views';
 
 import DataConsole from '../../ui/views/DataConsole';
 import DevicesContainer from '../../ui/container/DevicesContainer';
+import Affix from '../components/affix';
 
 const tilesData = [
     {
@@ -145,17 +146,19 @@ export default class Home extends Component {
     render() {
         return (
             <div>
-                <Tabs
-                    onChange={this.handleChange.bind(this)}
-                    value={this.state.slideIndex}
-                >
-                    <Tab label="House Status" value={0}/>
-                    <Tab label="Devices" value={1}/>
-                    <Tab label="Discover" value={2}/>
-                </Tabs>
+                <Affix offset={64}>
+                    <Tabs
+                        onChange={this.handleChange.bind(this)}
+                        value={this.state.slideIndex}
+                    >
+                        <Tab label="House Status" value={0}/>
+                        <Tab label="Devices" value={1}/>
+                        <Tab label="Discover" value={2}/>
+                    </Tabs>
+                </Affix>
                 <SwipeableViews
                     index={this.state.slideIndex}
-                    onChangeIndex={this.handleChange}
+                    onChangeIndex={this.handleChange.bind(this)}
                 >
                     <div style={styles.slide}>
                         <DataConsole />

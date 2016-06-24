@@ -44,3 +44,18 @@ container { // temp: will be component later
 		}
 	}
 }
+
+#AffixContainer {
+	&.affix {
+		> .fix {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			z-index: 9999;
+		}
+		> .spacer {
+			height: 48px;
+		}
+	}
+}
