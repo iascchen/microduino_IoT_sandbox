@@ -19,7 +19,7 @@ export default ControlsContainer = createContainer(() => {
     const entitiesCount = C_MessageDatas.find({ msgType: MSG_CONTROL }).count();
 
     return {
-        title: "Controls",
+        title: "Recent controls between devices",
         iconColor: orange300,
         iconText: "C",
 

@@ -11,7 +11,18 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 
-const style = { margin: 10 };
+const styles = {
+    title: {
+        margin: 10,
+    },
+    list: {
+        margin: 5,
+    },
+    wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+};
 
 export default class ProjectsList extends Component {
 
@@ -29,11 +40,13 @@ export default class ProjectsList extends Component {
 
         return (
             <List>
-                <Divider/>
-                <Subheader>Projects : {this.props.entitiesCount}</Subheader>
+                <Subheader style={styles.title}>
+                    {this.props.entitiesCount} awesome projects are waiting for you.
+                </Subheader>
                 <Divider inset={true}/>
+
                 {this.props.entities.map((entity) => (
-                <ListItem style={style} key={entity._id}
+                <ListItem style={styles.list} key={entity._id}
                           primaryText={entity.name + " , by " + entity.authorName}
                           secondaryText={entity.desc}
                           leftAvatar={<Avatar size={48} src="/imgs/project.png" />}

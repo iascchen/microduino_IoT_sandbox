@@ -19,7 +19,7 @@ export default EventsContainer = createContainer(() => {
     const entitiesCount = C_MessageDatas.find({ msgType: MSG_EVENT }).count();
 
     return {
-        title: "Events",
+        title: "Recent events in your house",
         iconColor: pink300,
         iconText: "E",
 

@@ -8,9 +8,9 @@ import EventsContainer from '../container/EventsContainer';
 
 const DataConsole = ({content}) => (
     <div >
-        <ControlsContainer />
-        <Divider />
         <EventsContainer />
+        <Divider />
+        <ControlsContainer />
         <Divider />
         <DatasContainer />
     </div>

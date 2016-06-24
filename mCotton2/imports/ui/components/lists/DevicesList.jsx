@@ -12,7 +12,18 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 
-const style = { margin: 10 };
+const styles = {
+    title: {
+        margin: 10,
+    },
+    list: {
+        margin: 5,
+    },
+    wrapper: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+};
 
 export default class DevicesList extends Component {
 
@@ -29,22 +40,25 @@ export default class DevicesList extends Component {
         }
 
         return (
-            <List>
-                <Divider/>
-                <Subheader>Devices : {this.props.entitiesCount}</Subheader>
-                <Divider inset={true}/>
+            <div>
+                <List>
+                    <Subheader style={styles.title}>
+                        Your already have {this.props.entitiesCount} devices.
+                    </Subheader>
+                    <Divider inset={true}/>
 
-                {this.props.entities.map((entity) => (
-                <ListItem style={style} key={entity._id}
-                          primaryText={entity.name + " , " + entity._id}
-                          secondaryText={entity.desc}
-                          leftAvatar={<Avatar size={48} src="/imgs/device.png" />}
-                          onClick={this.selectEntity.bind(this, entity._id)}
-                >
-                </ListItem>
-                    ))}
+                    {this.props.entities.map((entity) => (
+                    <ListItem style={styles.list} key={entity._id}
+                              primaryText={entity.name + " , " + entity._id}
+                              secondaryText={entity.desc}
+                              leftAvatar={<Avatar size={48} src="/imgs/device.png" />}
+                              onClick={this.selectEntity.bind(this, entity._id)}
+                    >
+                    </ListItem>
+                        ))}
 
-            </List>
+                </List>
+            </div>
         )
     }
 }

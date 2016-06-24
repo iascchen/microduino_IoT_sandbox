@@ -19,7 +19,7 @@ export default ControlsContainer = createContainer(() => {
     const entitiesCount = C_MessageDatas.find({ msgType: MSG_DATA }).count();
 
     return {
-        title: "Datas",
+        title: "Recent data uploaded",
         iconColor: blue300,
         iconText: "D",
 

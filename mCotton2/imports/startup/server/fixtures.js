@@ -448,8 +448,8 @@ if (C_Widgets.find().count() == 0) {
             rows: 1, cols: 2 },
         { deviceId: device_7, widget: 'MSelector', widgetType:'i',target: "mode", title: 'Mode Selected',
             rows: 1, cols: 4 },
-        { deviceId: device_7, widget: 'MColorChrome', widgetType:'i',target: "color", title: 'Color',
-            rows: 4, cols: 4 },
+        { deviceId: device_7, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
+            rows: 2, cols: 4 },
         {
             deviceId: device_7, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
             rows: 1, cols: 4,
@@ -556,8 +556,8 @@ if (C_Widgets.find().count() == 0) {
             rows: 1, cols: 4 },
         { deviceId: device_12, widget: 'MSelector', widgetType:'i',target: "mode", title: 'Mode Selected',
             rows: 1, cols: 4 },
-        { deviceId: device_12, widget: 'MColorChrome', widgetType:'i',target: "color", title: 'Color',
-            rows: 4, cols: 4 },
+        { deviceId: device_12, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
+            rows: 2, cols: 4 },
         {
             deviceId: device_12, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
             rows: 1, cols: 4,
