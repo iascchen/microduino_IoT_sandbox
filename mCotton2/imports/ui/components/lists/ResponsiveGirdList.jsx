@@ -34,6 +34,10 @@ export class ResponsiveGirdList extends Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
+        if (this.last_refresh !== nextProps.refresh) {
+            return true;
+        }
+        this.last_refresh = nextProps.refresh;
         return nextState.cols !== this.state.cols;
     }
 
@@ -48,7 +52,7 @@ export class ResponsiveGirdList extends Component {
 
     render() {
         return (
-            <container type="page">
+            <container id={this.props.id} type="page">
                 <GridList cols={this.state.cols}>
                     {this.props.children}
                 </GridList>
@@ -69,7 +73,7 @@ export class ResponsiveGirdTile extends Component {
         const rows = this.props.rows || type.rows || control.rows;
 
         return (
-            <GridTile cols={cols} rows={rows}>
+            <GridTile rows={rows} cols={-1}>
                 {control}
             </GridTile>
         );
@@ -78,4 +82,6 @@ export class ResponsiveGirdTile extends Component {
 
 ResponsiveGirdTile.propTypes = {
     control: PropTypes.object,
+    cols: PropTypes.number,
+    rows: PropTypes.number,
 };

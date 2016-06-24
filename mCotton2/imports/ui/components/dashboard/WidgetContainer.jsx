@@ -27,16 +27,16 @@ import MWdigets from './../widgets';
 import WidgetSetting from './WidgetSetting';
 
 const styles = {
+    mWidget: {
+        height: '100%',
+        overflow: 'hidden',
+        display: 'flex',
+    },
     title: {
         margin: 10,
     },
     drawer: {
         margin: 10,
-    },
-    gridList: {
-        width: 480,
-        overflowY: 'auto',
-        marginBottom: 24,
     },
     checkbox: {
         marginBottom: 16,
@@ -129,7 +129,7 @@ class WidgetContainer extends Component {
         const SubWidget = MWdigets[widgetName];
 
         return (
-            <div>
+            <div className="mWidget" style={styles.mWidget}>
                 <MPaper>
 
                     <FlatButton style={styles.title}
@@ -140,7 +140,7 @@ class WidgetContainer extends Component {
                     <Divider />
 
                     <div style={styles.div}>
-                        <SubWidget {...props}></SubWidget>
+                        <SubWidget {...props} />
                     </div>
 
                 </MPaper>

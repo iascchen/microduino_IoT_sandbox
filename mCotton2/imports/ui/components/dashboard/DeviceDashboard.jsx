@@ -1,6 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
+import React, {Component, PropTypes} from 'react';
+import {Meteor} from 'meteor/meteor';
+import {FlowRouter} from 'meteor/kadira:flow-router';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -16,8 +16,9 @@ import Checkbox from 'material-ui/Checkbox';
 import AvLibraryAdd from '../../../../node_modules/material-ui/svg-icons/av/library-add';
 import ActionDeleteForever from '../../../../node_modules/material-ui/svg-icons/action/delete-forever';
 import ContentClear from '../../../../node_modules/material-ui/svg-icons/content/clear';
+import {ResponsiveGirdList, ResponsiveGirdTile} from '../lists/ResponsiveGirdList';
 
-import { MSG_DATA, MSG_CONTROL, MSG_EVENT } from '../../../../lib/constants';
+import {MSG_DATA, MSG_CONTROL, MSG_EVENT} from '../../../../lib/constants';
 
 import C_Devices from '../../../../lib/collections/Devices';
 import C_Widgets from '../../../../lib/collections/Widgets';
@@ -33,6 +34,11 @@ import {
     pink400,
     purple500,
 } from '../../../../node_modules/material-ui/styles/colors';
+
+const breakPoints = {
+    4: 480,
+    8: Infinity,
+};
 
 const styles = {
     title: {
@@ -122,6 +128,7 @@ export default class DeviceDashboard extends Component {
     }
 
     render() {
+        const props = this.props;
         if (this.props.widgetLoading && this.props.deviceLoading) {
             return (<CircularProgress />);
         }
@@ -129,6 +136,17 @@ export default class DeviceDashboard extends Component {
         if (!this.props.deviceExists) {
             return (<div>No Device</div>);
         }
+
+        let currentWidgetList = props.widgets.map((widget, widgetIndex) => {
+            return <ResponsiveGirdTile key={"G_" + widget._id} cols={widget.cols}>
+                <WidgetContainer
+                    params={{widgetIndex,
+                            widget,
+                            device:props.device,
+                            datas:props.datas,
+                            loading:props.deviceLoading && props.widgetLoading}}/>
+            </ResponsiveGirdTile>;
+        });
 
         return (
             <div>
@@ -141,24 +159,11 @@ export default class DeviceDashboard extends Component {
                     </ToolbarGroup>
                 </Toolbar>
 
-                <GridList
-                    style={styles.gridList}
-                    cols={this.props.cols}
-                    cellHeight={this.props.cellHeight}>
+                <ResponsiveGirdList breakpoints={breakPoints} refresh={Date.now()}>
 
-                    {this.props.widgets.map((widget, widgetIndex) => (
-                    <GridTile style={styles.gridTile} key={"G_" + widget._id} cols={widget.cols}
-                              rows={widget.rows}>
-                        <WidgetContainer
-                            params={{widgetIndex,
-                            widget,
-                            device:this.props.device,
-                            datas:this.props.datas,
-                            loading:this.props.deviceLoading && this.props.widgetLoading}}/>
-                    </GridTile>
-                        ))}
+                    {currentWidgetList}
 
-                </GridList>
+                </ResponsiveGirdList>
 
                 <Drawer style={styles.drawer} docked={false} open={this.state.addDrawerOpen}
                         onRequestChange={this.handleAddCompDrawerRequestChange.bind(this)}>
@@ -167,15 +172,15 @@ export default class DeviceDashboard extends Component {
                     <Divider />
 
                     {WidgetList.map((item, index) => (
-                    <MenuItem
-                        key={index}
-                        value={index}
-                        onTouchTap={this.handleAddCompDrawerClose.bind(this , index)}
-                        style={styles.menu}
-                    >
-                        {item.title}
-                    </MenuItem>
-                        ))}
+                        <MenuItem
+                            key={index}
+                            value={index}
+                            onTouchTap={this.handleAddCompDrawerClose.bind(this , index)}
+                            style={styles.menu}
+                        >
+                            {item.title}
+                        </MenuItem>
+                    ))}
 
                 </Drawer>
 
@@ -185,16 +190,16 @@ export default class DeviceDashboard extends Component {
                     <Divider />
 
                     {this.props.widgets.map((widget, index) => (
-                    <MenuItem
-                        key={widget._id}
-                        value={widget._id}
-                        rightIcon={<ContentClear />}
-                        onTouchTap={this.handleDelCompDrawerSelected.bind(this , widget._id)}
-                        style={styles.menu}
-                    >
-                        {widget.title}
-                    </MenuItem>
-                        ))}
+                        <MenuItem
+                            key={widget._id}
+                            value={widget._id}
+                            rightIcon={<ContentClear />}
+                            onTouchTap={this.handleDelCompDrawerSelected.bind(this , widget._id)}
+                            style={styles.menu}
+                        >
+                            {widget.title}
+                        </MenuItem>
+                    ))}
                 </Drawer>
             </div>
         )
