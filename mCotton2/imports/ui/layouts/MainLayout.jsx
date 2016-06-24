@@ -12,6 +12,10 @@ import ActionAccountBox from 'material-ui/svg-icons/action/account-box';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import IconButton from 'material-ui/IconButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 const darkMuiTheme = getMuiTheme(darkBaseTheme);
@@ -25,11 +29,42 @@ const styles = {
 };
 
 const handleTouchTap = () => {
-    alert('onTouchTap triggered on the title component');
+    // alert('onTouchTap triggered on the title component');
 };
 
 const handleHome = () => {
     FlowRouter.go(FlowRouter.path("Home"));
+};
+
+const handleChangeSingle = (event, value) => {
+    switch(value) {
+        case 0:
+            return FlowRouter.go(FlowRouter.path("Home"));
+        case 1:
+            return FlowRouter.go(FlowRouter.path("createDevice"));
+    }
+};
+
+const renderAppBarLeft = () => {
+    //switch (this.props.layoutMode) {
+    //    case LAYOUT_EDIT:
+    //    case LAYOUT_RUN:
+    //        return (
+    //            <IconButton onClick={this.handleClickCarousel}><ActionViewCarousel /></IconButton>
+    //        );
+    //}
+    return (
+        <IconMenu iconButtonElement={ <IconButton><NavigationMenu /></IconButton> }
+                  onChange={this.handleChangeSingle} >
+
+            <MenuItem primaryText="Home"
+                      leftIcon={<IconButton><ActionHome /></IconButton>}
+                      />
+            <MenuItem primaryText="Add Device"
+                      leftIcon={<IconButton><ActionSettings /></IconButton>}
+                      />
+        </IconMenu>
+    );
 };
 
 const renderHeader = () => {
@@ -41,6 +76,22 @@ const renderHeader = () => {
             iconElementRight={ <AccountsUIWrapper /> }
         />
     )
+
+    //// var headerTitle = this.props.headerTitle ? this.props.headerTitle : "mCotton 2.0";
+    //
+    //var menuItems = [
+    //    { route: 'ProjectList', text: 'Home' },
+    //    { route: 'customization', text: 'Customization' },
+    //    { route: 'components', text: 'Components' },
+    //];
+    //
+    //return (
+    //    <AppBar title="mCotton 2.0"
+    //            onTitleTouchTap={handleTouchTap}
+    //            iconElementLeft={renderAppBarLeft()}
+    //            iconElementRight={ <AccountsUIWrapper /> }
+    //    />
+    //)
 };
 
 const renderFooter = () => {
@@ -70,6 +121,6 @@ const MainLayout = ({content}) => (
             </div>
         </MuiThemeProvider>
     </div>
-)
+);
 
 export default MainLayout
