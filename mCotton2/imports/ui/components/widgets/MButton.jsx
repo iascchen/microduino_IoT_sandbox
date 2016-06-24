@@ -1,14 +1,15 @@
 /**
  * Created by chenhao on 16/6/17.
  */
-import React, { Component, PropTypes } from 'react';
+import React, {Component, PropTypes} from 'react';
 
-import Paper from 'material-ui/Paper';
+import MPaper from './Paper';
 import Divider from 'material-ui/Divider';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
 
@@ -17,11 +18,6 @@ import SettingDialog from '../dashboard/SettingDialog';
 const styles = {
     title: {
         margin: 10,
-    },
-    button: {
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
     },
     icon: {
         width: 30,
@@ -64,22 +60,33 @@ class MButton extends Component {
     };
 
     render() {
+        const iconProps = {
+            style: styles.icon,
+        };
+        let child = this.props.children;
+        if (child) {
+            if (!child.type || child.type.muiName !== 'SvgIcon') {
+                throw new TypeError('MToggle: children must be SvgIcon.');
+            }
+            child = React.cloneElement(child, iconProps);
+        } else {
+            child = (<ActionPowerSettingsNew {...iconProps} />);
+        }
+
         return (
-            <FloatingActionButton
+            <RaisedButton
                 fullWidth={true}
+                backgroundColor={this.props.backgroundColor}
                 style={styles.button}
                 onTouchTap={this.handleButton.bind(this)}
             >
-
-                <ActionPowerSettingsNew style={styles.icon}/>
-
-            </FloatingActionButton>
+                {child}
+            </RaisedButton>
         )
     }
 }
 
 MButton.propTypes = {
-    title: PropTypes.string,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,

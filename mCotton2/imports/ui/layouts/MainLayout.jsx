@@ -68,7 +68,7 @@ const MainLayout = ({content}) => (
                 <main>
                     {content}
                 </main>
-                <footer>
+                <footer id="pageFooter">
                     {renderFooter()}
                 </footer>
             </div>

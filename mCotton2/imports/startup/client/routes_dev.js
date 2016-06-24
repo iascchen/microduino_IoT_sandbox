@@ -1,10 +1,11 @@
 import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { mount } from 'react-mounter';
-import { Accounts } from 'meteor/accounts-base';
+import {Meteor} from 'meteor/meteor';
+import {FlowRouter} from 'meteor/kadira:flow-router';
+import {mount} from 'react-mounter';
+import {Accounts} from 'meteor/accounts-base';
 
 import MainLayout from '../../ui/layouts/MainLayout';
+import WidgetTestLayout from '../../ui/layouts/WidgetTestLayout';
 
 import Home from '../../ui/views/Home';
 import House from '../../ui/views/House';
@@ -81,7 +82,6 @@ FlowRouter.route("/selector", {
         });
     }
 });
-
 
 /********************************
  * Components
@@ -200,14 +200,21 @@ widgetsRoutes.route("/m_output", {
     }
 });
 
-
+import ActionAndroid from 'material-ui/svg-icons/action/android';
+import {orange500} from 'material-ui/styles/colors';
 widgetsRoutes.route("/m_button", {
     subscriptions: function () {
         //this.register('msg_controls', Meteor.subscribe('msg_controls'));
     },
     action() {
-        mount(MainLayout, {
-            content: (<MButton type="toggle" title="按钮"/>)
+        mount(WidgetTestLayout, {
+            children: [
+                <MButton type="toggle" title="按钮1" />,
+                <MButton type="toggle" title="按钮2" backgroundColor="green" />,
+                <MButton type="toggle" title="Android"><ActionAndroid /></MButton>,
+                <MButton type="toggle" title="按钮4" disabled="true" />,
+                <MButton type="toggle" title="按钮5" backgroundColor={orange500} />,
+            ],
         });
     }
 });
@@ -217,8 +224,13 @@ widgetsRoutes.route("/m_toggle", {
         //this.register('msg_controls', Meteor.subscribe('msg_controls'));
     },
     action() {
-        mount(MainLayout, {
-            content: (<MToggle toggled={true} title={"灯"}/>)
+        mount(WidgetTestLayout, {
+            children: [
+                <MToggle toggled="true" title="灯1"/>,
+                <MToggle toggled="true" title="Android"><ActionAndroid /></MToggle>,
+                <MToggle toggled="true" title="灯3"/>,
+                <MToggle toggled="true" title="灯4"/>,
+            ],
         });
     }
 });
