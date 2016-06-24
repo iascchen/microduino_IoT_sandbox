@@ -84,14 +84,6 @@ export default class DeviceDashboard extends Component {
         let widget = WidgetList[index];
         widget.deviceId = this.props.device._id;
         let wId = Meteor.call('widget.add', widget);
-
-        //if (wId) {
-        //    let tempDash = this.props.device.deviceDashboard;
-        //    tempDash.push(wId);
-        //
-        //     this.state.dashboard.push(WidgetList[index]);
-        //    C_Devices.update({ _id: this.props.device._id }, { $set: { deviceDashboard: tempDash } });
-        //}
     }
 
     handleAddCompDrawerRequestChange(open) {
@@ -111,14 +103,6 @@ export default class DeviceDashboard extends Component {
 
         let wId = C_Widgets.remove({ _id: widgetId });
         console.log("C_Widgets.remove", wId);
-
-        //if (wId) {
-        //    let tempDash = this.props.device.deviceDashboard;
-        //    let pos = tempDash.indexOf(widgetId);
-        //    tempDash.splice(pos, 1);
-        //
-        //    C_Devices.update({ _id: this.props.device._id }, { $set: { deviceDashboard: tempDash } });
-        //}
     }
 
     handleDelCompDrawerRequestChange(open) {

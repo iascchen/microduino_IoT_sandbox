@@ -7,6 +7,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import TextField from 'material-ui/TextField';
 
 import {orange500, blue500} from '../../../../node_modules/material-ui/styles/colors';
 
@@ -96,6 +97,7 @@ class WidgetSetting extends Component {
 
         this.state = {
             title: this.props.title ? this.props.title : "Device Binding",
+            widgetTitle: this.props.widget.title,
             sourceValue: this.props.widget.source,
             targetValue: this.props.widget.target,
         };
@@ -106,6 +108,20 @@ class WidgetSetting extends Component {
         // console.log("infos", infos);
 
         C_Widgets.update({ _id: widget._id }, { $set: infos });
+    }
+
+    handleTitleChange(event, value) {
+        console.log("handleTitleChange", value);
+
+        this.setState({
+            widgetTitle: value,
+        });
+    }
+
+    handleTitleBlur() {
+        console.log("handleTitleBlur", this.state.widgetTitle);
+
+        this.changeDashboardWidget(this.props.widget, { title: this.state.widgetTitle });
     }
 
     handleSourceFieldChange(event, index, value) {
@@ -148,12 +164,12 @@ class WidgetSetting extends Component {
     }
 
     renderTargets() {
-        console.log("renderTargets" , this.props.device.deviceProfile);
+        console.log("renderTargets", this.props.device.deviceProfile);
 
         if (this.props.target !== undefined) {
             const targets = parseTargets(this.props.device.deviceProfile);
 
-            console.log("renderTargets" , targets);
+            console.log("renderTargets", targets);
 
             return (
                 <div>
@@ -176,9 +192,19 @@ class WidgetSetting extends Component {
             <div>
                 <div style={styles.title}>
                     {this.props.device.name}
-                    <br/>
-                    {this.props.widget.title}
                 </div>
+
+                <TextField
+                    id={"t" + this.props.widgetIndex}
+                    style={styles.input}
+                    hintText="Name your widget"
+                    fullWidth={true}
+                    multiLine={false}
+                    value={this.state.widgetTitle}
+                    floatingLabelText="Name your widget"
+                    onChange={this.handleTitleChange.bind(this)}
+                    onBlur={this.handleTitleBlur.bind(this)}
+                />
 
                 {this.renderSources()}
 

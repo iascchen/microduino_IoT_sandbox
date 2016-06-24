@@ -54,8 +54,6 @@ const styles = {
     },
 };
 
-import SettingDialog from '../dashboard/SettingDialog';
-
 class WidgetContainer extends Component {
 
     constructor(props) {
