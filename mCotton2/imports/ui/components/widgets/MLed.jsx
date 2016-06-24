@@ -58,10 +58,10 @@ class MLed extends Component {
         console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
 
         try {
-            let value = "" + props.datas[0].payload[props.source];
+            let value = "" + props.datas[0].payload[props.widget.source];
             if (value) {
                 let ret = JSON.parse(value);
-                console.log("getCheckPropsSource", this.state.on, ret);
+                // console.log("getCheckPropsSource", this.state.on, ret);
 
                 if (this.state.on != ret) {
                     this.setState({ on: ret });

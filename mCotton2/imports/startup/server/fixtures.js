@@ -542,7 +542,7 @@ if (C_Widgets.find().count() == 0) {
         { deviceId: device_10, widget: 'MTimePicker', widgetType:'i',target: "alarm", title: 'Alarm',
             rows: 1, cols: 4 },
 
-        { deviceId: device_11, widget: 'MSelector',widgetType:'i', target: "play", title: 'Music',
+        { deviceId: device_11, widget: 'MInput',widgetType:'i', target: "play", title: 'Music',
             rows: 1, cols: 4 },
         {
             deviceId: device_11, widget: 'MSlider', widgetType:'i',target: "volume", title: 'Volume',

@@ -113,19 +113,6 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
-    slide: {
-        padding: 15,
-        color: '#fff',
-    },
-    slide1: {
-        background: '#FEA900',
-    },
-    slide2: {
-        background: '#B3DC4A',
-    },
-    slide3: {
-        background: '#6AC0FF',
-    },
 };
 
 export default class Home extends Component {

@@ -208,7 +208,7 @@ const processor_5 = (rule, item) => {
     }
 
     if (item.deviceId === rule.sourceIds[0]) {
-        handler.current.message = JSON.stringify({ outdoor: item.payload });
+        handler.current.message = JSON.stringify(item.payload);
     }
 
     let target = C_Devices.findOne({ _id: rule.targetIds[0] });
@@ -240,7 +240,7 @@ const processor_6 = (rule, item) => {
     }
 
     if (item.deviceId === rule.sourceIds[0]) {
-        handler.current.message = JSON.stringify({ indoor: item.payload });
+        handler.current.message = JSON.stringify(item.payload);
     }
 
     let target = C_Devices.findOne({ _id: rule.targetIds[0] });
