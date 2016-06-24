@@ -2,9 +2,9 @@
  * Created by chenhao on 16/6/22.
  */
 
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
+import React, {Component, PropTypes} from 'react';
+import {Meteor} from 'meteor/meteor';
+import {createContainer} from 'meteor/react-meteor-data';
 
 import CircularProgress from 'material-ui/CircularProgress';
 import {GridList, GridTile} from 'material-ui/GridList';
@@ -12,7 +12,6 @@ import {GridList, GridTile} from 'material-ui/GridList';
 //import C_Devices from '../../../../lib/collections/Devices';
 //import C_Widgets from '../../../../lib/collections/Widgets';
 
-import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
 import ActionLightbulbOutline from 'material-ui/svg-icons/action/lightbulb-outline';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -22,22 +21,8 @@ import FlatButton from 'material-ui/FlatButton';
 import DeviceDashboard from './DeviceDashboard';
 import WidgetList from '../widgets/WidgetList';
 
-import MLed from './../widgets/MLed';
-import MOutput from './../widgets/MOutput';
-
-import MLabel from './../widgets/MLabel';
-import MButton from './../widgets/MButton';
-import MToggle from './../widgets/MToggle';
-import MSlider from './../widgets/MSlider';
-import MRangeSlider from './../widgets/MRangeSlider';
-import MInput from './../widgets/MInput';
-import MSelector from './../widgets/MSelector';
-import MColor from './../widgets/MColor';
-import MColorChrome from './../widgets/MColorChrome';
-import MTimePicker from './../widgets/MTimePicker';
-import MDatePicker from './../widgets/MDatePicker';
-
-import MTerminal from './../widgets/MTerminal';
+import MPaper from './../widgets/Paper';
+import MWdigets from './../widgets';
 
 import WidgetSetting from './WidgetSetting';
 
@@ -67,16 +52,9 @@ const styles = {
         padding: 0,
         margin: 10,
     },
-    paper: {
-        margin: 10,
-        padding: 5,
-        textAlign: 'center',
-        display: 'inline-block',
-    }
 };
 
 import SettingDialog from '../dashboard/SettingDialog';
-
 
 class WidgetContainer extends Component {
 
@@ -94,45 +72,6 @@ class WidgetContainer extends Component {
 
     handleSettingClose() {
         this.setState({ openSetting: false });
-    };
-
-    renderSubComponent(props) {
-        if (!props.widget) {
-            return;
-        }
-
-        switch (props.widget.widget) {
-            case "MLed":
-                return <MLed {...props}/>;
-            case "MOutput":
-                return <MOutput {...props} />;
-            case "MLabel":
-                return <MLabel {...props}/>;
-
-            case "MButton":
-                return <MButton {...props} />;
-            case "MToggle":
-                return <MToggle {...props} />;
-            case "MSlider":
-                return <MSlider {...props} />;
-            case "MRangeSlider":
-                return <MRangeSlider {...props} />;
-            case "MInput":
-                return <MInput {...props} />;
-            case "MColor":
-                return <MColor {...props} />;
-            case "MColorChrome":
-                return <MColorChrome {...props} />;
-            case "MTimePicker":
-                return <MTimePicker {...props} />;
-            case "MDatePicker":
-                return <MDatePicker {...props} />;
-            case "MSelector":
-                return <MSelector {...props} />;
-
-            case "MTerminal":
-                return <MTerminal {...props} />;
-        }
     };
 
     renderWidgetSetting(props) {
@@ -180,9 +119,18 @@ class WidgetContainer extends Component {
             />
         ];
 
+        if (!props.widget) {
+            return;
+        }
+        const widgetName = props.widget.widget;
+        if (!MWdigets.hasOwnProperty(widgetName)) {
+            throw new TypeError(`WidgetContainer: no such widget "${widgetName}"`);
+        }
+        const SubWidget = MWdigets[widgetName];
+
         return (
             <div>
-                <Paper style={styles.paper} zDepth={2}>
+                <MPaper>
 
                     <FlatButton style={styles.title}
                                 onTouchTap={this.handleSettingOpen.bind(this)}>
@@ -192,10 +140,10 @@ class WidgetContainer extends Component {
                     <Divider />
 
                     <div style={styles.div}>
-                        {this.renderSubComponent(props)}
+                        <SubWidget {...props}></SubWidget>
                     </div>
 
-                </Paper>
+                </MPaper>
 
                 <Dialog
                     id={"D_" + this.props.widget._id}

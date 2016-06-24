@@ -8,7 +8,6 @@ import Divider from 'material-ui/Divider';
 import ActionLightbulbOutline from 'material-ui/svg-icons/action/lightbulb-outline';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -65,7 +64,7 @@ class MToggle extends Component {
     render() {
         const iconProps = {
             style: styles.icon,
-            color: this.state.toggled ? orange500 : grey500,
+            color: this.state.toggled ? this.state.color : grey500,
         };
         let child = this.props.children;
         if (child) {
@@ -78,32 +77,20 @@ class MToggle extends Component {
         }
 
         return (
-            <MPaper>
-
-                <div style={styles.title}>{this.state.title}</div>
-
-                <Divider />
-
-                <RaisedButton
-                    fullWidth="true"
-                    onTouchTap={this.handleToggle.bind(this)}
-                    backgroundColor={this.state.toggled ? this.state.color : grey500}
-                    backgroundColor="transparent"
-                    style={styles.button}
-                    onMouseUp={this.toggleChanged.bind(this)}
-                    onTouchEnd={this.toggleChanged.bind(this)}
-                >
-                    {child}
-                </RaisedButton>
-            </MPaper>
+            <RaisedButton
+                fullWidth="true"
+                onTouchTap={this.handleToggle.bind(this)}
+                backgroundColor="transparent"
+                style={styles.button}
+            >
+                {child}
+            </RaisedButton>
         )
     }
 }
 
 MToggle.propTypes = {
     toggled: PropTypes.bool,
-
-    title: PropTypes.string,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,

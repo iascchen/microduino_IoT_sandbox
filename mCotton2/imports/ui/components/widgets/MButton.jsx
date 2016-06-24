@@ -7,7 +7,6 @@ import MPaper from './Paper';
 import Divider from 'material-ui/Divider';
 import ActionPowerSettingsNew from 'material-ui/svg-icons/action/power-settings-new';
 import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -19,9 +18,6 @@ import SettingDialog from '../dashboard/SettingDialog';
 const styles = {
     title: {
         margin: 10,
-    },
-    buttonContainer: {
-        marginTop: 10,
     },
     icon: {
         width: 30,
@@ -78,31 +74,19 @@ class MButton extends Component {
         }
 
         return (
-            <MPaper style={styles.paper} zDepth={2}>
-                <div style={styles.title}>{this.state.title}</div>
-
-                <Divider />
-
-                <div style={styles.buttonContainer}>
-                    <RaisedButton
-                        fullWidth={true}
-                        backgroundColor={this.props.backgroundColor}
-                        onMouseDown={this.buttonDown.bind(this)}
-                        onTouchStart={this.buttonDown.bind(this)}
-
-                        onMouseUp={this.buttonUp.bind(this)}
-                        onTouchEnd={this.buttonUp.bind(this)}
-                    >
-                        {child}
-                    </RaisedButton>
-                </div>
-            </MPaper>
+            <RaisedButton
+                fullWidth={true}
+                backgroundColor={this.props.backgroundColor}
+                style={styles.button}
+                onTouchTap={this.handleButton.bind(this)}
+            >
+                {child}
+            </RaisedButton>
         )
     }
 }
 
 MButton.propTypes = {
-    title: PropTypes.string,
     color: PropTypes.string,
 
     widgetLoading: PropTypes.bool,

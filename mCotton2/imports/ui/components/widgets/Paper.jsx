@@ -2,8 +2,6 @@ import Pager from 'material-ui/Paper';
 import React, {Component, PropTypes} from 'react';
 
 const paperStyle = {
-    height: 120,
-    width: 80,
     margin: 10,
     padding: 5,
     textAlign: 'center',
