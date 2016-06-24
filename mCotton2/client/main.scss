@@ -28,6 +28,11 @@ container { // temp: will be component later
 	max-width: 1280px; // or */ padding: 0 30px;
 	margin: 0 auto;
 	display: block;
+	/*> div { // GridList
+		> div { // GridTail
+			height: auto !important;
+		}
+	}*/
 }
 
 .PagerContainer {

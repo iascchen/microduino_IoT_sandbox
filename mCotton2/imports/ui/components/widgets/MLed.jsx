@@ -16,11 +16,7 @@ const styles = {
         margin: 10,
     },
     div: {
-        height: 120,
-        width: 80,
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
+        margin: '10px auto',
     },
     icon: {
         width: 30,
