@@ -10,7 +10,7 @@ import { SliderPicker } from 'react-color';
 
 import {orange500, grey500} from 'material-ui/styles/colors';
 
-import SettingDialog from '../dashboard/SettingDialog';
+//import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {

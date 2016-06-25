@@ -34,6 +34,7 @@ const styles = {
     },
     title: {
         margin: 10,
+        whiteSpace: 'nowrap',
     },
     drawer: {
         margin: 10,

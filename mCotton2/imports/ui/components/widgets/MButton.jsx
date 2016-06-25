@@ -13,11 +13,16 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 
 import {orange500, blue500} from 'material-ui/styles/colors';
 
-import SettingDialog from '../dashboard/SettingDialog';
+//import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
         margin: 10,
+    },
+    button: {
+        marginTop: 10,
+        marginLeft: 5,
+        marginRight: 5,
     },
     icon: {
         width: 30,
@@ -25,17 +30,6 @@ const styles = {
         padding: 0,
         margin: 10,
     },
-    checkbox: {
-        margin: 10,
-    },
-    paper: {
-        height: 120,
-        width: 80,
-        margin: 10,
-        padding: 5,
-        textAlign: 'center',
-        display: 'inline-block',
-    }
 };
 
 class MButton extends Component {

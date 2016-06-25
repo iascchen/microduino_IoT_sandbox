@@ -307,7 +307,7 @@ if (C_Devices.find().count() == 0) {
                             { label: "Flash", value: "MF" },
                             { label: "Rainbow", value: "MR" },
                             { label: "Voice", value: "MV" },
-                            { label: "Lightness", value: "EL" }]
+                            { label: "Lightness", value: "ML" }]
                     },
                     { name: "color", type: "string" },
                     { name: "setting", type: "json" }],
@@ -319,7 +319,7 @@ if (C_Devices.find().count() == 0) {
             desc: ' Weather Station, can send data to cloud, and setting warning threshold from cloud',
             projectId: project_8,
             deviceProfile: {
-                dataNames: ["Temperature", "Humidity", "Lightness", "PM"],
+                dataNames: ["Temperature", "Humidity", "Lightness", "PM", "Gas"],
                 controlNames: [{ name: "setting", type: "json" }],
                 eventNames: ["LT_Temperature", "GT_Temperature", "LT_Humidity", "GT_Humidity",
                     "LT_PM", "GT_PM", "LT_Lightness", "GT_Lightness"]
@@ -330,7 +330,7 @@ if (C_Devices.find().count() == 0) {
             desc: ' Weather Station, can send data to cloud, and setting warning threshold from cloud',
             projectId: project_8,
             deviceProfile: {
-                dataNames: ["Temperature", "Humidity", "Lightness", "PM"],
+                dataNames: ["Temperature", "Humidity", "Lightness", "PM", "Gas"],
                 controlNames: [{ name: "setting", type: "json" }],
                 eventNames: ["LT_Temperature", "GT_Temperature", "LT_Humidity", "GT_Humidity",
                     "LT_PM", "GT_PM", "LT_Lightness", "GT_Lightness"]
@@ -377,7 +377,7 @@ if (C_Devices.find().count() == 0) {
                             { label: "Flash", value: "MF" },
                             { label: "Rainbow", value: "MR" },
                             { label: "Voice", value: "MV" },
-                            { label: "Lightness", value: "EL" }]
+                            { label: "Lightness", value: "ML" }]
                     },
                     { name: "color", type: "string" },
                     { name: "setting", type: "json" }],
@@ -413,43 +413,69 @@ if (C_Widgets.find().count() == 0) {
     let device_12 = C_Devices.findOne({ name: "IoT Demo - Road Lamp" })._id;
 
     const widgets = [
-        { deviceId: device_1, widget: 'MLed', widgetType:'o',source: "using", title: 'Garage using',
-            rows: 1, cols: 1 },
-
-        { deviceId: device_2, widget: 'MLed', widgetType:'o',source: "opening", title: 'Door opening',
-            rows: 1, cols: 1 },
-        { deviceId: device_2, widget: 'MToggle', widgetType:'i',source: "opening", target: "open", title: 'Open',
-            rows: 2, cols: 1 },
-
-        { deviceId: device_3, widget: 'MLed', widgetType:'o',source: "opening", title: 'Window opening',
-            rows: 1, cols: 1 },
-        { deviceId: device_3, widget: 'MToggle', widgetType:'i',source: "opening", target: "open", title: 'Open',
-            rows: 2, cols: 1 },
-
-
-        { deviceId: device_4, widget: 'MLed', widgetType:'o',source: "enabled", title: 'Vault enabled',
-            rows: 1, cols: 1 },
         {
-            deviceId: device_4, widget: 'MToggle', widgetType:'i',source: "enabled", target: "enable", title: 'Enable',
+            deviceId: device_1, widget: 'MLed', widgetType: 'o', source: "using", title: 'Garage using',
+            rows: 1, cols: 1
+        },
+
+        {
+            deviceId: device_2, widget: 'MLed', widgetType: 'o', source: "opening", title: 'Door opening',
+            rows: 1, cols: 1
+        },
+        {
+            deviceId: device_2, widget: 'MToggle', widgetType: 'i', source: "opening", target: "open", title: 'Open',
             rows: 2, cols: 1
         },
-        { deviceId: device_4, widget: 'MButton', widgetType:'i',target: "warn", title: 'Warn',
-            rows: 2, cols: 1 },
 
-        { deviceId: device_5, widget: 'MInput', widgetType:'i',target: "send", title: 'Send',
-            rows: 1, cols: 4 },
+        {
+            deviceId: device_3, widget: 'MLed', widgetType: 'o', source: "opening", title: 'Window opening',
+            rows: 1, cols: 1
+        },
+        {
+            deviceId: device_3, widget: 'MToggle', widgetType: 'i', source: "opening", target: "open", title: 'Open',
+            rows: 2, cols: 1
+        },
 
-        { deviceId: device_6, widget: 'MLed', widgetType:'o',source: "powered", title: 'Powered',
-            rows: 1, cols: 1 },
-        { deviceId: device_6, widget: 'MToggle', widgetType:'i',source: "powered", target: "power", title: 'Power',
-            rows: 2, cols: 1 },
 
-        { deviceId: device_7, widget: 'MLabel', widgetType:'o',source: "inMode", title: 'In Mode',
-            rows: 1, cols: 2 },
-        { deviceId: device_7, widget: 'MSelector', widgetType:'i',target: "mode", title: 'Mode Selected',
-            rows: 1, cols: 4 },
-        { deviceId: device_7, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
-            rows: 2, cols: 4 },
+        {
+            deviceId: device_4, widget: 'MLed', widgetType: 'o', source: "enabled", title: 'Vault enabled',
+            rows: 1, cols: 1
+        },
+        {
+            deviceId: device_4, widget: 'MToggle', widgetType: 'i', source: "enabled", target: "enable",
+            title: 'Enable', rows: 2, cols: 1
+        },
+        {
+            deviceId: device_4, widget: 'MButton', widgetType: 'i', target: "warn", title: 'Warn',
+            rows: 2, cols: 1
+        },
+
+        {
+            deviceId: device_5, widget: 'MInput', widgetType: 'i', target: "send", title: 'Send',
+            rows: 1, cols: 4
+        },
+
+        {
+            deviceId: device_6, widget: 'MLed', widgetType: 'o', source: "powered", title: 'Powered',
+            rows: 1, cols: 1
+        },
+        {
+            deviceId: device_6, widget: 'MToggle', widgetType: 'i', source: "powered", target: "power", title: 'Power',
+            rows: 2, cols: 1
+        },
+
+        {
+            deviceId: device_7, widget: 'MLabel', widgetType: 'o', source: "inMode", title: 'In Mode',
+            rows: 1, cols: 2
+        },
+        {
+            deviceId: device_7, widget: 'MSelector', widgetType: 'i', target: "mode", title: 'Mode Selected',
+            rows: 1, cols: 4
+        },
+        {
+            deviceId: device_7, widget: 'MColor', widgetType: 'i', target: "color", title: 'Color',
+            rows: 2, cols: 4
+        },
         //{
         //    deviceId: device_7, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
         //    rows: 1, cols: 4,
@@ -458,21 +484,21 @@ if (C_Widgets.find().count() == 0) {
         //},
 
         {
-            deviceId: device_8, widget: 'MLabel',widgetType:'o',title: 'Temperature',
+            deviceId: device_8, widget: 'MLabel', widgetType: 'o', title: 'Temperature',
             rows: 1, cols: 2,
             source: "Temperature"
         }, {
-            deviceId: device_8, widget: 'MLabel', widgetType:'o',title: 'Humidity',
+            deviceId: device_8, widget: 'MLabel', widgetType: 'o', title: 'Humidity',
             rows: 1, cols: 2,
             source: "Humidity"
         }, {
-            deviceId: device_8, widget: 'MLabel', widgetType:'o',title: 'Lightness',
+            deviceId: device_8, widget: 'MLabel', widgetType: 'o', title: 'Lightness',
             rows: 1, cols: 2,
             source: "Lightness"
         }, {
-            deviceId: device_8, widget: 'MLabel', widgetType:'o',title: 'PM',
+            deviceId: device_8, widget: 'MLabel', widgetType: 'o', title: 'Gas',
             rows: 1, cols: 2,
-            source: "PM"
+            source: "Gas"
         },
         //{
         //    deviceId: device_8, widget: 'MRangeSlider',widgetType:'i',title: 'Temperature Threshold',
@@ -497,19 +523,19 @@ if (C_Widgets.find().count() == 0) {
         //},
 
         {
-            deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'Temperature',
+            deviceId: device_9, widget: 'MLabel', widgetType: 'o', title: 'Temperature',
             rows: 1, cols: 2,
             source: "Temperature"
         }, {
-            deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'Humidity',
+            deviceId: device_9, widget: 'MLabel', widgetType: 'o', title: 'Humidity',
             rows: 1, cols: 2,
             source: "Humidity"
         }, {
-            deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'Lightness',
+            deviceId: device_9, widget: 'MLabel', widgetType: 'o', title: 'Lightness',
             rows: 1, cols: 2,
             source: "Lightness"
         }, {
-            deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'PM',
+            deviceId: device_9, widget: 'MLabel', widgetType: 'o', title: 'PM',
             rows: 1, cols: 2,
             source: "PM"
         },
@@ -536,30 +562,44 @@ if (C_Widgets.find().count() == 0) {
         //},
 
         {
-            deviceId: device_10, widget: 'MTerminal', widgetType:'io',source: "output", target: "input",
+            deviceId: device_10, widget: 'MTerminal', widgetType: 'io', source: "output", target: "input",
             title: 'Information', rows: 4, cols: 4
         },
-        { deviceId: device_10, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
-            rows: 2, cols: 4 },
-        { deviceId: device_10, widget: 'MTimePicker', widgetType:'i',target: "alarm", title: 'Alarm',
-            rows: 1, cols: 4 },
-
-        { deviceId: device_11, widget: 'MInput',widgetType:'i', target: "play", title: 'Music',
-            rows: 1, cols: 4 },
         {
-            deviceId: device_11, widget: 'MSlider', widgetType:'i',target: "volume", title: 'Volume',
+            deviceId: device_10, widget: 'MColor', widgetType: 'i', target: "color", title: 'Color',
+            rows: 2, cols: 4
+        },
+        {
+            deviceId: device_10, widget: 'MTimePicker', widgetType: 'i', target: "alarm", title: 'Alarm',
+            rows: 1, cols: 4
+        },
+
+        {
+            deviceId: device_11, widget: 'MInput', widgetType: 'i', target: "play", title: 'Music',
+            rows: 1, cols: 4
+        },
+        {
+            deviceId: device_11, widget: 'MSlider', widgetType: 'i', target: "volume", title: 'Volume',
             rows: 1, cols: 4,
             others: { min: 0, max: 100, step: 1 }
         },
-        { deviceId: device_11, widget: 'MToggle', widgetType:'i',source: "paused", target: "pause", title: 'Pause',
-            rows: 1, cols: 4 },
+        {
+            deviceId: device_11, widget: 'MToggle', widgetType: 'i', source: "paused", target: "pause", title: 'Pause',
+            rows: 1, cols: 4
+        },
 
-        { deviceId: device_12, widget: 'MOutput', widgetType:'o',source: "inMode", title: 'In Mode',
-            rows: 1, cols: 4 },
-        { deviceId: device_12, widget: 'MSelector', widgetType:'i',target: "mode", title: 'Mode Selected',
-            rows: 1, cols: 4 },
-        { deviceId: device_12, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
-            rows: 2, cols: 4 },
+        {
+            deviceId: device_12, widget: 'MOutput', widgetType: 'o', source: "inMode", title: 'In Mode',
+            rows: 1, cols: 4
+        },
+        {
+            deviceId: device_12, widget: 'MSelector', widgetType: 'i', target: "mode", title: 'Mode Selected',
+            rows: 1, cols: 4
+        },
+        {
+            deviceId: device_12, widget: 'MColor', widgetType: 'i', target: "color", title: 'Color',
+            rows: 2, cols: 4
+        },
         //{
         //    deviceId: device_12, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
         //    rows: 1, cols: 4,

@@ -22,16 +22,10 @@ const styles = {
         width: 30,
         height: 30,
         padding: 0,
-        margin: 10,
+        marginTop: 20,
+        marginLeft: 10,
+        marginRight: 10,
     },
-    paper: {
-        height: 120,
-        width: 80,
-        margin: 10,
-        padding: 5,
-        textAlign: 'center',
-        display: 'inline-block',
-    }
 };
 
 class MLed extends Component {

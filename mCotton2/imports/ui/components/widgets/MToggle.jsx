@@ -13,7 +13,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 import {orange500, grey500} from 'material-ui/styles/colors';
 
-import SettingDialog from '../dashboard/SettingDialog';
+//import SettingDialog from '../dashboard/SettingDialog';
 
 const styles = {
     title: {
@@ -78,7 +78,7 @@ class MToggle extends Component {
 
         return (
             <RaisedButton
-                fullWidth="true"
+                fullWidth={true}
                 onTouchTap={this.handleToggle.bind(this)}
                 backgroundColor="transparent"
                 style={styles.button}
