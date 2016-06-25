@@ -104,6 +104,8 @@ const processor_2 = (rule, item) => {
             };
             let ret = Meteor.call('control.add', entity);
             // console.log('mqtt control.add', ret);
+
+
         }
     }
 };

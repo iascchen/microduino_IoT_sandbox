@@ -396,7 +396,7 @@ if (C_Devices.find().count() == 0) {
     });
 }
 
-C_Widgets.remove({});
+// C_Widgets.remove({});
 
 if (C_Widgets.find().count() == 0) {
     let device_1 = C_Devices.findOne({ name: "IoT Demo - Garage" })._id;
@@ -562,17 +562,17 @@ if (C_Widgets.find().count() == 0) {
         //},
 
         {
-            deviceId: device_10, widget: 'MTerminal', widgetType: 'io', source: "output", target: "input",
-            title: 'Information', rows: 4, cols: 4
+            deviceId: device_10, widget: 'MOutput', widgetType: 'io', source: "output", target: "input",
+            title: 'Information', rows: 2, cols: 4
         },
         {
             deviceId: device_10, widget: 'MColor', widgetType: 'i', target: "color", title: 'Color',
             rows: 2, cols: 4
         },
-        {
-            deviceId: device_10, widget: 'MTimePicker', widgetType: 'i', target: "alarm", title: 'Alarm',
-            rows: 1, cols: 4
-        },
+        //{
+        //    deviceId: device_10, widget: 'MTimePicker', widgetType: 'i', target: "alarm", title: 'Alarm',
+        //    rows: 1, cols: 4
+        //},
 
         {
             deviceId: device_11, widget: 'MInput', widgetType: 'i', target: "play", title: 'Music',
@@ -581,16 +581,16 @@ if (C_Widgets.find().count() == 0) {
         {
             deviceId: device_11, widget: 'MSlider', widgetType: 'i', target: "volume", title: 'Volume',
             rows: 1, cols: 4,
-            others: { min: 0, max: 100, step: 1 }
+            others: { min: 0, max: 30, step: 1 }
         },
         {
             deviceId: device_11, widget: 'MToggle', widgetType: 'i', source: "paused", target: "pause", title: 'Pause',
-            rows: 1, cols: 4
+            rows: 2, cols: 1
         },
 
         {
             deviceId: device_12, widget: 'MOutput', widgetType: 'o', source: "inMode", title: 'In Mode',
-            rows: 1, cols: 4
+            rows: 2, cols: 4
         },
         {
             deviceId: device_12, widget: 'MSelector', widgetType: 'i', target: "mode", title: 'Mode Selected',

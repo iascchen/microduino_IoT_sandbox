@@ -36,10 +36,11 @@ class MSlider extends Component {
         super(props);
 
         this.state = {
-            min: this.props.min ? this.props.min : 0,
-            max: this.props.max ? this.props.max : 100,
-            step: this.props.step ? this.props.step : 1,
             value: this.props.value ? this.props.value : 0,
+
+            min: this.props.widget.others.min ? this.props.widget.others.min : 0,
+            max: this.props.widget.others.max ? this.props.widget.others.max : 100,
+            step: this.props.widget.others.step ? this.props.widget.others.step : 1,
 
             title: this.props.widget.title ? this.props.widget.title : "Slider",
             color: this.props.widget.color ? this.props.widget.color : orange500,

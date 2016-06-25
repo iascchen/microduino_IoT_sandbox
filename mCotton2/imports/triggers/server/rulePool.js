@@ -6,7 +6,7 @@ import C_MessageDatas from '../../../lib/collections/MessageDatas';
 
 export const RuleHandlers = {};
 
-export const startRule = (rule) => {
+export const startRule = (rule, interval) => {
     console.log("startRule : sourceIds", rule.sourceIds);
 
     let now = new Date().getTime();

@@ -1,15 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Tabs, Tab} from 'material-ui/Tabs';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import RaisedButton from 'material-ui/RaisedButton';
-import Divider from 'material-ui/Divider';
-import SwipeableViews from 'react-swipeable-views';
+//import IconButton from 'material-ui/IconButton';
+//import FontIcon from 'material-ui/FontIcon';
+//import RaisedButton from 'material-ui/RaisedButton';
+//import Divider from 'material-ui/Divider';
+//import SwipeableViews from 'react-swipeable-views';
 
 import DataConsole from '../../ui/views/DataConsole';
 import DevicesContainer from '../../ui/container/DevicesContainer';
-import Affix from '../components/affix';
+//import Affix from '../components/affix';
 
 const tilesData = [
     {
@@ -114,7 +114,7 @@ const styles = {
     },
     slide1: {
         margin: 10,
-        minHeight: 1000,
+        minHeight: 1200,
     },
     slide: {
         margin: 10,
@@ -140,32 +140,20 @@ export default class Home extends Component {
     render() {
         return (
             <div id="mainPage">
-                <Affix offset={64}>
-                    <Tabs
-                        onChange={this.handleChange.bind(this)}
-                        value={this.state.slideIndex}
-                    >
-                        <Tab label="Devices" value={0}/>
-                        <Tab label="House Status" value={1}/>
-                        <Tab label="Discover" value={2}/>
-                    </Tabs>
-                </Affix>
-                <SwipeableViews
-                    id="SwipeableViews"
-                    index={this.state.slideIndex}
-                    onChangeIndex={this.handleChange.bind(this)}
-                    containerStyle={styles.swipeable}
+                <Tabs
+                    onChange={this.handleChange.bind(this)}
+                    value={this.state.slideIndex}
                 >
-                    <div style={styles.slide1}>
+                    <Tab label="Devices" value={0}>
                         <DevicesContainer />
-                    </div>
-                    <div style={styles.slide}>
+                    </Tab>
+                    <Tab label="House Status" value={1}>
                         <DataConsole />
-                    </div>
-                    <div style={styles.slide}>
+                    </Tab>
+                    <Tab label="Discover" value={2}>
                         <ProjectsContainer />
-                    </div>
-                </SwipeableViews>
+                    </Tab>
+                </Tabs>
             </div>);
     };
 };

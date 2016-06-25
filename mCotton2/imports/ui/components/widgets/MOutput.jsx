@@ -23,14 +23,14 @@ const styles = {
         borderWidth: 1,
         padding: 5
     },
-    paper: {
-        height: 240,
-        width: 320,
-        margin: 10,
-        padding: 5,
-        textAlign: 'center',
-        display: 'inline-block',
-    }
+    //paper: {
+    //    height: 240,
+    //    width: 320,
+    //    margin: 10,
+    //    padding: 5,
+    //    textAlign: 'center',
+    //    display: 'inline-block',
+    //}
 };
 
 class MOutput extends Component {
@@ -38,8 +38,9 @@ class MOutput extends Component {
         super(props);
 
         this.state = {
-            outputRows: this.props.outputRows ? this.props.outputRows : 5,
-            output: this.props.output ? this.props.output : ["Welcome to Microduino\n", "==========\n"],
+            outputRows: ( this.props.widget.others && this.props.widget.others.outputRows) ? this.props.widget.others.outputRows : 3,
+            output: ( this.props.widget.others && this.props.widget.others.output) ?
+                this.widget.others.props.output : ["Welcome to Microduino\n", "==========\n"],
 
             title: this.props.widget.title ? this.props.widget.title : "Output",
             color: this.props.widget.color ? this.props.widget.color : orange500,
@@ -57,7 +58,8 @@ class MOutput extends Component {
             return;
         }
 
-        console.log("getCheckPropsSource data[0]", props.datas[0].createAt, JSON.stringify(props.datas[0].payload));
+        console.log("getCheckPropsSource data[0]",
+            props.datas[0].createAt, JSON.stringify(props.datas[0].payload), props.widget.source);
 
         try {
             let value = props.datas[0].payload[props.widget.source];
