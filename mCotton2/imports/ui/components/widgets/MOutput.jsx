@@ -40,7 +40,7 @@ class MOutput extends Component {
         this.state = {
             outputRows: ( this.props.widget.others && this.props.widget.others.outputRows) ? this.props.widget.others.outputRows : 3,
             output: ( this.props.widget.others && this.props.widget.others.output) ?
-                this.widget.others.props.output : ["Welcome to Microduino\n", "==========\n"],
+                this.widget.others.props.output : "Welcome to Microduino\n==========\n",
 
             title: this.props.widget.title ? this.props.widget.title : "Output",
             color: this.props.widget.color ? this.props.widget.color : orange500,
@@ -86,7 +86,7 @@ class MOutput extends Component {
                 rowsMax={this.state.outputRows}
                 underlineShow={false}
                 disabled={true}
-                value={this.state.output.join('')}
+                value={this.state.output}
             />
         )
     }
@@ -94,7 +94,7 @@ class MOutput extends Component {
 
 MOutput.propTypes = {
     outputRows: PropTypes.number,
-    output: PropTypes.array,
+    output: PropTypes.string,
 
     title: PropTypes.string,
     color: PropTypes.string,

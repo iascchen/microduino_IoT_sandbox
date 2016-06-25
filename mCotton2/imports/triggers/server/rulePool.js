@@ -21,10 +21,14 @@ export const startRule = (rule, interval) => {
                 return;
             }
 
+            if(handler.isWaitToken){
+                return ;
+            }
+
             let matched = rule.processor(rule, entity);
             if (matched) {
                 handler.isWaitToken = true;
-
+                handler.current= {};
                 setTimeout(function () {
                     handler.isWaitToken = false;
                 }, handler.interval);

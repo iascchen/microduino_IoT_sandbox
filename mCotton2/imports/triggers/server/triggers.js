@@ -26,13 +26,13 @@ Meteor.startup(function () {
 
     const enabled = Meteor.settings.rule.enabled;
     if (enabled) {
-        startRule(Rules.rule_1, 5000);
-        startRule(Rules.rule_2, 5000);
-        startRule(Rules.rule_3, 5000);
-        startRule(Rules.rule_4, 5000);
-        startRule(Rules.rule_5, 5000);
-        startRule(Rules.rule_6, 5000);
-        startRule(Rules.rule_7, 5000);
+        startRule(Rules.rule_1, 3000);
+        startRule(Rules.rule_2, 3000);
+        startRule(Rules.rule_3, 3000);
+        startRule(Rules.rule_4, 3000);
+        startRule(Rules.rule_5, 3000);
+        startRule(Rules.rule_6, 3000);
+        startRule(Rules.rule_7, 3000);
 
         console.log("Rules", JSON.stringify(Rules));
     }
