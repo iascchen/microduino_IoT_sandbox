@@ -5,7 +5,7 @@
   "mqtt": {
     "enabled": true,
     "server": {
-      "dbUrl": "mongodb://localhost:8001/mqtt",
+      "dbUrl": "mongodb://localhost:3001/mqtt",
       "port": 1883
     },
     "trigger": {

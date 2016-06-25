@@ -1,3 +1,3 @@
 #!/bin/bash
 
-meteor --port 8000 --settings setting/dev.json
+meteor --settings setting/dev.json run ios-device
