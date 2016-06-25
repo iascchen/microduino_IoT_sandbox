@@ -450,12 +450,12 @@ if (C_Widgets.find().count() == 0) {
             rows: 1, cols: 4 },
         { deviceId: device_7, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
             rows: 2, cols: 4 },
-        {
-            deviceId: device_7, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
-            target: "setting"
-        },
+        //{
+        //    deviceId: device_7, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+        //    target: "setting"
+        //},
 
         {
             deviceId: device_8, widget: 'MLabel',widgetType:'o',title: 'Temperature',
@@ -473,27 +473,28 @@ if (C_Widgets.find().count() == 0) {
             deviceId: device_8, widget: 'MLabel', widgetType:'o',title: 'PM',
             rows: 1, cols: 2,
             source: "PM"
-        }, {
-            deviceId: device_8, widget: 'MRangeSlider',widgetType:'i',title: 'Temperature Threshold',
-            rows: 1, cols: 4,
-            others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
-            target: "setting"
-        }, {
-            deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
-            target: "setting"
-        }, {
-            deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'PM Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
-            target: "setting"
-        }, {
-            deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'Humidity Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
-            target: "setting"
         },
+        //{
+        //    deviceId: device_8, widget: 'MRangeSlider',widgetType:'i',title: 'Temperature Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'PM Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_8, widget: 'MRangeSlider', widgetType:'i',title: 'Humidity Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
+        //    target: "setting"
+        //},
 
         {
             deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'Temperature',
@@ -511,27 +512,28 @@ if (C_Widgets.find().count() == 0) {
             deviceId: device_9, widget: 'MLabel', widgetType:'o',title: 'PM',
             rows: 1, cols: 2,
             source: "PM"
-        }, {
-            deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Temperature Threshold',
-            rows: 1, cols: 4,
-            others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
-            target: "setting"
-        }, {
-            deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
-            target: "setting"
-        }, {
-            deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'PM Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
-            target: "setting"
-        }, {
-            deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Humidity Threshold',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
-            target: "setting"
         },
+        //{
+        //    deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Temperature Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: -40, max: 50, step: 1, bind: ["LT_Temperature", "GT_Temperature"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'PM Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 1000, step: 1, bind: ["LT_PM", "GT_PM"] },
+        //    target: "setting"
+        //}, {
+        //    deviceId: device_9, widget: 'MRangeSlider', widgetType:'i',title: 'Humidity Threshold',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 100, step: 1, bind: ["LT_Humidity", "GT_Humidity"] },
+        //    target: "setting"
+        //},
 
         {
             deviceId: device_10, widget: 'MTerminal', widgetType:'io',source: "output", target: "input",
@@ -558,12 +560,13 @@ if (C_Widgets.find().count() == 0) {
             rows: 1, cols: 4 },
         { deviceId: device_12, widget: 'MColor', widgetType:'i',target: "color", title: 'Color',
             rows: 2, cols: 4 },
-        {
-            deviceId: device_12, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
-            rows: 1, cols: 4,
-            others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
-            target: "setting"
-        }];
+        //{
+        //    deviceId: device_12, widget: 'MRangeSlider', widgetType:'i',title: 'Lightness Sensor',
+        //    rows: 1, cols: 4,
+        //    others: { min: 0, max: 2000, step: 1, bind: ["LT_Lightness", "GT_Lightness"] },
+        //    target: "setting"
+        //}
+    ];
 
     widgets.forEach (function (widget) {
         let widgetId = C_Widgets.insert(widget);

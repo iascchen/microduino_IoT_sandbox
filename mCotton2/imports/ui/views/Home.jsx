@@ -112,8 +112,14 @@ const styles = {
         width: '100%',
         opacity: 0,
     },
-    swipeable: {
-    }
+    slide1: {
+        margin: 10,
+        minHeight: 1000,
+    },
+    slide: {
+        margin: 10,
+    },
+    swipeable: {}
 };
 
 export default class Home extends Component {
@@ -139,8 +145,8 @@ export default class Home extends Component {
                         onChange={this.handleChange.bind(this)}
                         value={this.state.slideIndex}
                     >
-                        <Tab label="House Status" value={0}/>
-                        <Tab label="Devices" value={1}/>
+                        <Tab label="Devices" value={0}/>
+                        <Tab label="House Status" value={1}/>
                         <Tab label="Discover" value={2}/>
                     </Tabs>
                 </Affix>
@@ -150,11 +156,11 @@ export default class Home extends Component {
                     onChangeIndex={this.handleChange.bind(this)}
                     containerStyle={styles.swipeable}
                 >
-                    <div style={styles.slide}>
-                        <DataConsole />
+                    <div style={styles.slide1}>
+                        <DevicesContainer />
                     </div>
                     <div style={styles.slide}>
-                        <DevicesContainer />
+                        <DataConsole />
                     </div>
                     <div style={styles.slide}>
                         <ProjectsContainer />
