@@ -48,12 +48,13 @@ const processor_1 = (rule, item) => {
     // console.log("inTrigger : processor_1", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if ((item.deviceId === rule.sourceIds[0]) && item.payload['using']) {
         handler.current.using = JSON.parse(item.payload['using']);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     let target = C_Devices.findOne({ _id: rule.targetIds[0] });
@@ -66,7 +67,9 @@ const processor_1 = (rule, item) => {
         };
         let ret = Meteor.call('control.add', entity);
         // console.log('mqtt control.add', ret);
+        return true;
     }
+    return false;
 };
 
 Rules.rule_1 = {
@@ -82,9 +85,6 @@ const processor_2 = (rule, item) => {
     // console.log("inTrigger : processor_2", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if ((item.deviceId === rule.sourceIds[0]) && item.payload['opening']) {
         handler.current.opening = JSON.parse(item.payload['opening']);
@@ -92,6 +92,10 @@ const processor_2 = (rule, item) => {
 
     if ((item.deviceId === rule.sourceIds[1]) && item.payload['enabled']) {
         handler.current.enabled = JSON.parse(item.payload['enabled']);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     if (handler.current.enabled && handler.current.opening) {
@@ -105,9 +109,10 @@ const processor_2 = (rule, item) => {
             let ret = Meteor.call('control.add', entity);
             // console.log('mqtt control.add', ret);
 
-
+            return true;
         }
     }
+    return false;
 };
 
 Rules.rule_2 = {
@@ -123,9 +128,6 @@ const processor_3 = (rule, item) => {
     // console.log("inTrigger : processor_3", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if ((item.deviceId === rule.sourceIds[0]) && item.payload['opening']) {
         handler.current.opening = JSON.parse(item.payload['opening']);
@@ -133,6 +135,10 @@ const processor_3 = (rule, item) => {
 
     if ((item.deviceId === rule.sourceIds[1]) && item.payload['enabled']) {
         handler.current.enabled = JSON.parse(item.payload['enabled']);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     if (handler.current.enabled && handler.current.opening) {
@@ -145,8 +151,12 @@ const processor_3 = (rule, item) => {
             };
             let ret = Meteor.call('control.add', entity);
             // console.log('mqtt control.add', ret);
+
+            return true;
         }
     }
+
+    return false;
 };
 
 Rules.rule_3 = {
@@ -162,9 +172,6 @@ const processor_4 = (rule, item) => {
     // console.log("inTrigger : processor_4", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if ((item.deviceId === rule.sourceIds[0]) && item.payload['PM']) {
         handler.current.PM = item.payload['PM'];
@@ -174,6 +181,10 @@ const processor_4 = (rule, item) => {
 
     if ((item.deviceId === rule.sourceIds[1]) && item.payload['enabled']) {
         handler.current.enabled = JSON.parse(item.payload['enabled']);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     if ((!handler.current.enabled) &&
@@ -188,8 +199,10 @@ const processor_4 = (rule, item) => {
             // C_MessageDatas.insert(entity);
             let ret = Meteor.call('control.add', entity);
             // console.log('mqtt control.add', ret);
+            return true;
         }
     }
+    return false;
 };
 
 Rules.rule_4 = {
@@ -205,12 +218,13 @@ const processor_5 = (rule, item) => {
     // console.log("inTrigger : processor_5", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if (item.deviceId === rule.sourceIds[0]) {
         handler.current.message = JSON.stringify(item.payload);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     let target = C_Devices.findOne({ _id: rule.targetIds[0] });
@@ -221,7 +235,9 @@ const processor_5 = (rule, item) => {
         };
         let ret = Meteor.call('control.add', entity);
         // console.log('mqtt control.add', ret);
+        return true;
     }
+    return false;
 };
 
 Rules.rule_5 = {
@@ -237,12 +253,13 @@ const processor_6 = (rule, item) => {
     // console.log("inTrigger : processor_6", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if (item.deviceId === rule.sourceIds[0]) {
         handler.current.message = JSON.stringify(item.payload);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     let target = C_Devices.findOne({ _id: rule.targetIds[0] });
@@ -253,7 +270,9 @@ const processor_6 = (rule, item) => {
         };
         let ret = Meteor.call('control.add', entity);
         // console.log('mqtt control.add', ret);
+        return true;
     }
+    return false;
 };
 
 Rules.rule_6 = {
@@ -269,9 +288,6 @@ const processor_7 = (rule, item) => {
     // console.log("inTrigger : processor_7", item);
 
     let handler = RuleHandlers[rule._id];
-    if (!handler) {
-        return;
-    }
 
     if ((item.deviceId === rule.sourceIds[0]) && item.payload['alarm']) {
         handler.current.alarm = item.payload['alarm'];
@@ -279,6 +295,10 @@ const processor_7 = (rule, item) => {
 
     if ((item.deviceId === rule.sourceIds[1]) && item.payload['paused']) {
         handler.current.paused = JSON.parse(item.payload['paused']);
+    }
+
+    if (handler.isWaitToken) {
+        return false;
     }
 
     if (handler.current.paused && handler.current.alarm) {
@@ -291,8 +311,10 @@ const processor_7 = (rule, item) => {
             };
             let ret = Meteor.call('control.add', entity);
             // console.log('mqtt control.add', ret);
+            return true;
         }
     }
+    return false;
 };
 
 Rules.rule_7 = {

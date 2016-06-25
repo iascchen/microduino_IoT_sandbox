@@ -15,11 +15,27 @@ export const startRule = (rule, interval) => {
         createAt: { $gt: now }
     }).observeChanges({
         added: function (id, entity) {
-            rule.processor(rule, entity);
+
+            let handler = RuleHandlers[rule._id];
+            if (!handler) {
+                return;
+            }
+
+            let matched = rule.processor(rule, entity);
+            if (matched) {
+                handler.isWaitToken = true;
+
+                setTimeout(function () {
+                    handler.isWaitToken = false;
+                }, handler.interval);
+            }
         }
     });
 
-    RuleHandlers[rule._id] = { observer: obs_handler, current: {} };
+    RuleHandlers[rule._id] = {
+        observer: obs_handler, interval: interval, isWaitToken: false,
+        current: {}
+    };
 };
 
 export const stopRule = (rule) => {
