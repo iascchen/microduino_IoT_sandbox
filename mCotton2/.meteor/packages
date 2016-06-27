@@ -63,3 +63,5 @@ blaze-html-templates    # Compile .html files into Meteor Blaze views
 
 # materialize:materialize
 fourseven:scss
+
+ddp-rate-limiter

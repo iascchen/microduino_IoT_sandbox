@@ -1,3 +1,5 @@
+This folder will be depreciated, please use mCottonV2
+
 # mCotton V2
 
 ## How to run:
