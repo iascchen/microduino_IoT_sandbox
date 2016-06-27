@@ -1,3 +1,3 @@
 #!/bin/bash
 
-meteor --port 8000 --settings setting/web.json
+meteor --port 9800 --settings setting/web.json
