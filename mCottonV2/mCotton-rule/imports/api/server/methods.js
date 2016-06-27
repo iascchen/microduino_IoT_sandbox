@@ -127,7 +127,7 @@ Meteor.methods({
     //'device.get': getDevices,
     //'device.remove': removeDevice,
 
-    'device.datas': getDeviceDatas,
+    //'device.datas': getDeviceDatas,
 
     //'data.add': createMessageData,
     'control.add': createMessageControl,

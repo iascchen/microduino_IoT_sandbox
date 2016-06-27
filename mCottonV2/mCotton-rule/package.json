@@ -1,5 +1,5 @@
 {
-  "name": "mCotton2 - rule",
+  "name": "mCotton2Rule",
   "private": true,
   "scripts": {
     "start": "meteor --settings setting/rule.json"
