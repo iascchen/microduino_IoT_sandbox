@@ -128,7 +128,8 @@ class MTerminal extends Component {
                 let wId = Meteor.call('control.add', entity);
             }
         }
-    };
+    }
+    ;
 
     render() {
         return (
@@ -162,7 +163,9 @@ class MTerminal extends Component {
     }
 }
 
-MTerminal.propTypes = {
+MTerminal
+    .
+    propTypes = {
     outputRows: PropTypes.number,
     output: PropTypes.array,
     input: PropTypes.string,
@@ -184,5 +187,7 @@ MTerminal.propTypes = {
     widgetIndex: PropTypes.number.isRequired,
 };
 
-export default MTerminal;
+export
+default
+MTerminal;
 

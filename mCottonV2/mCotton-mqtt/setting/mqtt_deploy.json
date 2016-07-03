@@ -5,18 +5,12 @@
   "mqtt": {
     "enabled": true,
     "server": {
-      "dbUrl": "mongodb://localhost:3001/mqtt",
+      "dbUrl": "mongodb://mcotton:Microduino@dds-2ze04b800265f5b42.mongodb.rds.aliyuncs.com:3717/mqtt-test",
       "port": 1883
     },
     "trigger": {
-      "host": "localhost",
+      "host": "dev.microduino.cn",
       "port": 1883
     }
-  },
-  "azure": {
-    "enabled": false
-  },
-  "rule": {
-    "enabled": true
   }
 }

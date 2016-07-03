@@ -1,3 +1,3 @@
 #!/bin/bash
 
-meteor --settings setting/dev.json run ios-device
+meteor run ios-device --production --verbose --settings ./setting/web.json --mobile-server http://dev.microduino.cn

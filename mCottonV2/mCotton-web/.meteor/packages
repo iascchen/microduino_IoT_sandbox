@@ -29,7 +29,6 @@ kadira:flow-router
 react-meteor-data
 percolate:find-from-publication
 
-
 ##############################
 # Schema
 ##############################

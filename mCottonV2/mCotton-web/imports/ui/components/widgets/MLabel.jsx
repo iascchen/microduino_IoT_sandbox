@@ -62,7 +62,8 @@ class MLabel extends Component {
             // console.log("getCheckPropsSource", props.widget.source, value);
 
             if (value) {
-                let ret = JSON.parse(value);
+                // let ret = JSON.parse(value);
+                let ret = "" + value;
                 // console.log("getCheckPropsSource", this.state.output, ret);
 
                 if (this.state.output != ret) {

@@ -64,7 +64,8 @@ class MOutput extends Component {
         try {
             let value = props.datas[0].payload[props.widget.source];
             if (value) {
-                let ret = JSON.parse(value);
+                // let ret = JSON.parse(value);
+                let ret = "" + value;
                 // console.log("getCheckPropsSource", this.state.output, ret);
 
                 if (this.state.output != ret) {
