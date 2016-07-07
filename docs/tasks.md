@@ -339,7 +339,7 @@
     
 设备端事件上传的例子 ：
     
-    { deviceId："%deviceId%"，token:"%device_secret_token%"，alarm:"Alarm name"}
+    { deviceId："%deviceId%"，token:"%device_secret_token%"，ON_ALARM:"Alarm name"}
     
 此设备支持 Server 端控制。
 

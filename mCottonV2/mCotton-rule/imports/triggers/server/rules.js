@@ -63,7 +63,8 @@ const processor_1 = (rule, item) => {
         // console.log("inTrigger : processor_1 handler", handler);
         let entity = {
             deviceId: target._id, token: target.secureToken,
-            enable: !handler.current.using
+            by: rule.desc,
+            enable: !handler.current.using,
         };
         let ret = Meteor.call('control.add', entity);
         // console.log('mqtt control.add', ret);
@@ -104,6 +105,7 @@ const processor_2 = (rule, item) => {
 
             let entity = {
                 deviceId: target._id, token: target.secureToken,
+                by: rule.desc,
                 warn: true
             };
             let ret = Meteor.call('control.add', entity);
@@ -147,6 +149,7 @@ const processor_3 = (rule, item) => {
 
             let entity = {
                 deviceId: target._id, token: target.secureToken,
+                by: rule.desc,
                 warn: true
             };
             let ret = Meteor.call('control.add', entity);
@@ -193,6 +196,7 @@ const processor_4 = (rule, item) => {
         if (target) {
             let entity = {
                 deviceId: target._id, token: target.secureToken,
+                by: rule.desc,
                 open: true
             };
 
@@ -231,6 +235,7 @@ const processor_5 = (rule, item) => {
     if (target) {
         let entity = {
             deviceId: target._id, token: target.secureToken,
+            by: rule.desc,
             input: handler.current.message
         };
         let ret = Meteor.call('control.add', entity);
@@ -266,6 +271,7 @@ const processor_6 = (rule, item) => {
     if (target) {
         let entity = {
             deviceId: target._id, token: target.secureToken,
+            by: rule.desc,
             input: handler.current.message
         };
         let ret = Meteor.call('control.add', entity);
@@ -307,6 +313,7 @@ const processor_7 = (rule, item) => {
 
             let entity = {
                 deviceId: target._id, token: target.secureToken,
+                by: rule.desc,
                 play: "http://mp3_url.mp3", volume: 80
             };
             let ret = Meteor.call('control.add', entity);

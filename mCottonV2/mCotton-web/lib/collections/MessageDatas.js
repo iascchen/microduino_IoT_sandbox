@@ -19,7 +19,9 @@ const schema = new SimpleSchema({
         //}
     },
 
-    payload: { type: Object, blackbox: true }
+    payload: { type: Object, blackbox: true },
+
+    by : { type: String, optional: true }
 });
 
 C_MessageDatas.attachSchema(schema);

@@ -643,7 +643,7 @@ if (C_MessageDatas.find().count() == 0) {
             msgType: MSG_CONTROL, payload: { message: "Hello Clock" }, deviceId: device_10
         },
         {
-            msgType: MSG_EVENT, payload: { alarm: "Alarm name" }, deviceId: device_10
+            msgType: MSG_EVENT, payload: { ON_ALARM: "Alarm name" }, deviceId: device_10
         }];
 
     datas.forEach (function (data) {

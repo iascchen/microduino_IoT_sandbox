@@ -24,13 +24,13 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
 
 * 设备端状态数据上传：向Server发送数据状态 JSON 消息：
 
-        { deviceId："%deviceId%"，projectId:"%projectId%", token:"%deviceToken%"， ％data_name％:"％data_value％"，。。。}。
+        { deviceId："%deviceId%"，token:"%deviceToken%"， ％data_name％:"％data_value％"，。。。}。
 
     ** 注意：** 由于是Demo，Device 每隔1s检查一次。如果发生状态变化，及时向Server发送数据状态；如果状态无变化，每 10s 向Server发送JSON消息。
     
 * 设备端事件上传：向Server发送事件 JSON 消息，这些事件包括控制器触碰、数据抵达阈值等：
 
-        { deviceId："%deviceId%"，projectId:"%projectId%"，token:"%deviceToken%"， event：％event_name％}。
+        { deviceId："%deviceId%"，token:"%deviceToken%"， ％event_name％:"%event_infomation%"}。
 
     ％event_name％ 有格式约定：
     
@@ -57,16 +57,19 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
     
         { cmd:"dq"，token:"%deviceToken%"}
     
-    设备端向Server返回 JSON 消息。其中 X_data_type 如： “String”，“Number”， “Boolean”， “JSON” ， “Binary” 等 :
+    设备端向Server返回 JSON 消息。其中 X_data_type 如： “String”，“Number”， “Boolean”， “JSON” ， “Binary”, "Event" 等 :
 
         {
             deviceId："%deviceId%", cmd:"dq"，
             projectId: "%related_project%",
             deviceProfile: {
-                dataNames: ["enabled", ...],
-                controlNames: [
+                sensors: [
+                    { name: "enabled", type: "boolean" , desc:"this is a desc"},
+                    { name: "temperature", type: "number" },
+                    ...],
+                controls: [
                     {
-                        name: "mode", type: "enum",
+                        name: "mode", desc:"this is a desc", type: "enum",
                             values: [
                                 { label: "OFF", value: "MO" },
                                 { label: "Color", value: "MC" },
@@ -76,8 +79,11 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
                                 { label: "Lightness", value: "EL" }]
                             },
                         { name: "color", type: "string" },
-                        { name: "setting", type: "json" }],
-                eventNames: ["EQ_PIR", ...]
+                        { name: "setting", type: "json" },
+                        ...],
+                events: [
+                    { name: "EQ_PIR", type: "bool" },
+                    ...]
             }
         }
 

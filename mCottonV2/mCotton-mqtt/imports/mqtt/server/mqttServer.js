@@ -140,7 +140,7 @@ Meteor.startup(function () {
                 switch (mqttcmd) {
                     case 'c':
                     {
-                        Object.assign(event, { deviceId: device._id, token: device.secureToken });
+                        Object.assign(event, { deviceId: device._id, token: device.secureToken, by: "Device" });
 
                         let ret = Meteor.call('control.add', event);
                         // console.log('mqtt control.add', ret);

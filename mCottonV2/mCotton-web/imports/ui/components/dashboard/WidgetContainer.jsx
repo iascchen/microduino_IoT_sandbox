@@ -196,11 +196,10 @@ export default createContainer(({ params }) => {
     //const dataLoading = !dataHandle.ready();
     //
     //const datas = C_MessageDatas.findFromPublication('msg_datas_find', { sort: { createAt: -1 }, limit: 3 }).fetch();
-
     const dataHandle = Meteor.subscribe('msg_datas', 30);
     const dataLoading = !dataHandle.ready();
 
-    const datas = C_MessageDatas.find(query, { sort: { createAt: -1 }, limit: 3 }).fetch();
+    const datas = C_MessageDatas.find(query, { sort: { createAt: -1 }, limit: 1 }).fetch();
 
     console.log("Widget Container datas : ", datas);
 

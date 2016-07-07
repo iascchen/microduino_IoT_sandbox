@@ -28,9 +28,9 @@ const styles = {
     },
 };
 
-const handleTouchTap = () => {
-    // alert('onTouchTap triggered on the title component');
-};
+//const handleTouchTap = () => {
+//    // alert('onTouchTap triggered on the title component');
+//};
 
 const handleHome = () => {
     FlowRouter.go(FlowRouter.path("Home"));
@@ -71,9 +71,7 @@ const renderHeader = () => {
     return (
         <AppBar
             title="mCotton 2.0"
-            onTitleTouchTap={handleTouchTap}
-            iconElementLeft={<IconButton onClick={handleHome}><ActionHome /></IconButton>}
-            iconElementRight={ <AccountsUIWrapper /> }
+            iconElementLeft={<div><IconButton onClick={handleHome}><ActionHome /></IconButton> <AccountsUIWrapper /></div>}
         />
     )
 
