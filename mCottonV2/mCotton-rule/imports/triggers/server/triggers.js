@@ -23,7 +23,7 @@ import {Rules} from './rules';
 //};
 
 Meteor.startup(function () {
-
+	return;
     const enabled = Meteor.settings.rule.enabled;
     const interval = Meteor.settings.rule.interval;
     if (enabled) {

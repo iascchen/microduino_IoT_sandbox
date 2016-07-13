@@ -15,6 +15,9 @@ import C_TriggerRules from '../../../lib/collections/TriggerRules';
 
 import C_MessageDatas from '../../../lib/collections/MessageDatas';
 
+
+console.log('\x1B[38;5;14mLoading Fixtures...\x1B[0m');
+
 /********************************
  * Default Users
  ********************************/

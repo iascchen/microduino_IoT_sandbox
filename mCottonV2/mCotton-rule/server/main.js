@@ -8,3 +8,6 @@ import '../imports/api/server/publications';
 //import '../imports/mqtt/server/mqttTriggers';
 
 import '../imports/triggers/server/triggers';
+
+import {startRuleEngine} from '../imports/ruleEngine/control';
+startRuleEngine();

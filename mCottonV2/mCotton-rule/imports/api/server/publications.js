@@ -1,5 +1,5 @@
-//import { Meteor } from 'meteor/meteor';
-//import { check } from 'meteor/check'
+import { Meteor } from 'meteor/meteor';
+import { check } from 'meteor/check'
 ////import { FindFromPublication } from 'meteor/percolate:find-from-publication'
 //
 ////import { Counts } from 'meteor/tmeasday:publish-counts';
@@ -9,13 +9,13 @@
 //import C_Boards from '../../../lib/collections/Boards';
 //import C_Modules from '../../../lib/collections/Modules';
 //
-//import C_Devices from '../../../lib/collections/Devices';
+import C_Devices from '../../../lib/collections/Devices';
 //import C_Widgets from '../../../lib/collections/Widgets';
 //
 //import C_Projects from '../../../lib/collections/Projects';
-//import C_TriggerRules from '../../../lib/collections/TriggerRules';
+import C_TriggerRules from '../../../lib/collections/TriggerRules';
 //
-//import C_MessageDatas from '../../../lib/collections/MessageDatas';
+import C_MessageDatas from '../../../lib/collections/MessageDatas';
 //
 //
 ///********************************
@@ -30,36 +30,33 @@
 //    name: 1, desc: 1, status: 1
 //};
 //
-////const getDevicesPublication = function (filter, pageSkip = 0) {
-////    let query = {};
-////
-////    switch (filter.type) {
-////        case 'SHOW_ALL':
-////            break;
-////        case 'SHOW_NORMAL':
-////            query.status = C_Constants.STATUS_NORMAL;
-////            break;
-////        case 'SHOW_OWNER':
-////            query = {
-////                status: C_Constants.STATUS_NORMAL,
-////                $or: [{ ownerId: filter.ownerId }, { share: C_Constants.SHARE_PUBLIC }]
-////            };
-////            break;
-////        case 'SHOW_PUBLIC':
-////            query.share = C_Constants.SHARE_PUBLIC;
-////            query.status = C_Constants.STATUS_NORMAL;
-////            break;
-////        default:
-////            break;
-////    }
-////
-////    Counts.publish(this, 'DeviceCount', C_Devices.find(query));
-////    // Counts.get('DeviceCount');
-////
-////    return C_Devices.find(query, { fields: devicePubFields, skip: pageSkip, limit: 10 });
-////};
-////
-////Meteor.publish('getDevices', getDevicesPublication);
+const getDevicesPublication = function (filter, pageSkip = 0) {
+   let query = {};
+/*
+   switch (filter.type) {
+       case 'SHOW_ALL':
+           break;
+       case 'SHOW_NORMAL':
+           query.status = C_Constants.STATUS_NORMAL;
+           break;
+       case 'SHOW_OWNER':
+           query = {
+               status: C_Constants.STATUS_NORMAL,
+               $or: [{ ownerId: filter.ownerId }, { share: C_Constants.SHARE_PUBLIC }]
+           };
+           break;
+       case 'SHOW_PUBLIC':
+           query.share = C_Constants.SHARE_PUBLIC;
+           query.status = C_Constants.STATUS_NORMAL;
+           break;
+       default:
+           break;
+   }
+*/
+	return C_Devices.find(query, { /*fields: devicePubFields,*/ skip: pageSkip, limit: 10 });
+};
+
+Meteor.publish('getDevices', getDevicesPublication);
 //
 ///********************************
 // * Utils
@@ -125,9 +122,13 @@
 //        { sort: { createdAt: -1 }, fields: projectListFields, limit: Math.min(limit, MAX_LIMIT) });
 //});
 //
-//Meteor.publish('trigger_rules', function () {
-//    return C_TriggerRules.find({});
-//});
+Meteor.publish('trigger_rules', function () {
+	return C_TriggerRules.find({});
+});
+Meteor.publish('search_devices', function (filter) {
+	check(filter, Match.OneOf(undefined, String));
+	return C_Devices.find({});
+});
 //
 //Meteor.publish('my_trigger_rules', function () {
 //    if (!this.userId) {

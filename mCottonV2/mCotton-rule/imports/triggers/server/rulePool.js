@@ -7,6 +7,7 @@ import C_MessageDatas from '../../../lib/collections/MessageDatas';
 export const RuleHandlers = {};
 
 export const startRule = (rule, interval) => {
+	return;
     console.log("startRule : sourceIds", rule.sourceIds);
 
     let now = new Date().getTime();
@@ -45,7 +46,7 @@ export const startRule = (rule, interval) => {
 };
 
 export const stopRule = (rule) => {
-
+	return;
     let handler = RuleHandlers[rule._id];
     if (handler) {
         console.log("stopRule", handler);
