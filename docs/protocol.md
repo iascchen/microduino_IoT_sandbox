@@ -63,11 +63,11 @@ Device 接收到 Server 发来的控制消息，产生相应的反馈。与 Serv
             deviceId："%deviceId%", cmd:"dq"，
             projectId: "%related_project%",
             deviceProfile: {
-                sensors: [
+                properties: [
                     { name: "enabled", type: "boolean" , desc:"this is a desc"},
                     { name: "temperature", type: "number" },
                     ...],
-                controls: [
+                actions: [
                     {
                         name: "mode", desc:"this is a desc", type: "enum",
                             values: [
